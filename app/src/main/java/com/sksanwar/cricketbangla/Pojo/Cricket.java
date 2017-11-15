@@ -1,12 +1,10 @@
 package com.sksanwar.cricketbangla.Pojo;
 
-import android.support.v7.widget.RecyclerView;
-
 /**
  * Created by sksho on 14-Nov-17.
  */
 
-public class Cricket extends RecyclerView.ViewHolder {
+public class Cricket {
     public  String uniqueID;
     private String description;
     private String title;

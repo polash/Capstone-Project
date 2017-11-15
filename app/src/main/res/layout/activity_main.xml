@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/background_color"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.sksanwar.cricketbangla.MainActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_matches"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Featured Match"/>
 
-</FrameLayout>
+    <FrameLayout
+        android:id="@+id/layout_current_matches"
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+        <include layout="@layout/fragment_view_pager_featured_matches"/>
+    </FrameLayout>
+</LinearLayout>

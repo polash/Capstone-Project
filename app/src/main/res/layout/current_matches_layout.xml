@@ -1,22 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="250dp"
-    android:id="@+id/matches_card_view"
-    android:layout_height="100dp"
-    android:layout_gravity="center_horizontal"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="8dp"
-    android:elevation="8dp">
+    android:id="@+id/matches_card_view"
+    android:layout_width="300dp"
+    android:layout_height="100dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginTop="24dp"
+    android:background="#FFFFFF"
+    app:cardCornerRadius="6dp">
 
     <LinearLayout
-        android:layout_margin="8dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
         <TextView
+            android:textSize="10sp"
             android:id="@+id/matches_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="This is a text View"/>
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:text="1st Twenty Match" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/team-1_flag"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="4dp"
+                android:layout_weight="1"
+                android:src="@mipmap/ic_launcher" />
+
+            <TextView
+                android:id="@+id/team-1_country_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_weight="2"
+                android:text="BAN" />
+
+            <TextView
+                android:id="@+id/team-1_score"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="32dp"
+                android:layout_marginTop="4dp"
+                android:layout_weight="2"
+                android:gravity="end"
+                android:text="128/10" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/team-2_flag"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="4dp"
+                android:layout_weight="1"
+                android:src="@mipmap/ic_launcher" />
+
+            <TextView
+                android:id="@+id/team-2_country_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_weight="2"
+                android:text="IND" />
+
+            <TextView
+                android:id="@+id/team-2_score"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="32dp"
+                android:layout_marginTop="4dp"
+                android:layout_weight="2"
+                android:gravity="end"
+                android:text="12/10" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/stats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="2dp"
+            android:text="Bangladesh Need 100 Run To Win" />
     </LinearLayout>
 
 </android.support.v7.widget.CardView>
