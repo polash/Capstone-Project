@@ -1,18 +1,16 @@
-package com.sksanwar.cricketbangla.Pojo;
+package com.sksanwar.cricketbangla.Pojo.LiveMatchPojo;
 
 /**
- * Created by sksho on 18-Nov-17.
+ * Created by sksho on 19-Nov-17.
  */
 
-class CricketBanglaLiveMatchBatTeamInnings {
-
-
+class Innings {
     private String id;
     private String score;
     private String wkts;
     private String overs;
 
-    public CricketBanglaLiveMatchBatTeamInnings(String id, String score, String wkts, String overs) {
+    public Innings(String id, String score, String wkts, String overs) {
         this.id = id;
         this.score = score;
         this.wkts = wkts;
@@ -23,37 +21,21 @@ class CricketBanglaLiveMatchBatTeamInnings {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getScore() {
         return score;
-    }
-
-    public void setScore(String score) {
-        this.score = score;
     }
 
     public String getWkts() {
         return wkts;
     }
 
-    public void setWkts(String wkts) {
-        this.wkts = wkts;
-    }
-
     public String getOvers() {
         return overs;
     }
 
-    public void setOvers(String overs) {
-        this.overs = overs;
-    }
-
     @Override
     public String toString() {
-        return "CricketBanglaLiveMatchBatTeamInnings{" +
+        return "Innings{" +
                 "id='" + id + '\'' +
                 ", score='" + score + '\'' +
                 ", wkts='" + wkts + '\'' +

@@ -156,6 +156,7 @@ public class DictonaryPojo {
                          String format, String innings_list, String overs, String venue_time, String teams_played_for, String starts_in,
                          String follow_on, String decl, String points_table, String country, String points, String rank, String rating,
                          String matches, String header_avg, String top_teams, String top_batsman, String top_bowlers, String top_allrounder, String player) {
+
         this.home = home;
         this.commentary = commentary;
         this.scorecard = scorecard;
