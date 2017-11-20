@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.sksanwar.cricketbangla.FetchData.JsonFetchTask;
 import com.sksanwar.cricketbangla.FetchData.ServiceGenerator;
+import com.sksanwar.cricketbangla.Pojo.DictonaryPojo;
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.LiveMatches;
 
 import retrofit2.Call;
@@ -28,20 +29,40 @@ public class MainActivity extends AppCompatActivity {
          * For dictonary data fetching
          */
         JsonFetchTask jsonFetchTask = ServiceGenerator.createService(JsonFetchTask.class);
-        Call<LiveMatches> call = jsonFetchTask.liveMatch();
+        Call<DictonaryPojo> call = jsonFetchTask.dictonaryForCricket();
         /**
          * AsyncTask for Dictonary
          */
-        call.enqueue(new Callback<LiveMatches>() {
+        call.enqueue(new Callback<DictonaryPojo>() {
+            @Override
+            public void onResponse(Call<DictonaryPojo> call, Response<DictonaryPojo> response) {
+                DictonaryPojo dictonaryPojos = response.body();
+                Log.d(TAG, "Pojo " + dictonaryPojos);
+            }
+
+            @Override
+            public void onFailure(Call<DictonaryPojo> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        /**
+         * For Live Match Data Fetching
+         */
+
+        Call<LiveMatches> liveMatchCall = jsonFetchTask.liveMatch();
+
+        liveMatchCall.enqueue(new Callback<LiveMatches>() {
             @Override
             public void onResponse(Call<LiveMatches> call, Response<LiveMatches> response) {
-                LiveMatches dictonaryPojos = response.body();
-                Log.d(TAG, "Pojo" + dictonaryPojos);
+                LiveMatches liveMatchespojo = response.body();
+                Log.d(TAG, "LiveMatch Data " + liveMatchespojo);
             }
 
             @Override
             public void onFailure(Call<LiveMatches> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Error fethicng Live Match", Toast.LENGTH_SHORT).show();
             }
         });
     }

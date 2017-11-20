@@ -1,23 +1,21 @@
+
 package com.sksanwar.cricketbangla.Pojo.LiveMatchPojo;
 
-/**
- * Created by sksho on 19-Nov-17.
- */
+public class Venue {
 
-class Venue {
     private String name;
     private String location;
     private String timezone;
     private String lat;
-    private String longitude;
+    private String _long;
 
 
-    public Venue(String name, String location, String timezone, String lat, String longitude) {
+    public Venue(String name, String location, String timezone, String lat, String _long) {
         this.name = name;
         this.location = location;
         this.timezone = timezone;
         this.lat = lat;
-        this.longitude = longitude;
+        this._long = _long;
     }
 
     public String getName() {
@@ -36,8 +34,8 @@ class Venue {
         return lat;
     }
 
-    public String getLongitude() {
-        return longitude;
+    public String get_long() {
+        return _long;
     }
 
     @Override
@@ -47,7 +45,7 @@ class Venue {
                 ", location='" + location + '\'' +
                 ", timezone='" + timezone + '\'' +
                 ", lat='" + lat + '\'' +
-                ", longitude='" + longitude + '\'' +
+                ", _long='" + _long + '\'' +
                 '}';
     }
 }

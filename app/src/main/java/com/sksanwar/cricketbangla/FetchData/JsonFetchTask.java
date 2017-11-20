@@ -12,9 +12,9 @@ import retrofit2.http.GET;
 
 public interface JsonFetchTask {
 
-    @GET("/cbzvernacular/vernacular-dictionary/bengali")
+    @GET("cbzvernacular/vernacular-dictionary/bengali")
     Call<DictonaryPojo> dictonaryForCricket();
 
-    @GET("/cbzvernacular/bengali/match/livematches/")
+    @GET("cbzvernacular/bengali/match/livematches")
     Call<LiveMatches> liveMatch();
 }

@@ -1,16 +1,13 @@
+
 package com.sksanwar.cricketbangla.Pojo.LiveMatchPojo;
 
 import java.util.List;
 
-/**
- * Created by sksho on 19-Nov-17.
- */
-
-class BatTeam {
+public class BatTeam {
     private String id;
-    private List<Innings> innings;
+    private List<Inning> innings = null;
 
-    public BatTeam(String id, List<Innings> innings) {
+    public BatTeam(String id, List<Inning> innings) {
         this.id = id;
         this.innings = innings;
     }
@@ -19,7 +16,7 @@ class BatTeam {
         return id;
     }
 
-    public List<Innings> getInnings() {
+    public List<Inning> getInnings() {
         return innings;
     }
 

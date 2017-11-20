@@ -1,21 +1,30 @@
+
 package com.sksanwar.cricketbangla.Pojo.LiveMatchPojo;
 
 import java.util.List;
 
-/**
- * Created by sksho on 18-Nov-17.
- */
-
 public class LiveMatches {
+    private Url url;
+    private List<Match> matches = null;
 
-    private List<Matches> matches;
-
-    public LiveMatches(List<Matches> matches) {
+    public LiveMatches(Url url, List<Match> matches) {
+        this.url = url;
         this.matches = matches;
     }
 
-    public List<Matches> getMatches() {
+    public Url getUrl() {
+        return url;
+    }
+
+    public List<Match> getMatches() {
         return matches;
     }
 
+    @Override
+    public String toString() {
+        return "LiveMatches{" +
+                "url=" + url +
+                ", matches=" + matches +
+                '}';
+    }
 }

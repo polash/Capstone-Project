@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceGenerator {
 
-    private static final String API_BASE_URL = "http://m.cricbuzz.com";
+    private static final String API_BASE_URL = "http://m.cricbuzz.com/";
 
     private static Retrofit.Builder builder =
             new Retrofit.Builder()

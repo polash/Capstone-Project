@@ -1,16 +1,14 @@
+
 package com.sksanwar.cricketbangla.Pojo.LiveMatchPojo;
 
-/**
- * Created by sksho on 19-Nov-17.
- */
+public class Inning {
 
-class Innings {
     private String id;
     private String score;
     private String wkts;
     private String overs;
 
-    public Innings(String id, String score, String wkts, String overs) {
+    public Inning(String id, String score, String wkts, String overs) {
         this.id = id;
         this.score = score;
         this.wkts = wkts;
@@ -35,7 +33,7 @@ class Innings {
 
     @Override
     public String toString() {
-        return "Innings{" +
+        return "Inning{" +
                 "id='" + id + '\'' +
                 ", score='" + score + '\'' +
                 ", wkts='" + wkts + '\'' +
