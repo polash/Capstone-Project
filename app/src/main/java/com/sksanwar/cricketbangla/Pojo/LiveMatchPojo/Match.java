@@ -2,9 +2,9 @@
 package com.sksanwar.cricketbangla.Pojo.LiveMatchPojo;
 
 public class Match {
+    public String seriesId;
+    public String seriesName;
     private String matchId;
-    private String seriesId;
-    private String seriesName;
     private Header header;
     private Venue venue;
     private BatTeam batTeam;

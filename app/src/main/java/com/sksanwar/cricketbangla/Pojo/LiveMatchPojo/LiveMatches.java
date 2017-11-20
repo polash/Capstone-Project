@@ -5,19 +5,19 @@ import java.util.List;
 
 public class LiveMatches {
     private Url url;
-    private List<Match> matches = null;
+    private List<Match> matches;
 
     public LiveMatches(Url url, List<Match> matches) {
         this.url = url;
         this.matches = matches;
     }
 
-    public Url getUrl() {
-        return url;
-    }
-
     public List<Match> getMatches() {
         return matches;
+    }
+
+    public void setMatches(List<Match> matches) {
+        this.matches = matches;
     }
 
     @Override
