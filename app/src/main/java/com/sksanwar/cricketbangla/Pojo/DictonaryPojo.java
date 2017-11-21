@@ -10,54 +10,54 @@ public class DictonaryPojo {
     private String commentary;
     private String scorecard;
     private String schedule;
-    private String recentResults;
+    private String recent_results;
     private String setting;
     private String language;
     private String feedback;
-    private String autoRefresh;
+    private String auto_refresh;
     private String target;
-    private String ballByBall;
-    private String overByOver;
+    private String ball_by_ball;
+    private String over_by_over;
     private String squads;
-    private String matchInfo;
+    private String match_info;
     private String batsman;
     private String bowler;
     private String partnership;
-    private String lastWkt;
+    private String last_wkt;
     private String runs;
-    private String recentOver;
-    private String seriesName;
+    private String recent_over;
+    private String series_name;
     private String toss;
     private String venue;
     private String date;
     private String teams;
     private String umpires;
-    private String umpire1;
-    private String umpire2;
-    private String umpire3;
+    private String umpire_1;
+    private String umpire_2;
+    private String umpire_3;
     private String referee;
     private String mom;
     private String mos;
     private String extras;
-    private String extrasB;
-    private String extrasWd;
-    private String extrasNb;
-    private String extrasLb;
-    private String extrasP;
-    private String yetToBat;
-    private String headerCrr;
-    private String headerRr;
-    private String headerRun;
-    private String headerBall;
-    private String header4s;
-    private String header6s;
-    private String headerSr;
-    private String headerOver;
-    private String headerOvers;
-    private String headerMaiden;
-    private String headerWickets;
-    private String headerEco;
-    private String fallOfWicket;
+    private String extras_b;
+    private String extras_wd;
+    private String extras_nb;
+    private String extras_lb;
+    private String extras_p;
+    private String yet_to_bat;
+    private String header_crr;
+    private String header_rr;
+    private String header_run;
+    private String header_ball;
+    private String header_4s;
+    private String header_6s;
+    private String header_sr;
+    private String header_over;
+    private String header_overs;
+    private String header_maiden;
+    private String header_wickets;
+    private String header_eco;
+    private String fall_of_wicket;
     private String name;
     private String email;
     private String subject;
@@ -66,45 +66,45 @@ public class DictonaryPojo {
     private String mandatory;
     private String batting;
     private String bowling;
-    private String monthJan;
-    private String monthFeb;
-    private String monthMar;
-    private String monthApr;
-    private String monthMay;
-    private String monthJun;
-    private String monthJul;
-    private String monthAug;
-    private String monthSep;
-    private String monthOct;
-    private String monthNov;
-    private String monthDec;
-    private String weekSun;
-    private String weekMon;
-    private String weekTue;
-    private String weekWed;
-    private String weekThu;
-    private String weekFri;
-    private String weekSat;
-    private String pullToRefresh;
+    private String month_jan;
+    private String month_feb;
+    private String month_mar;
+    private String month_apr;
+    private String month_may;
+    private String month_jun;
+    private String month_jul;
+    private String month_aug;
+    private String month_sep;
+    private String month_oct;
+    private String month_nov;
+    private String month_dec;
+    private String week_sun;
+    private String week_mon;
+    private String week_tue;
+    private String week_wed;
+    private String week_thu;
+    private String week_fri;
+    private String week_sat;
+    private String pull_to_refresh;
     private String loading;
     private String dob;
-    private String birthPlace;
-    private String battingStyle;
-    private String bowlingStyle;
+    private String birth_place;
+    private String batting_style;
+    private String bowling_style;
     private String ranking;
     private String career;
-    private String rateUs;
+    private String rate_us;
     private String yes;
     private String no;
-    private String noInternet;
-    private String thankYouContacting;
-    private String careerBest;
-    private String enterValidEmail;
-    private String fillAllDetails;
-    private String releaseToRefresh;
+    private String no_internet;
+    private String thank_you_contacting;
+    private String career_best;
+    private String enter_valid_email;
+    private String fill_all_details;
+    private String release_to_refresh;
     private String bench;
-    private String careerStats;
-    private String currentSeries;
+    private String career_stats;
+    private String current_series;
     private String info;
     private String test;
     private String odi;
@@ -112,107 +112,100 @@ public class DictonaryPojo {
     private String ipl;
     private String cl;
     private String debut;
-    private String lastPlayed;
+    private String last_played;
     private String format;
-    private String inningsList;
+    private String innings_list;
     private String overs;
-    private String venueTime;
-    private String teamsPlayedFor;
-    private String startsIn;
-    private String followOn;
+    private String venue_time;
+    private String teams_played_for;
+    private String starts_in;
+    private String follow_on;
     private String decl;
-    private String pointsTable;
+    private String points_table;
     private String country;
     private String points;
     private String rank;
     private String rating;
     private String matches;
-    private String headerAvg;
-    private String topTeams;
-    private String topBatsman;
-    private String topBowlers;
-    private String topAllrounder;
+    private String header_avg;
+    private String top_teams;
+    private String top_batsman;
+    private String top_bowlers;
+    private String top_allrounder;
     private String player;
 
+    public DictonaryPojo(String home, String commentary, String scorecard, String schedule, String recent_results, String setting, String language,
+                         String feedback, String auto_refresh, String target, String ball_by_ball, String over_by_over, String squads, String match_info,
+                         String batsman, String bowler, String partnership, String last_wkt, String runs, String recent_over, String series_name,
+                         String toss, String venue, String date, String teams, String umpires, String umpire_1, String umpire_2, String umpire_3,
+                         String referee, String mom, String mos, String extras, String extras_b, String extras_wd, String extras_nb, String extras_lb,
+                         String extras_p, String yet_to_bat, String header_crr, String header_rr, String header_run, String header_ball,
+                         String header_4s, String header_6s, String header_sr, String header_over, String header_overs, String header_maiden,
+                         String header_wickets, String header_eco, String fall_of_wicket, String name, String email, String subject, String message,
+                         String powerplay, String mandatory, String batting, String bowling, String month_jan, String month_feb, String month_mar,
+                         String month_apr, String month_may, String month_jun, String month_jul, String month_aug, String month_sep, String month_oct,
+                         String month_nov, String month_dec, String week_sun, String week_mon, String week_tue, String week_wed, String week_thu,
+                         String week_fri, String week_sat, String pull_to_refresh, String loading, String dob, String birth_place, String batting_style,
+                         String bowling_style, String ranking, String career, String rate_us, String yes, String no, String no_internet,
+                         String thank_you_contacting, String career_best, String enter_valid_email, String fill_all_details, String release_to_refresh,
+                         String bench, String career_stats, String current_series, String info, String test, String odi, String t20, String ipl, String cl,
+                         String debut, String last_played, String format, String innings_list, String overs, String venue_time, String teams_played_for,
+                         String starts_in, String follow_on, String decl, String points_table, String country, String points, String rank, String rating, String matches,
+                         String header_avg, String top_teams, String top_batsman, String top_bowlers, String top_allrounder, String player)
 
-    public DictonaryPojo(String home, String commentary, String scorecard, String schedule,
-                         String recentResults, String setting, String language, String feedback,
-                         String autoRefresh, String target, String ballByBall, String overByOver,
-                         String squads, String matchInfo, String batsman, String bowler, String partnership,
-                         String lastWkt, String runs, String recentOver, String seriesName, String toss,
-                         String venue, String date, String teams, String umpires, String umpire1, String umpire2,
-                         String umpire3, String referee, String mom, String mos, String extras, String extrasB,
-                         String extrasWd, String extrasNb, String extrasLb, String extrasP, String yetToBat,
-                         String headerCrr, String headerRr, String headerRun, String headerBall, String header4s,
-                         String header6s, String headerSr, String headerOver, String headerOvers, String headerMaiden,
-                         String headerWickets, String headerEco, String fallOfWicket, String name, String email,
-                         String subject, String message, String powerplay, String mandatory, String batting,
-                         String bowling, String monthJan, String monthFeb, String monthMar, String monthApr,
-                         String monthMay, String monthJun, String monthJul, String monthAug, String monthSep,
-                         String monthOct, String monthNov, String monthDec, String weekSun, String weekMon,
-                         String weekTue, String weekWed, String weekThu, String weekFri, String weekSat,
-                         String pullToRefresh, String loading, String dob, String birthPlace, String battingStyle,
-                         String bowlingStyle, String ranking, String career, String rateUs, String yes,
-                         String no, String noInternet, String thankYouContacting, String careerBest,
-                         String enterValidEmail, String fillAllDetails, String releaseToRefresh,
-                         String bench, String careerStats, String currentSeries, String info, String test,
-                         String odi, String t20, String ipl, String cl, String debut, String lastPlayed,
-                         String format, String inningsList, String overs, String venueTime, String teamsPlayedFor,
-                         String startsIn, String followOn, String decl, String pointsTable, String country,
-                         String points, String rank, String rating, String matches, String headerAvg, String topTeams,
-                         String topBatsman, String topBowlers, String topAllrounder, String player) {
+    {
         this.home = home;
         this.commentary = commentary;
         this.scorecard = scorecard;
         this.schedule = schedule;
-        this.recentResults = recentResults;
+        this.recent_results = recent_results;
         this.setting = setting;
         this.language = language;
         this.feedback = feedback;
-        this.autoRefresh = autoRefresh;
+        this.auto_refresh = auto_refresh;
         this.target = target;
-        this.ballByBall = ballByBall;
-        this.overByOver = overByOver;
+        this.ball_by_ball = ball_by_ball;
+        this.over_by_over = over_by_over;
         this.squads = squads;
-        this.matchInfo = matchInfo;
+        this.match_info = match_info;
         this.batsman = batsman;
         this.bowler = bowler;
         this.partnership = partnership;
-        this.lastWkt = lastWkt;
+        this.last_wkt = last_wkt;
         this.runs = runs;
-        this.recentOver = recentOver;
-        this.seriesName = seriesName;
+        this.recent_over = recent_over;
+        this.series_name = series_name;
         this.toss = toss;
         this.venue = venue;
         this.date = date;
         this.teams = teams;
         this.umpires = umpires;
-        this.umpire1 = umpire1;
-        this.umpire2 = umpire2;
-        this.umpire3 = umpire3;
+        this.umpire_1 = umpire_1;
+        this.umpire_2 = umpire_2;
+        this.umpire_3 = umpire_3;
         this.referee = referee;
         this.mom = mom;
         this.mos = mos;
         this.extras = extras;
-        this.extrasB = extrasB;
-        this.extrasWd = extrasWd;
-        this.extrasNb = extrasNb;
-        this.extrasLb = extrasLb;
-        this.extrasP = extrasP;
-        this.yetToBat = yetToBat;
-        this.headerCrr = headerCrr;
-        this.headerRr = headerRr;
-        this.headerRun = headerRun;
-        this.headerBall = headerBall;
-        this.header4s = header4s;
-        this.header6s = header6s;
-        this.headerSr = headerSr;
-        this.headerOver = headerOver;
-        this.headerOvers = headerOvers;
-        this.headerMaiden = headerMaiden;
-        this.headerWickets = headerWickets;
-        this.headerEco = headerEco;
-        this.fallOfWicket = fallOfWicket;
+        this.extras_b = extras_b;
+        this.extras_wd = extras_wd;
+        this.extras_nb = extras_nb;
+        this.extras_lb = extras_lb;
+        this.extras_p = extras_p;
+        this.yet_to_bat = yet_to_bat;
+        this.header_crr = header_crr;
+        this.header_rr = header_rr;
+        this.header_run = header_run;
+        this.header_ball = header_ball;
+        this.header_4s = header_4s;
+        this.header_6s = header_6s;
+        this.header_sr = header_sr;
+        this.header_over = header_over;
+        this.header_overs = header_overs;
+        this.header_maiden = header_maiden;
+        this.header_wickets = header_wickets;
+        this.header_eco = header_eco;
+        this.fall_of_wicket = fall_of_wicket;
         this.name = name;
         this.email = email;
         this.subject = subject;
@@ -221,45 +214,45 @@ public class DictonaryPojo {
         this.mandatory = mandatory;
         this.batting = batting;
         this.bowling = bowling;
-        this.monthJan = monthJan;
-        this.monthFeb = monthFeb;
-        this.monthMar = monthMar;
-        this.monthApr = monthApr;
-        this.monthMay = monthMay;
-        this.monthJun = monthJun;
-        this.monthJul = monthJul;
-        this.monthAug = monthAug;
-        this.monthSep = monthSep;
-        this.monthOct = monthOct;
-        this.monthNov = monthNov;
-        this.monthDec = monthDec;
-        this.weekSun = weekSun;
-        this.weekMon = weekMon;
-        this.weekTue = weekTue;
-        this.weekWed = weekWed;
-        this.weekThu = weekThu;
-        this.weekFri = weekFri;
-        this.weekSat = weekSat;
-        this.pullToRefresh = pullToRefresh;
+        this.month_jan = month_jan;
+        this.month_feb = month_feb;
+        this.month_mar = month_mar;
+        this.month_apr = month_apr;
+        this.month_may = month_may;
+        this.month_jun = month_jun;
+        this.month_jul = month_jul;
+        this.month_aug = month_aug;
+        this.month_sep = month_sep;
+        this.month_oct = month_oct;
+        this.month_nov = month_nov;
+        this.month_dec = month_dec;
+        this.week_sun = week_sun;
+        this.week_mon = week_mon;
+        this.week_tue = week_tue;
+        this.week_wed = week_wed;
+        this.week_thu = week_thu;
+        this.week_fri = week_fri;
+        this.week_sat = week_sat;
+        this.pull_to_refresh = pull_to_refresh;
         this.loading = loading;
         this.dob = dob;
-        this.birthPlace = birthPlace;
-        this.battingStyle = battingStyle;
-        this.bowlingStyle = bowlingStyle;
+        this.birth_place = birth_place;
+        this.batting_style = batting_style;
+        this.bowling_style = bowling_style;
         this.ranking = ranking;
         this.career = career;
-        this.rateUs = rateUs;
+        this.rate_us = rate_us;
         this.yes = yes;
         this.no = no;
-        this.noInternet = noInternet;
-        this.thankYouContacting = thankYouContacting;
-        this.careerBest = careerBest;
-        this.enterValidEmail = enterValidEmail;
-        this.fillAllDetails = fillAllDetails;
-        this.releaseToRefresh = releaseToRefresh;
+        this.no_internet = no_internet;
+        this.thank_you_contacting = thank_you_contacting;
+        this.career_best = career_best;
+        this.enter_valid_email = enter_valid_email;
+        this.fill_all_details = fill_all_details;
+        this.release_to_refresh = release_to_refresh;
         this.bench = bench;
-        this.careerStats = careerStats;
-        this.currentSeries = currentSeries;
+        this.career_stats = career_stats;
+        this.current_series = current_series;
         this.info = info;
         this.test = test;
         this.odi = odi;
@@ -267,26 +260,26 @@ public class DictonaryPojo {
         this.ipl = ipl;
         this.cl = cl;
         this.debut = debut;
-        this.lastPlayed = lastPlayed;
+        this.last_played = last_played;
         this.format = format;
-        this.inningsList = inningsList;
+        this.innings_list = innings_list;
         this.overs = overs;
-        this.venueTime = venueTime;
-        this.teamsPlayedFor = teamsPlayedFor;
-        this.startsIn = startsIn;
-        this.followOn = followOn;
+        this.venue_time = venue_time;
+        this.teams_played_for = teams_played_for;
+        this.starts_in = starts_in;
+        this.follow_on = follow_on;
         this.decl = decl;
-        this.pointsTable = pointsTable;
+        this.points_table = points_table;
         this.country = country;
         this.points = points;
         this.rank = rank;
         this.rating = rating;
         this.matches = matches;
-        this.headerAvg = headerAvg;
-        this.topTeams = topTeams;
-        this.topBatsman = topBatsman;
-        this.topBowlers = topBowlers;
-        this.topAllrounder = topAllrounder;
+        this.header_avg = header_avg;
+        this.top_teams = top_teams;
+        this.top_batsman = top_batsman;
+        this.top_bowlers = top_bowlers;
+        this.top_allrounder = top_allrounder;
         this.player = player;
     }
 
@@ -322,12 +315,12 @@ public class DictonaryPojo {
         this.schedule = schedule;
     }
 
-    public String getRecentResults() {
-        return recentResults;
+    public String getRecent_results() {
+        return recent_results;
     }
 
-    public void setRecentResults(String recentResults) {
-        this.recentResults = recentResults;
+    public void setRecent_results(String recent_results) {
+        this.recent_results = recent_results;
     }
 
     public String getSetting() {
@@ -354,12 +347,12 @@ public class DictonaryPojo {
         this.feedback = feedback;
     }
 
-    public String getAutoRefresh() {
-        return autoRefresh;
+    public String getAuto_refresh() {
+        return auto_refresh;
     }
 
-    public void setAutoRefresh(String autoRefresh) {
-        this.autoRefresh = autoRefresh;
+    public void setAuto_refresh(String auto_refresh) {
+        this.auto_refresh = auto_refresh;
     }
 
     public String getTarget() {
@@ -370,20 +363,20 @@ public class DictonaryPojo {
         this.target = target;
     }
 
-    public String getBallByBall() {
-        return ballByBall;
+    public String getBall_by_ball() {
+        return ball_by_ball;
     }
 
-    public void setBallByBall(String ballByBall) {
-        this.ballByBall = ballByBall;
+    public void setBall_by_ball(String ball_by_ball) {
+        this.ball_by_ball = ball_by_ball;
     }
 
-    public String getOverByOver() {
-        return overByOver;
+    public String getOver_by_over() {
+        return over_by_over;
     }
 
-    public void setOverByOver(String overByOver) {
-        this.overByOver = overByOver;
+    public void setOver_by_over(String over_by_over) {
+        this.over_by_over = over_by_over;
     }
 
     public String getSquads() {
@@ -394,12 +387,12 @@ public class DictonaryPojo {
         this.squads = squads;
     }
 
-    public String getMatchInfo() {
-        return matchInfo;
+    public String getMatch_info() {
+        return match_info;
     }
 
-    public void setMatchInfo(String matchInfo) {
-        this.matchInfo = matchInfo;
+    public void setMatch_info(String match_info) {
+        this.match_info = match_info;
     }
 
     public String getBatsman() {
@@ -426,12 +419,12 @@ public class DictonaryPojo {
         this.partnership = partnership;
     }
 
-    public String getLastWkt() {
-        return lastWkt;
+    public String getLast_wkt() {
+        return last_wkt;
     }
 
-    public void setLastWkt(String lastWkt) {
-        this.lastWkt = lastWkt;
+    public void setLast_wkt(String last_wkt) {
+        this.last_wkt = last_wkt;
     }
 
     public String getRuns() {
@@ -442,20 +435,20 @@ public class DictonaryPojo {
         this.runs = runs;
     }
 
-    public String getRecentOver() {
-        return recentOver;
+    public String getRecent_over() {
+        return recent_over;
     }
 
-    public void setRecentOver(String recentOver) {
-        this.recentOver = recentOver;
+    public void setRecent_over(String recent_over) {
+        this.recent_over = recent_over;
     }
 
-    public String getSeriesName() {
-        return seriesName;
+    public String getSeries_name() {
+        return series_name;
     }
 
-    public void setSeriesName(String seriesName) {
-        this.seriesName = seriesName;
+    public void setSeries_name(String series_name) {
+        this.series_name = series_name;
     }
 
     public String getToss() {
@@ -498,28 +491,28 @@ public class DictonaryPojo {
         this.umpires = umpires;
     }
 
-    public String getUmpire1() {
-        return umpire1;
+    public String getUmpire_1() {
+        return umpire_1;
     }
 
-    public void setUmpire1(String umpire1) {
-        this.umpire1 = umpire1;
+    public void setUmpire_1(String umpire_1) {
+        this.umpire_1 = umpire_1;
     }
 
-    public String getUmpire2() {
-        return umpire2;
+    public String getUmpire_2() {
+        return umpire_2;
     }
 
-    public void setUmpire2(String umpire2) {
-        this.umpire2 = umpire2;
+    public void setUmpire_2(String umpire_2) {
+        this.umpire_2 = umpire_2;
     }
 
-    public String getUmpire3() {
-        return umpire3;
+    public String getUmpire_3() {
+        return umpire_3;
     }
 
-    public void setUmpire3(String umpire3) {
-        this.umpire3 = umpire3;
+    public void setUmpire_3(String umpire_3) {
+        this.umpire_3 = umpire_3;
     }
 
     public String getReferee() {
@@ -554,156 +547,156 @@ public class DictonaryPojo {
         this.extras = extras;
     }
 
-    public String getExtrasB() {
-        return extrasB;
+    public String getExtras_b() {
+        return extras_b;
     }
 
-    public void setExtrasB(String extrasB) {
-        this.extrasB = extrasB;
+    public void setExtras_b(String extras_b) {
+        this.extras_b = extras_b;
     }
 
-    public String getExtrasWd() {
-        return extrasWd;
+    public String getExtras_wd() {
+        return extras_wd;
     }
 
-    public void setExtrasWd(String extrasWd) {
-        this.extrasWd = extrasWd;
+    public void setExtras_wd(String extras_wd) {
+        this.extras_wd = extras_wd;
     }
 
-    public String getExtrasNb() {
-        return extrasNb;
+    public String getExtras_nb() {
+        return extras_nb;
     }
 
-    public void setExtrasNb(String extrasNb) {
-        this.extrasNb = extrasNb;
+    public void setExtras_nb(String extras_nb) {
+        this.extras_nb = extras_nb;
     }
 
-    public String getExtrasLb() {
-        return extrasLb;
+    public String getExtras_lb() {
+        return extras_lb;
     }
 
-    public void setExtrasLb(String extrasLb) {
-        this.extrasLb = extrasLb;
+    public void setExtras_lb(String extras_lb) {
+        this.extras_lb = extras_lb;
     }
 
-    public String getExtrasP() {
-        return extrasP;
+    public String getExtras_p() {
+        return extras_p;
     }
 
-    public void setExtrasP(String extrasP) {
-        this.extrasP = extrasP;
+    public void setExtras_p(String extras_p) {
+        this.extras_p = extras_p;
     }
 
-    public String getYetToBat() {
-        return yetToBat;
+    public String getYet_to_bat() {
+        return yet_to_bat;
     }
 
-    public void setYetToBat(String yetToBat) {
-        this.yetToBat = yetToBat;
+    public void setYet_to_bat(String yet_to_bat) {
+        this.yet_to_bat = yet_to_bat;
     }
 
-    public String getHeaderCrr() {
-        return headerCrr;
+    public String getHeader_crr() {
+        return header_crr;
     }
 
-    public void setHeaderCrr(String headerCrr) {
-        this.headerCrr = headerCrr;
+    public void setHeader_crr(String header_crr) {
+        this.header_crr = header_crr;
     }
 
-    public String getHeaderRr() {
-        return headerRr;
+    public String getHeader_rr() {
+        return header_rr;
     }
 
-    public void setHeaderRr(String headerRr) {
-        this.headerRr = headerRr;
+    public void setHeader_rr(String header_rr) {
+        this.header_rr = header_rr;
     }
 
-    public String getHeaderRun() {
-        return headerRun;
+    public String getHeader_run() {
+        return header_run;
     }
 
-    public void setHeaderRun(String headerRun) {
-        this.headerRun = headerRun;
+    public void setHeader_run(String header_run) {
+        this.header_run = header_run;
     }
 
-    public String getHeaderBall() {
-        return headerBall;
+    public String getHeader_ball() {
+        return header_ball;
     }
 
-    public void setHeaderBall(String headerBall) {
-        this.headerBall = headerBall;
+    public void setHeader_ball(String header_ball) {
+        this.header_ball = header_ball;
     }
 
-    public String getHeader4s() {
-        return header4s;
+    public String getHeader_4s() {
+        return header_4s;
     }
 
-    public void setHeader4s(String header4s) {
-        this.header4s = header4s;
+    public void setHeader_4s(String header_4s) {
+        this.header_4s = header_4s;
     }
 
-    public String getHeader6s() {
-        return header6s;
+    public String getHeader_6s() {
+        return header_6s;
     }
 
-    public void setHeader6s(String header6s) {
-        this.header6s = header6s;
+    public void setHeader_6s(String header_6s) {
+        this.header_6s = header_6s;
     }
 
-    public String getHeaderSr() {
-        return headerSr;
+    public String getHeader_sr() {
+        return header_sr;
     }
 
-    public void setHeaderSr(String headerSr) {
-        this.headerSr = headerSr;
+    public void setHeader_sr(String header_sr) {
+        this.header_sr = header_sr;
     }
 
-    public String getHeaderOver() {
-        return headerOver;
+    public String getHeader_over() {
+        return header_over;
     }
 
-    public void setHeaderOver(String headerOver) {
-        this.headerOver = headerOver;
+    public void setHeader_over(String header_over) {
+        this.header_over = header_over;
     }
 
-    public String getHeaderOvers() {
-        return headerOvers;
+    public String getHeader_overs() {
+        return header_overs;
     }
 
-    public void setHeaderOvers(String headerOvers) {
-        this.headerOvers = headerOvers;
+    public void setHeader_overs(String header_overs) {
+        this.header_overs = header_overs;
     }
 
-    public String getHeaderMaiden() {
-        return headerMaiden;
+    public String getHeader_maiden() {
+        return header_maiden;
     }
 
-    public void setHeaderMaiden(String headerMaiden) {
-        this.headerMaiden = headerMaiden;
+    public void setHeader_maiden(String header_maiden) {
+        this.header_maiden = header_maiden;
     }
 
-    public String getHeaderWickets() {
-        return headerWickets;
+    public String getHeader_wickets() {
+        return header_wickets;
     }
 
-    public void setHeaderWickets(String headerWickets) {
-        this.headerWickets = headerWickets;
+    public void setHeader_wickets(String header_wickets) {
+        this.header_wickets = header_wickets;
     }
 
-    public String getHeaderEco() {
-        return headerEco;
+    public String getHeader_eco() {
+        return header_eco;
     }
 
-    public void setHeaderEco(String headerEco) {
-        this.headerEco = headerEco;
+    public void setHeader_eco(String header_eco) {
+        this.header_eco = header_eco;
     }
 
-    public String getFallOfWicket() {
-        return fallOfWicket;
+    public String getFall_of_wicket() {
+        return fall_of_wicket;
     }
 
-    public void setFallOfWicket(String fallOfWicket) {
-        this.fallOfWicket = fallOfWicket;
+    public void setFall_of_wicket(String fall_of_wicket) {
+        this.fall_of_wicket = fall_of_wicket;
     }
 
     public String getName() {
@@ -770,164 +763,164 @@ public class DictonaryPojo {
         this.bowling = bowling;
     }
 
-    public String getMonthJan() {
-        return monthJan;
+    public String getMonth_jan() {
+        return month_jan;
     }
 
-    public void setMonthJan(String monthJan) {
-        this.monthJan = monthJan;
+    public void setMonth_jan(String month_jan) {
+        this.month_jan = month_jan;
     }
 
-    public String getMonthFeb() {
-        return monthFeb;
+    public String getMonth_feb() {
+        return month_feb;
     }
 
-    public void setMonthFeb(String monthFeb) {
-        this.monthFeb = monthFeb;
+    public void setMonth_feb(String month_feb) {
+        this.month_feb = month_feb;
     }
 
-    public String getMonthMar() {
-        return monthMar;
+    public String getMonth_mar() {
+        return month_mar;
     }
 
-    public void setMonthMar(String monthMar) {
-        this.monthMar = monthMar;
+    public void setMonth_mar(String month_mar) {
+        this.month_mar = month_mar;
     }
 
-    public String getMonthApr() {
-        return monthApr;
+    public String getMonth_apr() {
+        return month_apr;
     }
 
-    public void setMonthApr(String monthApr) {
-        this.monthApr = monthApr;
+    public void setMonth_apr(String month_apr) {
+        this.month_apr = month_apr;
     }
 
-    public String getMonthMay() {
-        return monthMay;
+    public String getMonth_may() {
+        return month_may;
     }
 
-    public void setMonthMay(String monthMay) {
-        this.monthMay = monthMay;
+    public void setMonth_may(String month_may) {
+        this.month_may = month_may;
     }
 
-    public String getMonthJun() {
-        return monthJun;
+    public String getMonth_jun() {
+        return month_jun;
     }
 
-    public void setMonthJun(String monthJun) {
-        this.monthJun = monthJun;
+    public void setMonth_jun(String month_jun) {
+        this.month_jun = month_jun;
     }
 
-    public String getMonthJul() {
-        return monthJul;
+    public String getMonth_jul() {
+        return month_jul;
     }
 
-    public void setMonthJul(String monthJul) {
-        this.monthJul = monthJul;
+    public void setMonth_jul(String month_jul) {
+        this.month_jul = month_jul;
     }
 
-    public String getMonthAug() {
-        return monthAug;
+    public String getMonth_aug() {
+        return month_aug;
     }
 
-    public void setMonthAug(String monthAug) {
-        this.monthAug = monthAug;
+    public void setMonth_aug(String month_aug) {
+        this.month_aug = month_aug;
     }
 
-    public String getMonthSep() {
-        return monthSep;
+    public String getMonth_sep() {
+        return month_sep;
     }
 
-    public void setMonthSep(String monthSep) {
-        this.monthSep = monthSep;
+    public void setMonth_sep(String month_sep) {
+        this.month_sep = month_sep;
     }
 
-    public String getMonthOct() {
-        return monthOct;
+    public String getMonth_oct() {
+        return month_oct;
     }
 
-    public void setMonthOct(String monthOct) {
-        this.monthOct = monthOct;
+    public void setMonth_oct(String month_oct) {
+        this.month_oct = month_oct;
     }
 
-    public String getMonthNov() {
-        return monthNov;
+    public String getMonth_nov() {
+        return month_nov;
     }
 
-    public void setMonthNov(String monthNov) {
-        this.monthNov = monthNov;
+    public void setMonth_nov(String month_nov) {
+        this.month_nov = month_nov;
     }
 
-    public String getMonthDec() {
-        return monthDec;
+    public String getMonth_dec() {
+        return month_dec;
     }
 
-    public void setMonthDec(String monthDec) {
-        this.monthDec = monthDec;
+    public void setMonth_dec(String month_dec) {
+        this.month_dec = month_dec;
     }
 
-    public String getWeekSun() {
-        return weekSun;
+    public String getWeek_sun() {
+        return week_sun;
     }
 
-    public void setWeekSun(String weekSun) {
-        this.weekSun = weekSun;
+    public void setWeek_sun(String week_sun) {
+        this.week_sun = week_sun;
     }
 
-    public String getWeekMon() {
-        return weekMon;
+    public String getWeek_mon() {
+        return week_mon;
     }
 
-    public void setWeekMon(String weekMon) {
-        this.weekMon = weekMon;
+    public void setWeek_mon(String week_mon) {
+        this.week_mon = week_mon;
     }
 
-    public String getWeekTue() {
-        return weekTue;
+    public String getWeek_tue() {
+        return week_tue;
     }
 
-    public void setWeekTue(String weekTue) {
-        this.weekTue = weekTue;
+    public void setWeek_tue(String week_tue) {
+        this.week_tue = week_tue;
     }
 
-    public String getWeekWed() {
-        return weekWed;
+    public String getWeek_wed() {
+        return week_wed;
     }
 
-    public void setWeekWed(String weekWed) {
-        this.weekWed = weekWed;
+    public void setWeek_wed(String week_wed) {
+        this.week_wed = week_wed;
     }
 
-    public String getWeekThu() {
-        return weekThu;
+    public String getWeek_thu() {
+        return week_thu;
     }
 
-    public void setWeekThu(String weekThu) {
-        this.weekThu = weekThu;
+    public void setWeek_thu(String week_thu) {
+        this.week_thu = week_thu;
     }
 
-    public String getWeekFri() {
-        return weekFri;
+    public String getWeek_fri() {
+        return week_fri;
     }
 
-    public void setWeekFri(String weekFri) {
-        this.weekFri = weekFri;
+    public void setWeek_fri(String week_fri) {
+        this.week_fri = week_fri;
     }
 
-    public String getWeekSat() {
-        return weekSat;
+    public String getWeek_sat() {
+        return week_sat;
     }
 
-    public void setWeekSat(String weekSat) {
-        this.weekSat = weekSat;
+    public void setWeek_sat(String week_sat) {
+        this.week_sat = week_sat;
     }
 
-    public String getPullToRefresh() {
-        return pullToRefresh;
+    public String getPull_to_refresh() {
+        return pull_to_refresh;
     }
 
-    public void setPullToRefresh(String pullToRefresh) {
-        this.pullToRefresh = pullToRefresh;
+    public void setPull_to_refresh(String pull_to_refresh) {
+        this.pull_to_refresh = pull_to_refresh;
     }
 
     public String getLoading() {
@@ -946,28 +939,28 @@ public class DictonaryPojo {
         this.dob = dob;
     }
 
-    public String getBirthPlace() {
-        return birthPlace;
+    public String getBirth_place() {
+        return birth_place;
     }
 
-    public void setBirthPlace(String birthPlace) {
-        this.birthPlace = birthPlace;
+    public void setBirth_place(String birth_place) {
+        this.birth_place = birth_place;
     }
 
-    public String getBattingStyle() {
-        return battingStyle;
+    public String getBatting_style() {
+        return batting_style;
     }
 
-    public void setBattingStyle(String battingStyle) {
-        this.battingStyle = battingStyle;
+    public void setBatting_style(String batting_style) {
+        this.batting_style = batting_style;
     }
 
-    public String getBowlingStyle() {
-        return bowlingStyle;
+    public String getBowling_style() {
+        return bowling_style;
     }
 
-    public void setBowlingStyle(String bowlingStyle) {
-        this.bowlingStyle = bowlingStyle;
+    public void setBowling_style(String bowling_style) {
+        this.bowling_style = bowling_style;
     }
 
     public String getRanking() {
@@ -986,12 +979,12 @@ public class DictonaryPojo {
         this.career = career;
     }
 
-    public String getRateUs() {
-        return rateUs;
+    public String getRate_us() {
+        return rate_us;
     }
 
-    public void setRateUs(String rateUs) {
-        this.rateUs = rateUs;
+    public void setRate_us(String rate_us) {
+        this.rate_us = rate_us;
     }
 
     public String getYes() {
@@ -1010,52 +1003,52 @@ public class DictonaryPojo {
         this.no = no;
     }
 
-    public String getNoInternet() {
-        return noInternet;
+    public String getNo_internet() {
+        return no_internet;
     }
 
-    public void setNoInternet(String noInternet) {
-        this.noInternet = noInternet;
+    public void setNo_internet(String no_internet) {
+        this.no_internet = no_internet;
     }
 
-    public String getThankYouContacting() {
-        return thankYouContacting;
+    public String getThank_you_contacting() {
+        return thank_you_contacting;
     }
 
-    public void setThankYouContacting(String thankYouContacting) {
-        this.thankYouContacting = thankYouContacting;
+    public void setThank_you_contacting(String thank_you_contacting) {
+        this.thank_you_contacting = thank_you_contacting;
     }
 
-    public String getCareerBest() {
-        return careerBest;
+    public String getCareer_best() {
+        return career_best;
     }
 
-    public void setCareerBest(String careerBest) {
-        this.careerBest = careerBest;
+    public void setCareer_best(String career_best) {
+        this.career_best = career_best;
     }
 
-    public String getEnterValidEmail() {
-        return enterValidEmail;
+    public String getEnter_valid_email() {
+        return enter_valid_email;
     }
 
-    public void setEnterValidEmail(String enterValidEmail) {
-        this.enterValidEmail = enterValidEmail;
+    public void setEnter_valid_email(String enter_valid_email) {
+        this.enter_valid_email = enter_valid_email;
     }
 
-    public String getFillAllDetails() {
-        return fillAllDetails;
+    public String getFill_all_details() {
+        return fill_all_details;
     }
 
-    public void setFillAllDetails(String fillAllDetails) {
-        this.fillAllDetails = fillAllDetails;
+    public void setFill_all_details(String fill_all_details) {
+        this.fill_all_details = fill_all_details;
     }
 
-    public String getReleaseToRefresh() {
-        return releaseToRefresh;
+    public String getRelease_to_refresh() {
+        return release_to_refresh;
     }
 
-    public void setReleaseToRefresh(String releaseToRefresh) {
-        this.releaseToRefresh = releaseToRefresh;
+    public void setRelease_to_refresh(String release_to_refresh) {
+        this.release_to_refresh = release_to_refresh;
     }
 
     public String getBench() {
@@ -1066,20 +1059,20 @@ public class DictonaryPojo {
         this.bench = bench;
     }
 
-    public String getCareerStats() {
-        return careerStats;
+    public String getCareer_stats() {
+        return career_stats;
     }
 
-    public void setCareerStats(String careerStats) {
-        this.careerStats = careerStats;
+    public void setCareer_stats(String career_stats) {
+        this.career_stats = career_stats;
     }
 
-    public String getCurrentSeries() {
-        return currentSeries;
+    public String getCurrent_series() {
+        return current_series;
     }
 
-    public void setCurrentSeries(String currentSeries) {
-        this.currentSeries = currentSeries;
+    public void setCurrent_series(String current_series) {
+        this.current_series = current_series;
     }
 
     public String getInfo() {
@@ -1138,12 +1131,12 @@ public class DictonaryPojo {
         this.debut = debut;
     }
 
-    public String getLastPlayed() {
-        return lastPlayed;
+    public String getLast_played() {
+        return last_played;
     }
 
-    public void setLastPlayed(String lastPlayed) {
-        this.lastPlayed = lastPlayed;
+    public void setLast_played(String last_played) {
+        this.last_played = last_played;
     }
 
     public String getFormat() {
@@ -1154,12 +1147,12 @@ public class DictonaryPojo {
         this.format = format;
     }
 
-    public String getInningsList() {
-        return inningsList;
+    public String getInnings_list() {
+        return innings_list;
     }
 
-    public void setInningsList(String inningsList) {
-        this.inningsList = inningsList;
+    public void setInnings_list(String innings_list) {
+        this.innings_list = innings_list;
     }
 
     public String getOvers() {
@@ -1170,36 +1163,36 @@ public class DictonaryPojo {
         this.overs = overs;
     }
 
-    public String getVenueTime() {
-        return venueTime;
+    public String getVenue_time() {
+        return venue_time;
     }
 
-    public void setVenueTime(String venueTime) {
-        this.venueTime = venueTime;
+    public void setVenue_time(String venue_time) {
+        this.venue_time = venue_time;
     }
 
-    public String getTeamsPlayedFor() {
-        return teamsPlayedFor;
+    public String getTeams_played_for() {
+        return teams_played_for;
     }
 
-    public void setTeamsPlayedFor(String teamsPlayedFor) {
-        this.teamsPlayedFor = teamsPlayedFor;
+    public void setTeams_played_for(String teams_played_for) {
+        this.teams_played_for = teams_played_for;
     }
 
-    public String getStartsIn() {
-        return startsIn;
+    public String getStarts_in() {
+        return starts_in;
     }
 
-    public void setStartsIn(String startsIn) {
-        this.startsIn = startsIn;
+    public void setStarts_in(String starts_in) {
+        this.starts_in = starts_in;
     }
 
-    public String getFollowOn() {
-        return followOn;
+    public String getFollow_on() {
+        return follow_on;
     }
 
-    public void setFollowOn(String followOn) {
-        this.followOn = followOn;
+    public void setFollow_on(String follow_on) {
+        this.follow_on = follow_on;
     }
 
     public String getDecl() {
@@ -1210,12 +1203,12 @@ public class DictonaryPojo {
         this.decl = decl;
     }
 
-    public String getPointsTable() {
-        return pointsTable;
+    public String getPoints_table() {
+        return points_table;
     }
 
-    public void setPointsTable(String pointsTable) {
-        this.pointsTable = pointsTable;
+    public void setPoints_table(String points_table) {
+        this.points_table = points_table;
     }
 
     public String getCountry() {
@@ -1258,44 +1251,44 @@ public class DictonaryPojo {
         this.matches = matches;
     }
 
-    public String getHeaderAvg() {
-        return headerAvg;
+    public String getHeader_avg() {
+        return header_avg;
     }
 
-    public void setHeaderAvg(String headerAvg) {
-        this.headerAvg = headerAvg;
+    public void setHeader_avg(String header_avg) {
+        this.header_avg = header_avg;
     }
 
-    public String getTopTeams() {
-        return topTeams;
+    public String getTop_teams() {
+        return top_teams;
     }
 
-    public void setTopTeams(String topTeams) {
-        this.topTeams = topTeams;
+    public void setTop_teams(String top_teams) {
+        this.top_teams = top_teams;
     }
 
-    public String getTopBatsman() {
-        return topBatsman;
+    public String getTop_batsman() {
+        return top_batsman;
     }
 
-    public void setTopBatsman(String topBatsman) {
-        this.topBatsman = topBatsman;
+    public void setTop_batsman(String top_batsman) {
+        this.top_batsman = top_batsman;
     }
 
-    public String getTopBowlers() {
-        return topBowlers;
+    public String getTop_bowlers() {
+        return top_bowlers;
     }
 
-    public void setTopBowlers(String topBowlers) {
-        this.topBowlers = topBowlers;
+    public void setTop_bowlers(String top_bowlers) {
+        this.top_bowlers = top_bowlers;
     }
 
-    public String getTopAllrounder() {
-        return topAllrounder;
+    public String getTop_allrounder() {
+        return top_allrounder;
     }
 
-    public void setTopAllrounder(String topAllrounder) {
-        this.topAllrounder = topAllrounder;
+    public void setTop_allrounder(String top_allrounder) {
+        this.top_allrounder = top_allrounder;
     }
 
     public String getPlayer() {
@@ -1313,54 +1306,54 @@ public class DictonaryPojo {
                 ", commentary='" + commentary + '\'' +
                 ", scorecard='" + scorecard + '\'' +
                 ", schedule='" + schedule + '\'' +
-                ", recentResults='" + recentResults + '\'' +
+                ", recent_results='" + recent_results + '\'' +
                 ", setting='" + setting + '\'' +
                 ", language='" + language + '\'' +
                 ", feedback='" + feedback + '\'' +
-                ", autoRefresh='" + autoRefresh + '\'' +
+                ", auto_refresh='" + auto_refresh + '\'' +
                 ", target='" + target + '\'' +
-                ", ballByBall='" + ballByBall + '\'' +
-                ", overByOver='" + overByOver + '\'' +
+                ", ball_by_ball='" + ball_by_ball + '\'' +
+                ", over_by_over='" + over_by_over + '\'' +
                 ", squads='" + squads + '\'' +
-                ", matchInfo='" + matchInfo + '\'' +
+                ", match_info='" + match_info + '\'' +
                 ", batsman='" + batsman + '\'' +
                 ", bowler='" + bowler + '\'' +
                 ", partnership='" + partnership + '\'' +
-                ", lastWkt='" + lastWkt + '\'' +
+                ", last_wkt='" + last_wkt + '\'' +
                 ", runs='" + runs + '\'' +
-                ", recentOver='" + recentOver + '\'' +
-                ", seriesName='" + seriesName + '\'' +
+                ", recent_over='" + recent_over + '\'' +
+                ", series_name='" + series_name + '\'' +
                 ", toss='" + toss + '\'' +
                 ", venue='" + venue + '\'' +
                 ", date='" + date + '\'' +
                 ", teams='" + teams + '\'' +
                 ", umpires='" + umpires + '\'' +
-                ", umpire1='" + umpire1 + '\'' +
-                ", umpire2='" + umpire2 + '\'' +
-                ", umpire3='" + umpire3 + '\'' +
+                ", umpire_1='" + umpire_1 + '\'' +
+                ", umpire_2='" + umpire_2 + '\'' +
+                ", umpire_3='" + umpire_3 + '\'' +
                 ", referee='" + referee + '\'' +
                 ", mom='" + mom + '\'' +
                 ", mos='" + mos + '\'' +
                 ", extras='" + extras + '\'' +
-                ", extrasB='" + extrasB + '\'' +
-                ", extrasWd='" + extrasWd + '\'' +
-                ", extrasNb='" + extrasNb + '\'' +
-                ", extrasLb='" + extrasLb + '\'' +
-                ", extrasP='" + extrasP + '\'' +
-                ", yetToBat='" + yetToBat + '\'' +
-                ", headerCrr='" + headerCrr + '\'' +
-                ", headerRr='" + headerRr + '\'' +
-                ", headerRun='" + headerRun + '\'' +
-                ", headerBall='" + headerBall + '\'' +
-                ", header4s='" + header4s + '\'' +
-                ", header6s='" + header6s + '\'' +
-                ", headerSr='" + headerSr + '\'' +
-                ", headerOver='" + headerOver + '\'' +
-                ", headerOvers='" + headerOvers + '\'' +
-                ", headerMaiden='" + headerMaiden + '\'' +
-                ", headerWickets='" + headerWickets + '\'' +
-                ", headerEco='" + headerEco + '\'' +
-                ", fallOfWicket='" + fallOfWicket + '\'' +
+                ", extras_b='" + extras_b + '\'' +
+                ", extras_wd='" + extras_wd + '\'' +
+                ", extras_nb='" + extras_nb + '\'' +
+                ", extras_lb='" + extras_lb + '\'' +
+                ", extras_p='" + extras_p + '\'' +
+                ", yet_to_bat='" + yet_to_bat + '\'' +
+                ", header_crr='" + header_crr + '\'' +
+                ", header_rr='" + header_rr + '\'' +
+                ", header_run='" + header_run + '\'' +
+                ", header_ball='" + header_ball + '\'' +
+                ", header_4s='" + header_4s + '\'' +
+                ", header_6s='" + header_6s + '\'' +
+                ", header_sr='" + header_sr + '\'' +
+                ", header_over='" + header_over + '\'' +
+                ", header_overs='" + header_overs + '\'' +
+                ", header_maiden='" + header_maiden + '\'' +
+                ", header_wickets='" + header_wickets + '\'' +
+                ", header_eco='" + header_eco + '\'' +
+                ", fall_of_wicket='" + fall_of_wicket + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", subject='" + subject + '\'' +
@@ -1369,45 +1362,45 @@ public class DictonaryPojo {
                 ", mandatory='" + mandatory + '\'' +
                 ", batting='" + batting + '\'' +
                 ", bowling='" + bowling + '\'' +
-                ", monthJan='" + monthJan + '\'' +
-                ", monthFeb='" + monthFeb + '\'' +
-                ", monthMar='" + monthMar + '\'' +
-                ", monthApr='" + monthApr + '\'' +
-                ", monthMay='" + monthMay + '\'' +
-                ", monthJun='" + monthJun + '\'' +
-                ", monthJul='" + monthJul + '\'' +
-                ", monthAug='" + monthAug + '\'' +
-                ", monthSep='" + monthSep + '\'' +
-                ", monthOct='" + monthOct + '\'' +
-                ", monthNov='" + monthNov + '\'' +
-                ", monthDec='" + monthDec + '\'' +
-                ", weekSun='" + weekSun + '\'' +
-                ", weekMon='" + weekMon + '\'' +
-                ", weekTue='" + weekTue + '\'' +
-                ", weekWed='" + weekWed + '\'' +
-                ", weekThu='" + weekThu + '\'' +
-                ", weekFri='" + weekFri + '\'' +
-                ", weekSat='" + weekSat + '\'' +
-                ", pullToRefresh='" + pullToRefresh + '\'' +
+                ", month_jan='" + month_jan + '\'' +
+                ", month_feb='" + month_feb + '\'' +
+                ", month_mar='" + month_mar + '\'' +
+                ", month_apr='" + month_apr + '\'' +
+                ", month_may='" + month_may + '\'' +
+                ", month_jun='" + month_jun + '\'' +
+                ", month_jul='" + month_jul + '\'' +
+                ", month_aug='" + month_aug + '\'' +
+                ", month_sep='" + month_sep + '\'' +
+                ", month_oct='" + month_oct + '\'' +
+                ", month_nov='" + month_nov + '\'' +
+                ", month_dec='" + month_dec + '\'' +
+                ", week_sun='" + week_sun + '\'' +
+                ", week_mon='" + week_mon + '\'' +
+                ", week_tue='" + week_tue + '\'' +
+                ", week_wed='" + week_wed + '\'' +
+                ", week_thu='" + week_thu + '\'' +
+                ", week_fri='" + week_fri + '\'' +
+                ", week_sat='" + week_sat + '\'' +
+                ", pull_to_refresh='" + pull_to_refresh + '\'' +
                 ", loading='" + loading + '\'' +
                 ", dob='" + dob + '\'' +
-                ", birthPlace='" + birthPlace + '\'' +
-                ", battingStyle='" + battingStyle + '\'' +
-                ", bowlingStyle='" + bowlingStyle + '\'' +
+                ", birth_place='" + birth_place + '\'' +
+                ", batting_style='" + batting_style + '\'' +
+                ", bowling_style='" + bowling_style + '\'' +
                 ", ranking='" + ranking + '\'' +
                 ", career='" + career + '\'' +
-                ", rateUs='" + rateUs + '\'' +
+                ", rate_us='" + rate_us + '\'' +
                 ", yes='" + yes + '\'' +
                 ", no='" + no + '\'' +
-                ", noInternet='" + noInternet + '\'' +
-                ", thankYouContacting='" + thankYouContacting + '\'' +
-                ", careerBest='" + careerBest + '\'' +
-                ", enterValidEmail='" + enterValidEmail + '\'' +
-                ", fillAllDetails='" + fillAllDetails + '\'' +
-                ", releaseToRefresh='" + releaseToRefresh + '\'' +
+                ", no_internet='" + no_internet + '\'' +
+                ", thank_you_contacting='" + thank_you_contacting + '\'' +
+                ", career_best='" + career_best + '\'' +
+                ", enter_valid_email='" + enter_valid_email + '\'' +
+                ", fill_all_details='" + fill_all_details + '\'' +
+                ", release_to_refresh='" + release_to_refresh + '\'' +
                 ", bench='" + bench + '\'' +
-                ", careerStats='" + careerStats + '\'' +
-                ", currentSeries='" + currentSeries + '\'' +
+                ", career_stats='" + career_stats + '\'' +
+                ", current_series='" + current_series + '\'' +
                 ", info='" + info + '\'' +
                 ", test='" + test + '\'' +
                 ", odi='" + odi + '\'' +
@@ -1415,26 +1408,26 @@ public class DictonaryPojo {
                 ", ipl='" + ipl + '\'' +
                 ", cl='" + cl + '\'' +
                 ", debut='" + debut + '\'' +
-                ", lastPlayed='" + lastPlayed + '\'' +
+                ", last_played='" + last_played + '\'' +
                 ", format='" + format + '\'' +
-                ", inningsList='" + inningsList + '\'' +
+                ", innings_list='" + innings_list + '\'' +
                 ", overs='" + overs + '\'' +
-                ", venueTime='" + venueTime + '\'' +
-                ", teamsPlayedFor='" + teamsPlayedFor + '\'' +
-                ", startsIn='" + startsIn + '\'' +
-                ", followOn='" + followOn + '\'' +
+                ", venue_time='" + venue_time + '\'' +
+                ", teams_played_for='" + teams_played_for + '\'' +
+                ", starts_in='" + starts_in + '\'' +
+                ", follow_on='" + follow_on + '\'' +
                 ", decl='" + decl + '\'' +
-                ", pointsTable='" + pointsTable + '\'' +
+                ", points_table='" + points_table + '\'' +
                 ", country='" + country + '\'' +
                 ", points='" + points + '\'' +
                 ", rank='" + rank + '\'' +
                 ", rating='" + rating + '\'' +
                 ", matches='" + matches + '\'' +
-                ", headerAvg='" + headerAvg + '\'' +
-                ", topTeams='" + topTeams + '\'' +
-                ", topBatsman='" + topBatsman + '\'' +
-                ", topBowlers='" + topBowlers + '\'' +
-                ", topAllrounder='" + topAllrounder + '\'' +
+                ", header_avg='" + header_avg + '\'' +
+                ", top_teams='" + top_teams + '\'' +
+                ", top_batsman='" + top_batsman + '\'' +
+                ", top_bowlers='" + top_bowlers + '\'' +
+                ", top_allrounder='" + top_allrounder + '\'' +
                 ", player='" + player + '\'' +
                 '}';
     }

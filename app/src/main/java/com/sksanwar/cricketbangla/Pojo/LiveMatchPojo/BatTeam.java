@@ -5,7 +5,7 @@ import java.util.List;
 
 public class BatTeam {
     private String id;
-    private List<Inning> innings = null;
+    private List<Inning> innings;
 
     public BatTeam(String id, List<Inning> innings) {
         this.id = id;

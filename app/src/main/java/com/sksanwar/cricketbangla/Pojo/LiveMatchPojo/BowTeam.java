@@ -6,7 +6,7 @@ import java.util.List;
 public class BowTeam {
 
     private String id;
-    private List<Inning> innings = null;
+    private List<Inning> innings;
 
 
     public BowTeam(String id, List<Inning> innings) {

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.sksanwar.cricketbangla.Pojo.DictonaryPojo;
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Match;
 import com.sksanwar.cricketbangla.R;
 import com.squareup.picasso.Picasso;
@@ -26,12 +27,13 @@ public class AdapterLiveMatches extends
     final private ListItemClickListener mOnClickListener;
 
     private List<Match> matchList;
+    private DictonaryPojo dictonary;
 
 
-    public AdapterLiveMatches(ListItemClickListener mOnClickListener, List<Match> matchList) {
+    public AdapterLiveMatches(ListItemClickListener mOnClickListener, List<Match> matchList, DictonaryPojo dictonary) {
         this.mOnClickListener = mOnClickListener;
         this.matchList = matchList;
-
+        this.dictonary = dictonary;
     }
 
     @Override
@@ -96,22 +98,12 @@ public class AdapterLiveMatches extends
         //Bind the View
         public void bind(int position) {
             if (!matchList.isEmpty()) {
-                match_desc.setText(matchList.get(position).getHeader().getMatchDesc());
-                series_name.setText(matchList.get(position).getSeriesName());
+                match_desc.setText(matchList.get(position).getHeader().getMatch_desc());
+                series_name.setText(matchList.get(position).getSeries_Name());
                 match_type.setText(matchList.get(position).getHeader().getType());
                 matchstatus.setText(matchList.get(position).getHeader().getStatus());
-
                 team1_country_name.setText(matchList.get(position).getTeam1().getName());
                 team2_country_name.setText(matchList.get(position).getTeam2().getName());
-//
-//                if (matchList.get(position).getBatTeam().getId() != matchList.get(position).getTeam1().getId()){
-//                    team1_score.setText(matchList.get(position).getBatTeam().getInnings().get(position).getScore());
-//                    team1_wkt.setText((matchList.get(position).getBatTeam().getInnings().get(position).getWkts()));
-//                }
-//                else {
-//                    team2_score.setText(matchList.get(position).getBowTeam().getInnings().get(position).getScore());
-//                    team2_wkt.setText((matchList.get(position).getBowTeam().getInnings().get(position).getWkts()));
-//                }
 
                 if (matchList.get(position).getTeam1().getFlag().isEmpty()) {
                     team1_flag.setImageResource(R.drawable.ic_launcher_background);

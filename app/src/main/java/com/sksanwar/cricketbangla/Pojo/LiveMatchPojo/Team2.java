@@ -3,17 +3,17 @@ package com.sksanwar.cricketbangla.Pojo.LiveMatchPojo;
 
 public class Team2 {
     private String id;
-    private String engName;
+    private String eng_name;
     private String name;
-    private String sName;
+    private String s_name;
     private String flag;
 
 
-    public Team2(String id, String engName, String name, String sName, String flag) {
+    public Team2(String id, String eng_name, String name, String s_name, String flag) {
         this.id = id;
-        this.engName = engName;
+        this.eng_name = eng_name;
         this.name = name;
-        this.sName = sName;
+        this.s_name = s_name;
         this.flag = flag;
     }
 
@@ -21,8 +21,8 @@ public class Team2 {
         return id;
     }
 
-    public String getEngName() {
-        return engName;
+    public String getEng_name() {
+        return eng_name;
     }
 
     public String getName() {
@@ -30,7 +30,7 @@ public class Team2 {
     }
 
     public String getsName() {
-        return sName;
+        return s_name;
     }
 
     public String getFlag() {
@@ -41,9 +41,9 @@ public class Team2 {
     public String toString() {
         return "Team2{" +
                 "id='" + id + '\'' +
-                ", engName='" + engName + '\'' +
+                ", eng_name='" + eng_name + '\'' +
                 ", name='" + name + '\'' +
-                ", sName='" + sName + '\'' +
+                ", sName='" + s_name + '\'' +
                 ", flag='" + flag + '\'' +
                 '}';
     }

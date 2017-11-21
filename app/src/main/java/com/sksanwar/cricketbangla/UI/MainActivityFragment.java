@@ -45,6 +45,7 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
     RecyclerView recyclerViewLiveMatches;
 
     private List<Match> matchesList;
+    private DictonaryPojo dictonaryPojo;
 
     private AdapterLiveMatches adapterLiveMatches;
 
@@ -75,8 +76,8 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
         call.enqueue(new Callback<DictonaryPojo>() {
             @Override
             public void onResponse(Call<DictonaryPojo> call, Response<DictonaryPojo> response) {
-                DictonaryPojo dictonaryPojos = response.body();
-                Log.d(TAG, "Pojo " + dictonaryPojos);
+                DictonaryPojo dictonaryResponse = response.body();
+                Log.d(TAG, "Pojo " + dictonaryResponse);
             }
 
             @Override
@@ -128,7 +129,7 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
     private void loadViews(List<Match> matchList) {
         recyclerViewLiveMatches.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
-        adapterLiveMatches = new AdapterLiveMatches(this, matchList);
+        adapterLiveMatches = new AdapterLiveMatches(this, matchList, dictonaryPojo);
 
         recyclerViewLiveMatches.setAdapter(adapterLiveMatches);
 
