@@ -4,18 +4,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.sksanwar.cricketbangla.Pojo.DictonaryPojo;
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Match;
 import com.sksanwar.cricketbangla.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.sksanwar.cricketbangla.UI.MainActivityFragment.dictonary;
 
 /**
  * Created by sksho on 18-Nov-17.
@@ -27,13 +26,11 @@ public class AdapterLiveMatches extends
     final private ListItemClickListener mOnClickListener;
 
     private List<Match> matchList;
-    private DictonaryPojo dictonary;
 
-
-    public AdapterLiveMatches(ListItemClickListener mOnClickListener, List<Match> matchList, DictonaryPojo dictonary) {
+    public AdapterLiveMatches(ListItemClickListener mOnClickListener, List<Match> matchList) {
         this.mOnClickListener = mOnClickListener;
         this.matchList = matchList;
-        this.dictonary = dictonary;
+
     }
 
     @Override
@@ -84,10 +81,11 @@ public class AdapterLiveMatches extends
         TextView team2_wkt;
         @BindView(R.id.matchstatus)
         TextView matchstatus;
-        @BindView(R.id.team1_flag)
-        ImageView team1_flag;
-        @BindView(R.id.team2_flag)
-        ImageView team2_flag;
+        @BindView(R.id.team1_over)
+        TextView team1_overs;
+        @BindView(R.id.team2_over)
+        TextView team2_overs;
+
 
         public LiveMatchViewHolder(View itemView) {
             super(itemView);
@@ -100,27 +98,16 @@ public class AdapterLiveMatches extends
             if (!matchList.isEmpty()) {
                 match_desc.setText(matchList.get(position).getHeader().getMatch_desc());
                 series_name.setText(matchList.get(position).getSeries_Name());
-                match_type.setText(matchList.get(position).getHeader().getType());
                 matchstatus.setText(matchList.get(position).getHeader().getStatus());
                 team1_country_name.setText(matchList.get(position).getTeam1().getName());
                 team2_country_name.setText(matchList.get(position).getTeam2().getName());
-
-                if (matchList.get(position).getTeam1().getFlag().isEmpty()) {
-                    team1_flag.setImageResource(R.drawable.ic_launcher_background);
+                if (matchList.get(position).getHeader().getType().equals("TEST")) {
+                    match_type.setText(dictonary.getTest());
+                } else if (matchList.get(position).getHeader().getType().equals("T20")) {
+                    match_type.setText(dictonary.getT20());
                 } else {
-                    Picasso.with(itemView.getContext())
-                            .load(matchList.get(position).getTeam1().getFlag())
-                            .into(team1_flag);
+                    match_type.setText(dictonary.getOdi());
                 }
-
-                if (matchList.get(position).getTeam2().getFlag().isEmpty()) {
-                    team1_flag.setImageResource(R.drawable.ic_launcher_background);
-                } else {
-                    Picasso.with(itemView.getContext())
-                            .load(matchList.get(position).getTeam2().getFlag())
-                            .into(team1_flag);
-                }
-
             }
         }
 

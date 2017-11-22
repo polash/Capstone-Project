@@ -41,12 +41,10 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
     public static final String LIVE_MATCH_LIST = "live_match_list";
     public static final String POSITION = "position";
     private static final String TAG = MainActivityFragment.class.getSimpleName();
+    public static DictonaryPojo dictonary;
     @BindView(R.id.rv_livematches)
     RecyclerView recyclerViewLiveMatches;
-
     private List<Match> matchesList;
-    private DictonaryPojo dictonaryPojo;
-
     private AdapterLiveMatches adapterLiveMatches;
 
     public MainActivityFragment() {
@@ -63,7 +61,7 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
         return rootView;
     }
 
-    private void liveMatchDownloadFromJson() {
+    public void liveMatchDownloadFromJson() {
         /**
          * For dictonary data fetching
          */
@@ -76,8 +74,9 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
         call.enqueue(new Callback<DictonaryPojo>() {
             @Override
             public void onResponse(Call<DictonaryPojo> call, Response<DictonaryPojo> response) {
-                DictonaryPojo dictonaryResponse = response.body();
-                Log.d(TAG, "Pojo " + dictonaryResponse);
+                DictonaryPojo pojo = response.body();
+                dictonary = pojo;
+                Log.d(TAG, "Pojo " + dictonary);
             }
 
             @Override
@@ -118,7 +117,7 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
                 matchesList = savedInstanceState.getParcelable(LIVE_MATCH_LIST);
             }
         }
-        //this condition checks if the recipeList is null thn run the task
+        //this condition checks if the matchesList is null thn run the task
         if (matchesList == null) {
             return;
         } else {
@@ -129,7 +128,7 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
     private void loadViews(List<Match> matchList) {
         recyclerViewLiveMatches.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
-        adapterLiveMatches = new AdapterLiveMatches(this, matchList, dictonaryPojo);
+        adapterLiveMatches = new AdapterLiveMatches(this, matchList);
 
         recyclerViewLiveMatches.setAdapter(adapterLiveMatches);
 
