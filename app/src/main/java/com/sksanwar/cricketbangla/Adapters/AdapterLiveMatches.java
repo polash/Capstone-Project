@@ -85,6 +85,12 @@ public class AdapterLiveMatches extends
         TextView team1_overs;
         @BindView(R.id.team2_over)
         TextView team2_overs;
+        @BindView(R.id.over_text)
+        TextView overText1;
+        @BindView(R.id.over_text2)
+        TextView overText2;
+        @BindView(R.id.match_string)
+        TextView match_string;
 
 
         public LiveMatchViewHolder(View itemView) {
@@ -101,7 +107,11 @@ public class AdapterLiveMatches extends
                 matchstatus.setText(matchList.get(position).getHeader().getStatus());
                 team1_country_name.setText(matchList.get(position).getTeam1().getName());
                 team2_country_name.setText(matchList.get(position).getTeam2().getName());
-                if (matchList.get(position).getHeader().getType().equals("TEST")) {
+                overText1.setText(dictonary.getOvers());
+                overText2.setText(dictonary.getOvers());
+                match_string.setText(dictonary.getMatches());
+
+                if (matchList.get(position).getHeader().getType().matches("TEST")) {
                     match_type.setText(dictonary.getTest());
                 } else if (matchList.get(position).getHeader().getType().equals("T20")) {
                     match_type.setText(dictonary.getT20());

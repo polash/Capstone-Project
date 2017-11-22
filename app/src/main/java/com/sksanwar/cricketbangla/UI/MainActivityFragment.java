@@ -78,7 +78,6 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
                 dictonary = pojo;
                 Log.d(TAG, "Pojo " + dictonary);
             }
-
             @Override
             public void onFailure(Call<DictonaryPojo> call, Throwable t) {
                 Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
