@@ -8,8 +8,6 @@ import com.sksanwar.cricketbangla.R;
 import com.sksanwar.cricketbangla.UI.MainActivityFragment;
 
 public class MainActivity extends AppCompatActivity {
-    private final String TAG = MainActivity.class.getSimpleName();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

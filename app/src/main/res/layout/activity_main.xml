@@ -17,7 +17,7 @@
         android:id="@+id/live_match_layout"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:layout_margin="8dp"
+        android:layout_margin="2dp"
         android:background="@color/background_color" />
 
 </LinearLayout>

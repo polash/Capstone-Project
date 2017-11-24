@@ -1,24 +1,30 @@
 package com.sksanwar.cricketbangla.UI;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import com.sksanwar.cricketbangla.Adapters.AdapterLiveMatches;
 import com.sksanwar.cricketbangla.FetchData.JsonFetchTask;
 import com.sksanwar.cricketbangla.FetchData.ServiceGenerator;
@@ -41,7 +47,7 @@ import retrofit2.Response;
  */
 
 public class MainActivityFragment extends Fragment implements AsyncListner,
-        AdapterLiveMatches.ListItemClickListener {
+        AdapterLiveMatches.ListItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     public static final String LIVE_MATCH_LIST = "live_match_list";
     public static final String POSITION = "position";
@@ -51,6 +57,11 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
     public List<Match> matchesList;
     @BindView(R.id.rv_livematches)
     RecyclerView recyclerViewLiveMatches;
+    @BindView(R.id.swip_to_refresh)
+    SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.no_network)
+    TextView no_network;
+
     private AdapterLiveMatches adapterLiveMatches;
 
     public MainActivityFragment() {
@@ -62,57 +73,76 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
         View rootView = inflater.inflate(R.layout.mainactivity_fragment, container, false);
         ButterKnife.bind(this, rootView);
 
-        liveMatchDownloadFromJson();
+        no_network.setVisibility(View.GONE);
+        swipeRefreshLayout.setOnRefreshListener(this);
 
+        liveMatchDownloadFromJson();
+        networkCheck();
         return rootView;
     }
 
+    //Network Checks
+    private boolean networkCheck() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isConnectedOrConnecting();
+    }
+
     public void liveMatchDownloadFromJson() {
-        /**
-         * For dictonary data fetching
-         */
-        JsonFetchTask jsonFetchTask = ServiceGenerator.createService(JsonFetchTask.class);
-        Call<DictonaryPojo> call = jsonFetchTask.dictonaryForCricket();
 
-        /**
-         * AsyncTask for Dictonary
-         */
-        call.enqueue(new Callback<DictonaryPojo>() {
-            @Override
-            public void onResponse(Call<DictonaryPojo> call, Response<DictonaryPojo> response) {
-                DictonaryPojo pojo = response.body();
-                dictonary = pojo;
-                Log.d(TAG, "Pojo " + dictonary);
-            }
-            @Override
-            public void onFailure(Call<DictonaryPojo> call, Throwable t) {
-                Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
-            }
-        });
+        if (networkCheck()) {
 
+            /**
+             * For dictonary data fetching
+             */
+            JsonFetchTask jsonFetchTask = ServiceGenerator.createService(JsonFetchTask.class);
+            Call<DictonaryPojo> call = jsonFetchTask.dictonaryForCricket();
 
-        /**
-         * For Live Match Data Fetching
-         */
-
-        Call<LiveMatches> liveMatchesCall = jsonFetchTask.liveMatch();
-        liveMatchesCall.enqueue(new Callback<LiveMatches>() {
-            @Override
-            public void onResponse(Call<LiveMatches> call, Response<LiveMatches> response) {
-                LiveMatches liveMatches = response.body();
-                List<Match> match = liveMatches.getMatches();
-
-                if (match != null) {
-                    loadViews(match);
+            /**
+             * AsyncTask for Dictonary
+             */
+            call.enqueue(new Callback<DictonaryPojo>() {
+                @Override
+                public void onResponse(Call<DictonaryPojo> call, Response<DictonaryPojo> response) {
+                    DictonaryPojo pojo = response.body();
+                    dictonary = pojo;
+                    Log.d(TAG, "Pojo " + dictonary);
                 }
 
-            }
+                @Override
+                public void onFailure(Call<DictonaryPojo> call, Throwable t) {
+                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+                }
+            });
 
-            @Override
-            public void onFailure(Call<LiveMatches> call, Throwable t) {
-                Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
-            }
-        });
+
+            /**
+             * For Live Match Data Fetching
+             */
+
+            Call<LiveMatches> liveMatchesCall = jsonFetchTask.liveMatch();
+            liveMatchesCall.enqueue(new Callback<LiveMatches>() {
+                @Override
+                public void onResponse(Call<LiveMatches> call, Response<LiveMatches> response) {
+                    LiveMatches liveMatches = response.body();
+                    List<Match> match = liveMatches.getMatches();
+                    if (match != null) {
+                        loadViews(match);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<LiveMatches> call, Throwable t) {
+                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            swipeRefreshLayout.setRefreshing(false);
+        } else {
+            no_network.setVisibility(View.VISIBLE);
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
 
     @Override
@@ -138,7 +168,7 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
         recyclerViewLiveMatches.setAdapter(adapterLiveMatches);
 
         // add pager behavior
-        SnapHelper snapHelper = new LinearSnapHelper();
+        SnapHelper snapHelper = new GravitySnapHelper(Gravity.START);
         snapHelper.attachToRecyclerView(recyclerViewLiveMatches);
 
         // pager indicator
@@ -156,6 +186,11 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
     public void returnLiveMatchList(List<Match> matchList) {
         matchesList = matchList;
         loadViews(matchesList);
+    }
+
+    @Override
+    public void onRefresh() {
+        liveMatchDownloadFromJson();
     }
 
     private class LinePagerIndicatorDecoration extends RecyclerView.ItemDecoration {
@@ -182,8 +217,9 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
          */
         private final Interpolator mInterpolator = new AccelerateDecelerateInterpolator();
         private final Paint mPaint = new Paint();
-        private int colorActive = 0xFF000000;
-        private int colorInactive = 0xFF777777;
+
+        private int colorActive = getContext().getResources().getColor(R.color.color_black);
+        private int colorInactive = getContext().getResources().getColor(R.color.color_white);
 
         public LinePagerIndicatorDecoration() {
             mPaint.setStrokeCap(Paint.Cap.ROUND);
