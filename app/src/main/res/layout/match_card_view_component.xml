@@ -40,26 +40,25 @@
                 android:textSize="10sp"
                 tools:text="1st টেস্ট" />
 
-
             <TextView
-                android:id="@+id/match_type"
+                android:id="@+id/match_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
-                android:layout_weight="0.7"
+                android:layout_weight="1"
                 android:textSize="10sp"
                 tools:text="টেস্ট" />
 
-            <TextView
-                android:id="@+id/match_string"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:layout_marginTop="4dp"
-                android:layout_weight="0.5"
-                android:textSize="10sp"
-                tools:text="ম্যাচ" />
+            <!--<TextView-->
+            <!--android:id="@+id/match_string"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginBottom="4dp"-->
+            <!--android:layout_marginTop="4dp"-->
+            <!--android:layout_weight="0.5"-->
+            <!--android:textSize="10sp"-->
+            <!--tools:text="ম্যাচ" />-->
 
         </LinearLayout>
 
