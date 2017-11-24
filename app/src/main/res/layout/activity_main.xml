@@ -12,12 +12,12 @@
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
         android:gravity="center_horizontal"
-
         android:text="Live Matches" />
     <FrameLayout
         android:id="@+id/live_match_layout"
         android:layout_width="match_parent"
         android:layout_height="150dp"
+        android:layout_margin="8dp"
         android:background="@color/background_color" />
 
 </LinearLayout>

@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cv_liveMatches"
-    android:layout_width="340dp"
-    android:layout_height="110dp"
-    android:layout_marginEnd="16dp"
-    android:layout_marginStart="16dp"
+    android:layout_width="350dp"
+    android:layout_height="130dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginStart="8dp"
     android:background="#FFFFFF"
     android:elevation="4dp"
     app:cardCornerRadius="6dp">
@@ -15,6 +15,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/series_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center_horizontal"
+            android:textSize="12sp"
+            tools:text="শ্রী লিঙ্ক টুর অফ ইন্ডিয়া, 2017" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,15 +40,6 @@
                 android:textSize="10sp"
                 tools:text="1st টেস্ট" />
 
-            <TextView
-                android:id="@+id/series_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_weight="4"
-                android:gravity="center_horizontal"
-                android:textSize="12sp"
-                tools:text="শ্রী লিঙ্ক টুর অফ ইন্ডিয়া, 2017" />
 
             <TextView
                 android:id="@+id/match_type"
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
-                android:layout_weight="0.4"
+                android:layout_weight="0.7"
                 android:textSize="10sp"
                 tools:text="টেস্ট" />
 
@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
-                android:layout_weight="3"
+                android:layout_weight="2"
                 tools:text="BAN" />
 
             <LinearLayout
@@ -94,6 +94,7 @@
                     tools:text="128" />
 
                 <TextView
+                    android:id="@+id/back_slash_score_team1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -142,7 +143,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
-                android:layout_weight="3"
+                android:layout_weight="2"
                 tools:text="IND" />
 
             <LinearLayout
@@ -161,6 +162,7 @@
                     tools:text="128" />
 
                 <TextView
+                    android:id="@+id/back_slash_score_team2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -197,6 +199,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="4dp"
             android:background="#F5F5F5">
 
             <TextView
