@@ -3,9 +3,9 @@ package com.sksanwar.cricketbangla.Pojo.LiveMatchPojo;
 
 public class Venue {
 
-    private String name;
-    private String location;
-    private String timezone;
+    public String name;
+    public String location;
+    public String timezone;
 
     public Venue(String name, String location, String timezone) {
         this.name = name;

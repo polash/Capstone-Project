@@ -4,8 +4,8 @@ package com.sksanwar.cricketbangla.Pojo.LiveMatchPojo;
 import java.util.List;
 
 public class LiveMatches {
-    private Url url;
-    private List<Match> matches;
+    public Url url;
+    public List<Match> matches;
 
     public LiveMatches(Url url, List<Match> matches) {
         this.url = url;

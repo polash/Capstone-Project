@@ -3,10 +3,10 @@ package com.sksanwar.cricketbangla.Pojo.LiveMatchPojo;
 
 public class Inning {
 
-    private String id;
-    private String score;
-    private String wkts;
-    private String overs;
+    public String id;
+    public String score;
+    public String wkts;
+    public String overs;
 
     public Inning(String id, String score, String wkts, String overs) {
         this.id = id;

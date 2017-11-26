@@ -4,8 +4,8 @@ package com.sksanwar.cricketbangla.Pojo.LiveMatchPojo;
 import java.util.List;
 
 public class BatTeam {
-    private String id;
-    private List<Inning> innings;
+    public String id;
+    public List<Inning> innings;
 
     public BatTeam(String id, List<Inning> innings) {
         this.id = id;

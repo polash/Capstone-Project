@@ -3,15 +3,15 @@ package com.sksanwar.cricketbangla.Pojo.LiveMatchPojo;
 
 public class Header {
 
-    private String start_time;
-    private String end_time;
-    private String match_desc;
-    private String toss;
-    private String type;
-    private String state;
-    private String state_title;
-    private String status;
-    private Integer winning_team_id;
+    public String start_time;
+    public String end_time;
+    public String match_desc;
+    public String toss;
+    public String type;
+    public String state;
+    public String state_title;
+    public String status;
+    public Integer winning_team_id;
 
     public Header(String start_time, String end_time, String match_desc,
                   String toss, String type, String state, String state_title, String status, Integer winning_team_id) {

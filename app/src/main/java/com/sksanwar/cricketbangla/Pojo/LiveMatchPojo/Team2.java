@@ -2,11 +2,11 @@
 package com.sksanwar.cricketbangla.Pojo.LiveMatchPojo;
 
 public class Team2 {
-    private String id;
-    private String eng_name;
-    private String name;
-    private String s_name;
-    private String flag;
+    public String id;
+    public String eng_name;
+    public String name;
+    public String s_name;
+    public String flag;
 
 
     public Team2(String id, String eng_name, String name, String s_name, String flag) {

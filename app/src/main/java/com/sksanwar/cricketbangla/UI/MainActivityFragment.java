@@ -1,6 +1,7 @@
 package com.sksanwar.cricketbangla.UI;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -25,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
+import com.sksanwar.cricketbangla.Activities.LiveMatchDetailsActivity;
 import com.sksanwar.cricketbangla.Adapters.AdapterLiveMatches;
 import com.sksanwar.cricketbangla.FetchData.JsonFetchTask;
 import com.sksanwar.cricketbangla.FetchData.ServiceGenerator;
@@ -55,6 +57,7 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
 
     public static DictonaryPojo dictonary;
     public List<Match> matchesList;
+
     @BindView(R.id.rv_livematches)
     RecyclerView recyclerViewLiveMatches;
     @BindView(R.id.swip_to_refresh)
@@ -90,15 +93,12 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
     }
 
     public void liveMatchDownloadFromJson() {
-
         if (networkCheck()) {
-
             /**
              * For dictonary data fetching
              */
             JsonFetchTask jsonFetchTask = ServiceGenerator.createService(JsonFetchTask.class);
             Call<DictonaryPojo> call = jsonFetchTask.dictonaryForCricket();
-
             /**
              * AsyncTask for Dictonary
              */
@@ -177,8 +177,13 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
 
 
     @Override
-    public void onListItemClick(int position) {
-        Toast.makeText(getContext(), "Item Clicked " + position, Toast.LENGTH_SHORT).show();
+    public void onListItemClick(int clickedItemIndex) {
+        Intent intent = new Intent(getContext(), LiveMatchDetailsActivity.class);
+//        intent.putParcelableArrayListExtra(LIVE_MATCH_LIST, matchesList);
+        intent.putExtra(POSITION, clickedItemIndex);
+        startActivity(intent);
+
+        Toast.makeText(getContext(), "Match Id clicked: " + matchesList + " at " + clickedItemIndex + " position", Toast.LENGTH_SHORT).show();
     }
 
 

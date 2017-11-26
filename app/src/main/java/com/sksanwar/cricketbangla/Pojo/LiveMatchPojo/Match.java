@@ -2,16 +2,16 @@
 package com.sksanwar.cricketbangla.Pojo.LiveMatchPojo;
 
 public class Match {
-    private String series_id;
-    private String series_name;
-    private String match_id;
+    public String series_id;
+    public String series_name;
+    public String match_id;
 
-    private Header header;
-    private Venue venue;
-    private BatTeam bat_team;
-    private BowTeam bow_team;
-    private Team1 team1;
-    private Team2 team2;
+    public Header header;
+    public Venue venue;
+    public BatTeam bat_team;
+    public BowTeam bow_team;
+    public Team1 team1;
+    public Team2 team2;
 
     public Match(String series_id, String series_name, String match_id,
                  Header header, Venue venue, BatTeam bat_team, BowTeam bow_team, Team1 team1, Team2 team2) {
