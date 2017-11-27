@@ -20,10 +20,10 @@ public class Official implements Parcelable {
             return new Official[size];
         }
     };
-    public Umpire umpire;
-    public Umpire umpire2;
-    public Umpire umpire3;
-    public Umpire referee;
+    private Umpire umpire;
+    private Umpire umpire2;
+    private Umpire umpire3;
+    private Umpire referee;
 
     public Official(Umpire umpire, Umpire umpire2, Umpire umpire3, Umpire referee) {
         this.umpire = umpire;

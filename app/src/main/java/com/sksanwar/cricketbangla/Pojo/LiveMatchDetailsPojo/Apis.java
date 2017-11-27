@@ -20,9 +20,9 @@ public class Apis implements Parcelable {
             return new Apis[size];
         }
     };
-    public String mini;
-    public String scorecard;
-    public String commentary;
+    private String mini;
+    private String scorecard;
+    private String commentary;
 
     public Apis(String mini, String scorecard, String commentary) {
         this.mini = mini;

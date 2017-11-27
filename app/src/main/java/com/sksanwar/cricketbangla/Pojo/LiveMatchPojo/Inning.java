@@ -18,10 +18,11 @@ public class Inning implements Parcelable {
             return new Inning[size];
         }
     };
-    public String id;
-    public String score;
-    public String wkts;
-    public String overs;
+
+    private String id;
+    private String score;
+    private String wkts;
+    private String overs;
 
     public Inning(String id, String score, String wkts, String overs) {
         this.id = id;

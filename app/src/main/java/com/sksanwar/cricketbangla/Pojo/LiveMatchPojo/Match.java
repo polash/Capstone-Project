@@ -18,15 +18,15 @@ public class Match implements Parcelable {
             return new Match[size];
         }
     };
-    public String series_id;
-    public String series_name;
-    public String match_id;
-    public Header header;
-    public Venue venue;
-    public BatBowTeam bat_team;
-    public BatBowTeam bow_team;
-    public Team team1;
-    public Team team2;
+    private String series_id;
+    private String series_name;
+    private String match_id;
+    private Header header;
+    private Venue venue;
+    private BatBowTeam bat_team;
+    private BatBowTeam bow_team;
+    private Team team1;
+    private Team team2;
 
     public Match(String series_id, String series_name, String match_id,
                  Header header, Venue venue, BatBowTeam bat_team, BatBowTeam bow_team, Team team1, Team team2) {

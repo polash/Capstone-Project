@@ -18,9 +18,9 @@ public class Venue implements Parcelable {
             return new Venue[size];
         }
     };
-    public String name;
-    public String location;
-    public String timezone;
+    private String name;
+    private String location;
+    private String timezone;
 
     public Venue(String name, String location, String timezone) {
         this.name = name;

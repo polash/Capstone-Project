@@ -28,7 +28,7 @@ public class LiveMatchDetailsFragment extends Fragment {
 
     private static final String TAG = LiveMatchDetailsFragment.class.getSimpleName();
     private ArrayList<Match> matchList;
-    private LiveMatchDetails liveMatchDetails;
+    private ArrayList<LiveMatchDetails> liveMatchDetailList = new ArrayList<>();
     private int index;
 
     public LiveMatchDetailsFragment() {
@@ -39,7 +39,6 @@ public class LiveMatchDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.live_match_details_fragment, container, false);
-
 
         //getting extra data into matchdetails list with the position
         matchList = getActivity().getIntent().getParcelableArrayListExtra(MainActivityFragment.LIVE_MATCH_LIST);
@@ -53,11 +52,13 @@ public class LiveMatchDetailsFragment extends Fragment {
         liveMatchDetailsCall.enqueue(new Callback<LiveMatchDetails>() {
             @Override
             public void onResponse(retrofit2.Call<LiveMatchDetails> call, Response<LiveMatchDetails> response) {
-                liveMatchDetails = response.body();
-                Log.d(TAG, "Details Data : " + liveMatchDetails);
+                LiveMatchDetails liveMatchDetails = response.body();
 
                 if (liveMatchDetails != null) {
-                    Toast.makeText(getContext(), "Yes", Toast.LENGTH_SHORT).show();
+                    liveMatchDetailList.add(index, liveMatchDetails);
+                    Log.d(TAG, "Details Data : " + liveMatchDetailList);
+                } else {
+                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -66,6 +67,7 @@ public class LiveMatchDetailsFragment extends Fragment {
                 Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
             }
         });
+
 
         return rootView;
     }

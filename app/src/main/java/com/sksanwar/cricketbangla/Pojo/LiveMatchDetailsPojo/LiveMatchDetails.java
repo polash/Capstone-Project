@@ -5,18 +5,15 @@ import android.os.Parcelable;
 
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Header;
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Team;
-import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Url;
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Venue;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by sksho on 26-Nov-17.
  */
 
 public class LiveMatchDetails implements Parcelable {
-
     @SuppressWarnings("unused")
     public static final Parcelable.Creator<LiveMatchDetails> CREATOR = new Parcelable.Creator<LiveMatchDetails>() {
         @Override
@@ -29,22 +26,22 @@ public class LiveMatchDetails implements Parcelable {
             return new LiveMatchDetails[size];
         }
     };
-    public Official official;
-    public List<Object> audio;
-    public String alerts;
-    public Team team1;
-    public Team team2;
-    public List<Player> players;
-    public Apis apis;
-    public Url url;
+    private Official official;
+    private ArrayList<Object> audio;
+    private String alerts;
+    private Team team1;
+    private Team team2;
+    private ArrayList<Player> players;
+    private Apis apis;
     private String series_id;
     private String series_name;
     private String match_id;
     private Header header;
     private Venue venue;
 
-    public LiveMatchDetails(Official official, List<Object> audio, String alerts, Team team1, Team team2, List<Player> players,
-                            Apis apis, Url url, String series_id, String series_name, String match_id, Header header, Venue venue) {
+    public LiveMatchDetails(Official official, ArrayList<Object> audio, String alerts, Team team1, Team team2,
+                            ArrayList<Player> players, Apis apis, String series_id,
+                            String series_name, String match_id, Header header, Venue venue) {
         this.official = official;
         this.audio = audio;
         this.alerts = alerts;
@@ -52,7 +49,6 @@ public class LiveMatchDetails implements Parcelable {
         this.team2 = team2;
         this.players = players;
         this.apis = apis;
-        this.url = url;
         this.series_id = series_id;
         this.series_name = series_name;
         this.match_id = match_id;
@@ -78,7 +74,6 @@ public class LiveMatchDetails implements Parcelable {
             players = null;
         }
         apis = (Apis) in.readValue(Apis.class.getClassLoader());
-        url = (Url) in.readValue(Url.class.getClassLoader());
         series_id = in.readString();
         series_name = in.readString();
         match_id = in.readString();
@@ -90,7 +85,7 @@ public class LiveMatchDetails implements Parcelable {
         return official;
     }
 
-    public List<Object> getAudio() {
+    public ArrayList<Object> getAudio() {
         return audio;
     }
 
@@ -106,16 +101,12 @@ public class LiveMatchDetails implements Parcelable {
         return team2;
     }
 
-    public List<Player> getPlayers() {
+    public ArrayList<Player> getPlayers() {
         return players;
     }
 
     public Apis getApis() {
         return apis;
-    }
-
-    public Url getUrl() {
-        return url;
     }
 
     public String getSeries_id() {
@@ -162,7 +153,6 @@ public class LiveMatchDetails implements Parcelable {
             dest.writeList(players);
         }
         dest.writeValue(apis);
-        dest.writeValue(url);
         dest.writeString(series_id);
         dest.writeString(series_name);
         dest.writeString(match_id);
@@ -180,7 +170,6 @@ public class LiveMatchDetails implements Parcelable {
                 ", team2=" + team2 +
                 ", players=" + players +
                 ", apis=" + apis +
-                ", url=" + url +
                 ", series_id='" + series_id + '\'' +
                 ", series_name='" + series_name + '\'' +
                 ", match_id='" + match_id + '\'' +
