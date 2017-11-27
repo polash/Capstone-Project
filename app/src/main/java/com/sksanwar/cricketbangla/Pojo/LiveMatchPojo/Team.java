@@ -4,17 +4,17 @@ package com.sksanwar.cricketbangla.Pojo.LiveMatchPojo;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Team1 implements Parcelable {
+public class Team implements Parcelable {
     @SuppressWarnings("unused")
-    public static final Parcelable.Creator<Team1> CREATOR = new Parcelable.Creator<Team1>() {
+    public static final Parcelable.Creator<Team> CREATOR = new Parcelable.Creator<Team>() {
         @Override
-        public Team1 createFromParcel(Parcel in) {
-            return new Team1(in);
+        public Team createFromParcel(Parcel in) {
+            return new Team(in);
         }
 
         @Override
-        public Team1[] newArray(int size) {
-            return new Team1[size];
+        public Team[] newArray(int size) {
+            return new Team[size];
         }
     };
     public String id;
@@ -23,7 +23,7 @@ public class Team1 implements Parcelable {
     public String s_name;
     public String flag;
 
-    public Team1(String id, String eng_name, String name, String s_name, String flag) {
+    public Team(String id, String eng_name, String name, String s_name, String flag) {
         this.id = id;
         this.eng_name = eng_name;
         this.name = name;
@@ -31,7 +31,7 @@ public class Team1 implements Parcelable {
         this.flag = flag;
     }
 
-    protected Team1(Parcel in) {
+    protected Team(Parcel in) {
         id = in.readString();
         eng_name = in.readString();
         name = in.readString();
@@ -75,7 +75,7 @@ public class Team1 implements Parcelable {
 
     @Override
     public String toString() {
-        return "Team1{" +
+        return "Team{" +
                 "id='" + id + '\'' +
                 ", eng_name='" + eng_name + '\'' +
                 ", name='" + name + '\'' +

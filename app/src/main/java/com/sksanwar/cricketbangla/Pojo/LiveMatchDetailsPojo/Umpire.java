@@ -7,52 +7,38 @@ import android.os.Parcelable;
  * Created by sksho on 26-Nov-17.
  */
 
-public class Player implements Parcelable {
+public class Umpire implements Parcelable {
     @SuppressWarnings("unused")
-    public static final Parcelable.Creator<Player> CREATOR = new Parcelable.Creator<Player>() {
+    public static final Parcelable.Creator<Umpire> CREATOR = new Parcelable.Creator<Umpire>() {
         @Override
-        public Player createFromParcel(Parcel in) {
-            return new Player(in);
+        public Umpire createFromParcel(Parcel in) {
+            return new Umpire(in);
         }
 
         @Override
-        public Player[] newArray(int size) {
-            return new Player[size];
+        public Umpire[] newArray(int size) {
+            return new Umpire[size];
         }
     };
     private String id;
-    private String f_name;
     private String name;
-    private String image;
 
-    public Player(String id, String f_name, String name, String image) {
+    public Umpire(String id, String name) {
         this.id = id;
-        this.f_name = f_name;
         this.name = name;
-        this.image = image;
     }
 
-    protected Player(Parcel in) {
+    protected Umpire(Parcel in) {
         id = in.readString();
-        f_name = in.readString();
         name = in.readString();
-        image = in.readString();
     }
 
     public String getId() {
         return id;
     }
 
-    public String getF_name() {
-        return f_name;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public String getImage() {
-        return image;
     }
 
     @Override
@@ -63,18 +49,14 @@ public class Player implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
-        dest.writeString(f_name);
         dest.writeString(name);
-        dest.writeString(image);
     }
 
     @Override
     public String toString() {
-        return "Player{" +
+        return "Umpire{" +
                 "id='" + id + '\'' +
-                ", f_name='" + f_name + '\'' +
                 ", name='" + name + '\'' +
-                ", image='" + image + '\'' +
                 '}';
     }
 }

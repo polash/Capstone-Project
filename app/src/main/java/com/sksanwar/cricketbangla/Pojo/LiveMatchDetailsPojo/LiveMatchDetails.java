@@ -4,8 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Header;
-import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Team1;
-import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Team2;
+import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Team;
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Url;
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Venue;
 
@@ -33,8 +32,8 @@ public class LiveMatchDetails implements Parcelable {
     public Official official;
     public List<Object> audio;
     public String alerts;
-    public Team1 team1;
-    public Team2 team2;
+    public Team team1;
+    public Team team2;
     public List<Player> players;
     public Apis apis;
     public Url url;
@@ -44,13 +43,8 @@ public class LiveMatchDetails implements Parcelable {
     private Header header;
     private Venue venue;
 
-    public LiveMatchDetails(String series_id, String series_name, String match_id, Header header, Venue venue,
-                            Official official, List<Object> audio, String alerts, Team1 team1, Team2 team2, List<Player> players, Apis apis, Url url) {
-        this.series_id = series_id;
-        this.series_name = series_name;
-        this.match_id = match_id;
-        this.header = header;
-        this.venue = venue;
+    public LiveMatchDetails(Official official, List<Object> audio, String alerts, Team team1, Team team2, List<Player> players,
+                            Apis apis, Url url, String series_id, String series_name, String match_id, Header header, Venue venue) {
         this.official = official;
         this.audio = audio;
         this.alerts = alerts;
@@ -59,6 +53,11 @@ public class LiveMatchDetails implements Parcelable {
         this.players = players;
         this.apis = apis;
         this.url = url;
+        this.series_id = series_id;
+        this.series_name = series_name;
+        this.match_id = match_id;
+        this.header = header;
+        this.venue = venue;
     }
 
     protected LiveMatchDetails(Parcel in) {
@@ -70,8 +69,8 @@ public class LiveMatchDetails implements Parcelable {
             audio = null;
         }
         alerts = in.readString();
-        team1 = (Team1) in.readValue(Team1.class.getClassLoader());
-        team2 = (Team2) in.readValue(Team2.class.getClassLoader());
+        team1 = (Team) in.readValue(Team.class.getClassLoader());
+        team2 = (Team) in.readValue(Team.class.getClassLoader());
         if (in.readByte() == 0x01) {
             players = new ArrayList<Player>();
             in.readList(players, Player.class.getClassLoader());
@@ -85,6 +84,38 @@ public class LiveMatchDetails implements Parcelable {
         match_id = in.readString();
         header = (Header) in.readValue(Header.class.getClassLoader());
         venue = (Venue) in.readValue(Venue.class.getClassLoader());
+    }
+
+    public Official getOfficial() {
+        return official;
+    }
+
+    public List<Object> getAudio() {
+        return audio;
+    }
+
+    public String getAlerts() {
+        return alerts;
+    }
+
+    public Team getTeam1() {
+        return team1;
+    }
+
+    public Team getTeam2() {
+        return team2;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public Apis getApis() {
+        return apis;
+    }
+
+    public Url getUrl() {
+        return url;
     }
 
     public String getSeries_id() {
@@ -105,38 +136,6 @@ public class LiveMatchDetails implements Parcelable {
 
     public Venue getVenue() {
         return venue;
-    }
-
-    public Official getOfficial() {
-        return official;
-    }
-
-    public List<Object> getAudio() {
-        return audio;
-    }
-
-    public String getAlerts() {
-        return alerts;
-    }
-
-    public Team1 getTeam1() {
-        return team1;
-    }
-
-    public Team2 getTeam2() {
-        return team2;
-    }
-
-    public List<Player> getPlayers() {
-        return players;
-    }
-
-    public Apis getApis() {
-        return apis;
-    }
-
-    public Url getUrl() {
-        return url;
     }
 
     @Override
@@ -174,12 +173,7 @@ public class LiveMatchDetails implements Parcelable {
     @Override
     public String toString() {
         return "LiveMatchDetails{" +
-                "series_id='" + series_id + '\'' +
-                ", series_name='" + series_name + '\'' +
-                ", match_id='" + match_id + '\'' +
-                ", header=" + header +
-                ", venue=" + venue +
-                ", official=" + official +
+                "official=" + official +
                 ", audio=" + audio +
                 ", alerts='" + alerts + '\'' +
                 ", team1=" + team1 +
@@ -187,6 +181,11 @@ public class LiveMatchDetails implements Parcelable {
                 ", players=" + players +
                 ", apis=" + apis +
                 ", url=" + url +
+                ", series_id='" + series_id + '\'' +
+                ", series_name='" + series_name + '\'' +
+                ", match_id='" + match_id + '\'' +
+                ", header=" + header +
+                ", venue=" + venue +
                 '}';
     }
 }

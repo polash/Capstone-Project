@@ -156,7 +156,7 @@ public class AdapterLiveMatches extends
 
                     if (matchList.get(position).getBat_team().getId().equals(team1ID) ||
                             matchList.get(position).getBat_team().getId().equals(team2ID)) {
-                        //show team 1 score
+                        //show team1 1 score
                         for (int i = 0; i < batTeamInnings.size(); i++) {
                             team1_score.setText(batTeamInnings.get(i).getScore());
                             team1_wkt.setText(batTeamInnings.get(i).getWkts());
@@ -169,7 +169,7 @@ public class AdapterLiveMatches extends
 
                     if (matchList.get(position).getBow_team().getId().equals(team1ID) ||
                             matchList.get(position).getBow_team().getId().equals(team2ID)) {
-                        //show team 2 score
+                        //show team1 2 score
                         for (int i = 0; i < bowTeamInnings.size(); i++) {
                             team2_score.setText(bowTeamInnings.get(i).getScore());
                             team2_wkt.setText(bowTeamInnings.get(i).getWkts());

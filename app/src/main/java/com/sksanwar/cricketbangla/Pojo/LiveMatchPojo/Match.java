@@ -5,6 +5,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Match implements Parcelable {
+
     @SuppressWarnings("unused")
     public static final Parcelable.Creator<Match> CREATOR = new Parcelable.Creator<Match>() {
         @Override
@@ -22,13 +23,13 @@ public class Match implements Parcelable {
     public String match_id;
     public Header header;
     public Venue venue;
-    public BatTeam bat_team;
-    public BowTeam bow_team;
-    public Team1 team1;
-    public Team2 team2;
+    public BatBowTeam bat_team;
+    public BatBowTeam bow_team;
+    public Team team1;
+    public Team team2;
 
-    public Match(String series_id, String series_name, String match_id, Header header,
-                 Venue venue, BatTeam bat_team, BowTeam bow_team, Team1 team1, Team2 team2) {
+    public Match(String series_id, String series_name, String match_id,
+                 Header header, Venue venue, BatBowTeam bat_team, BatBowTeam bow_team, Team team1, Team team2) {
         this.series_id = series_id;
         this.series_name = series_name;
         this.match_id = match_id;
@@ -46,10 +47,10 @@ public class Match implements Parcelable {
         match_id = in.readString();
         header = (Header) in.readValue(Header.class.getClassLoader());
         venue = (Venue) in.readValue(Venue.class.getClassLoader());
-        bat_team = (BatTeam) in.readValue(BatTeam.class.getClassLoader());
-        bow_team = (BowTeam) in.readValue(BowTeam.class.getClassLoader());
-        team1 = (Team1) in.readValue(Team1.class.getClassLoader());
-        team2 = (Team2) in.readValue(Team2.class.getClassLoader());
+        bat_team = (BatBowTeam) in.readValue(BatBowTeam.class.getClassLoader());
+        bow_team = (BatBowTeam) in.readValue(BatBowTeam.class.getClassLoader());
+        team1 = (Team) in.readValue(Team.class.getClassLoader());
+        team2 = (Team) in.readValue(Team.class.getClassLoader());
     }
 
     public String getSeries_id() {
@@ -72,19 +73,19 @@ public class Match implements Parcelable {
         return venue;
     }
 
-    public BatTeam getBat_team() {
+    public BatBowTeam getBat_team() {
         return bat_team;
     }
 
-    public BowTeam getBow_team() {
+    public BatBowTeam getBow_team() {
         return bow_team;
     }
 
-    public Team1 getTeam1() {
+    public Team getTeam1() {
         return team1;
     }
 
-    public Team2 getTeam2() {
+    public Team getTeam2() {
         return team2;
     }
 

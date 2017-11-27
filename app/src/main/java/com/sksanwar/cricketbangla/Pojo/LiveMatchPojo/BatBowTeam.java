@@ -7,29 +7,29 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BowTeam implements Parcelable {
-
+public class BatBowTeam implements Parcelable {
     @SuppressWarnings("unused")
-    public static final Parcelable.Creator<BowTeam> CREATOR = new Parcelable.Creator<BowTeam>() {
+    public static final Parcelable.Creator<BatBowTeam> CREATOR = new Parcelable.Creator<BatBowTeam>() {
         @Override
-        public BowTeam createFromParcel(Parcel in) {
-            return new BowTeam(in);
+        public BatBowTeam createFromParcel(Parcel in) {
+            return new BatBowTeam(in);
         }
 
         @Override
-        public BowTeam[] newArray(int size) {
-            return new BowTeam[size];
+        public BatBowTeam[] newArray(int size) {
+            return new BatBowTeam[size];
         }
     };
+
     public String id;
     public List<Inning> innings;
 
-    public BowTeam(String id, List<Inning> innings) {
+    public BatBowTeam(String id, List<Inning> innings) {
         this.id = id;
         this.innings = innings;
     }
 
-    protected BowTeam(Parcel in) {
+    protected BatBowTeam(Parcel in) {
         id = in.readString();
         if (in.readByte() == 0x01) {
             innings = new ArrayList<Inning>();
@@ -65,7 +65,7 @@ public class BowTeam implements Parcelable {
 
     @Override
     public String toString() {
-        return "BowTeam{" +
+        return "BatBowTeam{" +
                 "id='" + id + '\'' +
                 ", innings=" + innings +
                 '}';

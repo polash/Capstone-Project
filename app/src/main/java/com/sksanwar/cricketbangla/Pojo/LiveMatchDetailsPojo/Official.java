@@ -1,42 +1,77 @@
 package com.sksanwar.cricketbangla.Pojo.LiveMatchDetailsPojo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by sksho on 26-Nov-17.
  */
 
-public class Official {
-    public Umpire1 umpire1;
-    public Umpire2 umpire2;
-    public Umpire3 umpire3;
-    public Referee referee;
+public class Official implements Parcelable {
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Official> CREATOR = new Parcelable.Creator<Official>() {
+        @Override
+        public Official createFromParcel(Parcel in) {
+            return new Official(in);
+        }
 
-    public Official(Umpire1 umpire1, Umpire2 umpire2, Umpire3 umpire3, Referee referee) {
-        this.umpire1 = umpire1;
+        @Override
+        public Official[] newArray(int size) {
+            return new Official[size];
+        }
+    };
+    public Umpire umpire;
+    public Umpire umpire2;
+    public Umpire umpire3;
+    public Umpire referee;
+
+    public Official(Umpire umpire, Umpire umpire2, Umpire umpire3, Umpire referee) {
+        this.umpire = umpire;
         this.umpire2 = umpire2;
         this.umpire3 = umpire3;
         this.referee = referee;
     }
 
-    public Umpire1 getUmpire1() {
-        return umpire1;
+    protected Official(Parcel in) {
+        umpire = (Umpire) in.readValue(Umpire.class.getClassLoader());
+        umpire2 = (Umpire) in.readValue(Umpire.class.getClassLoader());
+        umpire3 = (Umpire) in.readValue(Umpire.class.getClassLoader());
+        referee = (Umpire) in.readValue(Umpire.class.getClassLoader());
     }
 
-    public Umpire2 getUmpire2() {
+    public Umpire getUmpire() {
+        return umpire;
+    }
+
+    public Umpire getUmpire2() {
         return umpire2;
     }
 
-    public Umpire3 getUmpire3() {
+    public Umpire getUmpire3() {
         return umpire3;
     }
 
-    public Referee getReferee() {
+    public Umpire getReferee() {
         return referee;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(umpire);
+        dest.writeValue(umpire2);
+        dest.writeValue(umpire3);
+        dest.writeValue(referee);
     }
 
     @Override
     public String toString() {
         return "Official{" +
-                "umpire1=" + umpire1 +
+                "umpire=" + umpire +
                 ", umpire2=" + umpire2 +
                 ", umpire3=" + umpire3 +
                 ", referee=" + referee +
