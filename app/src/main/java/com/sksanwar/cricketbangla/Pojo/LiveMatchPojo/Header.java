@@ -1,8 +1,23 @@
 
 package com.sksanwar.cricketbangla.Pojo.LiveMatchPojo;
 
-public class Header {
+import android.os.Parcel;
+import android.os.Parcelable;
 
+public class Header implements Parcelable {
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Header> CREATOR = new Parcelable.Creator<Header>() {
+        @Override
+        public Header createFromParcel(Parcel in) {
+            return new Header(in);
+        }
+
+        @Override
+        public Header[] newArray(int size) {
+            return new Header[size];
+        }
+    };
     public String start_time;
     public String end_time;
     public String match_desc;
@@ -24,6 +39,41 @@ public class Header {
         this.state_title = state_title;
         this.status = status;
         this.winning_team_id = winning_team_id;
+    }
+
+    protected Header(Parcel in) {
+        start_time = in.readString();
+        end_time = in.readString();
+        match_desc = in.readString();
+        toss = in.readString();
+        type = in.readString();
+        state = in.readString();
+        state_title = in.readString();
+        status = in.readString();
+        winning_team_id = in.readByte() == 0x00 ? null : in.readInt();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(start_time);
+        dest.writeString(end_time);
+        dest.writeString(match_desc);
+        dest.writeString(toss);
+        dest.writeString(type);
+        dest.writeString(state);
+        dest.writeString(state_title);
+        dest.writeString(status);
+        if (winning_team_id == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(winning_team_id);
+        }
     }
 
     public String getStart_time() {

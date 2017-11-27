@@ -1,19 +1,35 @@
 package com.sksanwar.cricketbangla.Pojo.LiveMatchDetailsPojo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Header;
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Team1;
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Team2;
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Url;
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Venue;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by sksho on 26-Nov-17.
  */
 
-public class LiveMatchDetails {
+public class LiveMatchDetails implements Parcelable {
 
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<LiveMatchDetails> CREATOR = new Parcelable.Creator<LiveMatchDetails>() {
+        @Override
+        public LiveMatchDetails createFromParcel(Parcel in) {
+            return new LiveMatchDetails(in);
+        }
+
+        @Override
+        public LiveMatchDetails[] newArray(int size) {
+            return new LiveMatchDetails[size];
+        }
+    };
     public Official official;
     public List<Object> audio;
     public String alerts;
@@ -43,6 +59,32 @@ public class LiveMatchDetails {
         this.players = players;
         this.apis = apis;
         this.url = url;
+    }
+
+    protected LiveMatchDetails(Parcel in) {
+        official = (Official) in.readValue(Official.class.getClassLoader());
+        if (in.readByte() == 0x01) {
+            audio = new ArrayList<Object>();
+            in.readList(audio, Object.class.getClassLoader());
+        } else {
+            audio = null;
+        }
+        alerts = in.readString();
+        team1 = (Team1) in.readValue(Team1.class.getClassLoader());
+        team2 = (Team2) in.readValue(Team2.class.getClassLoader());
+        if (in.readByte() == 0x01) {
+            players = new ArrayList<Player>();
+            in.readList(players, Player.class.getClassLoader());
+        } else {
+            players = null;
+        }
+        apis = (Apis) in.readValue(Apis.class.getClassLoader());
+        url = (Url) in.readValue(Url.class.getClassLoader());
+        series_id = in.readString();
+        series_name = in.readString();
+        match_id = in.readString();
+        header = (Header) in.readValue(Header.class.getClassLoader());
+        venue = (Venue) in.readValue(Venue.class.getClassLoader());
     }
 
     public String getSeries_id() {
@@ -95,6 +137,38 @@ public class LiveMatchDetails {
 
     public Url getUrl() {
         return url;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(official);
+        if (audio == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeList(audio);
+        }
+        dest.writeString(alerts);
+        dest.writeValue(team1);
+        dest.writeValue(team2);
+        if (players == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeList(players);
+        }
+        dest.writeValue(apis);
+        dest.writeValue(url);
+        dest.writeString(series_id);
+        dest.writeString(series_name);
+        dest.writeString(match_id);
+        dest.writeValue(header);
+        dest.writeValue(venue);
     }
 
     @Override

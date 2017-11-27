@@ -9,6 +9,7 @@ import android.graphics.Rect;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -36,6 +37,7 @@ import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.LiveMatches;
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Match;
 import com.sksanwar.cricketbangla.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -106,8 +108,12 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
                 @Override
                 public void onResponse(Call<DictonaryPojo> call, Response<DictonaryPojo> response) {
                     DictonaryPojo pojo = response.body();
-                    dictonary = pojo;
-                    Log.d(TAG, "Pojo " + dictonary);
+                    if (pojo != null) {
+                        dictonary = pojo;
+                    } else {
+                        Toast.makeText(getContext(), "There is an error loading data", Toast.LENGTH_SHORT).show();
+                    }
+                    Log.d(TAG, "Dictonary Data:  " + dictonary);
                 }
 
                 @Override
@@ -116,20 +122,19 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
                 }
             });
 
-
             /**
              * For Live Match Data Fetching
              */
-
             Call<LiveMatches> liveMatchesCall = jsonFetchTask.liveMatch();
             liveMatchesCall.enqueue(new Callback<LiveMatches>() {
                 @Override
                 public void onResponse(Call<LiveMatches> call, Response<LiveMatches> response) {
                     LiveMatches liveMatches = response.body();
-                    List<Match> match = liveMatches.getMatches();
-                    if (match != null) {
-                        loadViews(match);
+                    matchesList = liveMatches.getMatches();
+                    if (matchesList != null) {
+                        loadViews(matchesList);
                     }
+                    Log.d(TAG, "Match List: " + matchesList);
                 }
 
                 @Override
@@ -148,14 +153,13 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         if (savedInstanceState != null) {
             if (savedInstanceState.containsKey(LIVE_MATCH_LIST)) {
                 matchesList = savedInstanceState.getParcelable(LIVE_MATCH_LIST);
             }
         }
         //this condition checks if the matchesList is null thn run the task
-        if (matchesList == null) {
+        if (matchesList != null && dictonary != null) {
             return;
         } else {
             loadViews(matchesList);
@@ -179,11 +183,11 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
     @Override
     public void onListItemClick(int clickedItemIndex) {
         Intent intent = new Intent(getContext(), LiveMatchDetailsActivity.class);
-//        intent.putParcelableArrayListExtra(LIVE_MATCH_LIST, matchesList);
+        intent.putParcelableArrayListExtra(LIVE_MATCH_LIST, (ArrayList<? extends Parcelable>) matchesList);
         intent.putExtra(POSITION, clickedItemIndex);
         startActivity(intent);
 
-        Toast.makeText(getContext(), "Match Id clicked: " + matchesList + " at " + clickedItemIndex + " position", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), +clickedItemIndex + " position clicked", Toast.LENGTH_SHORT).show();
     }
 
 

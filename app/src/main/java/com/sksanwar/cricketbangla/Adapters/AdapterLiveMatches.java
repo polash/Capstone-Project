@@ -115,7 +115,7 @@ public class AdapterLiveMatches extends
             if (matchList != null) {
 
                 match_desc.setText(matchList.get(position).getHeader().getMatch_desc());
-                series_name.setText(matchList.get(position).getSeries_Name());
+                series_name.setText(matchList.get(position).getSeries_name());
                 matchstatus.setText(matchList.get(position).getHeader().getStatus());
                 team1_country_name.setText(matchList.get(position).getTeam1().getName());
                 team2_country_name.setText(matchList.get(position).getTeam2().getName());
@@ -147,15 +147,15 @@ public class AdapterLiveMatches extends
 
 
                 //show score
-                if (matchList.get(position).getBatTeam() != null || matchList.get(position).getBowTeam() != null) {
-                    List<Inning> batTeamInnings = matchList.get(position).getBatTeam().getInnings();
-                    List<Inning> bowTeamInnings = matchList.get(position).getBowTeam().getInnings();
+                if (matchList.get(position).getBat_team() != null || matchList.get(position).getBow_team() != null) {
+                    List<Inning> batTeamInnings = matchList.get(position).getBat_team().getInnings();
+                    List<Inning> bowTeamInnings = matchList.get(position).getBow_team().getInnings();
 
                     String team1ID = matchList.get(position).getTeam1().getId();
                     String team2ID = matchList.get(position).getTeam2().getId();
 
-                    if (matchList.get(position).getBatTeam().getId().equals(team1ID) ||
-                            matchList.get(position).getBatTeam().getId().equals(team2ID)) {
+                    if (matchList.get(position).getBat_team().getId().equals(team1ID) ||
+                            matchList.get(position).getBat_team().getId().equals(team2ID)) {
                         //show team 1 score
                         for (int i = 0; i < batTeamInnings.size(); i++) {
                             team1_score.setText(batTeamInnings.get(i).getScore());
@@ -167,8 +167,8 @@ public class AdapterLiveMatches extends
                         Toast.makeText(itemView.getContext(), "Error Getting Score", Toast.LENGTH_SHORT).show();
                     }
 
-                    if (matchList.get(position).getBowTeam().getId().equals(team1ID) ||
-                            matchList.get(position).getBowTeam().getId().equals(team2ID)) {
+                    if (matchList.get(position).getBow_team().getId().equals(team1ID) ||
+                            matchList.get(position).getBow_team().getId().equals(team2ID)) {
                         //show team 2 score
                         for (int i = 0; i < bowTeamInnings.size(); i++) {
                             team2_score.setText(bowTeamInnings.get(i).getScore());
