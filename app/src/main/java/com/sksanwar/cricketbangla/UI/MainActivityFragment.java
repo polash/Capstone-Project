@@ -9,7 +9,6 @@ import android.graphics.Rect;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -38,7 +37,6 @@ import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Match;
 import com.sksanwar.cricketbangla.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,7 +56,7 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
     private static final String TAG = MainActivityFragment.class.getSimpleName();
 
     public static DictonaryPojo dictonary;
-    public List<Match> matchesList;
+    public ArrayList<Match> matchesList;
 
     @BindView(R.id.rv_livematches)
     RecyclerView recyclerViewLiveMatches;
@@ -96,6 +94,7 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
 
     public void liveMatchDownloadFromJson() {
         if (networkCheck()) {
+            swipeRefreshLayout.setRefreshing(true);
             /**
              * For dictonary data fetching
              */
@@ -143,7 +142,6 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
                 }
             });
 
-            swipeRefreshLayout.setRefreshing(false);
         } else {
             no_network.setVisibility(View.VISIBLE);
             swipeRefreshLayout.setRefreshing(false);
@@ -166,9 +164,10 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
         }
     }
 
-    private void loadViews(List<Match> matchList) {
+    private void loadViews(ArrayList<Match> matchList) {
         recyclerViewLiveMatches.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         adapterLiveMatches = new AdapterLiveMatches(this, matchList);
+        swipeRefreshLayout.setRefreshing(false);
         recyclerViewLiveMatches.setAdapter(adapterLiveMatches);
 
         // add pager behavior
@@ -183,16 +182,16 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
     @Override
     public void onListItemClick(int clickedItemIndex) {
         Intent intent = new Intent(getContext(), LiveMatchDetailsActivity.class);
-        intent.putParcelableArrayListExtra(LIVE_MATCH_LIST, (ArrayList<? extends Parcelable>) matchesList);
+        intent.putParcelableArrayListExtra(LIVE_MATCH_LIST, matchesList);
         intent.putExtra(POSITION, clickedItemIndex);
         startActivity(intent);
 
-        Toast.makeText(getContext(), +clickedItemIndex + " position clicked", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Item Position is: " + clickedItemIndex, Toast.LENGTH_SHORT).show();
     }
 
 
     @Override
-    public void returnLiveMatchList(List<Match> matchList) {
+    public void returnLiveMatchList(ArrayList<Match> matchList) {
         matchesList = matchList;
         loadViews(matchesList);
     }

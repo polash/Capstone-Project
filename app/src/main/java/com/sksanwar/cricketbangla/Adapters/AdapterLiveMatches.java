@@ -5,13 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Inning;
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Match;
 import com.sksanwar.cricketbangla.R;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -34,9 +34,9 @@ public class AdapterLiveMatches extends
 
     final private ListItemClickListener mOnClickListener;
 
-    public List<Match> matchList;
+    public ArrayList<Match> matchList;
 
-    public AdapterLiveMatches(ListItemClickListener mOnClickListener, List<Match> matchList) {
+    public AdapterLiveMatches(ListItemClickListener mOnClickListener, ArrayList<Match> matchList) {
         this.mOnClickListener = mOnClickListener;
         this.matchList = matchList;
     }
@@ -114,15 +114,15 @@ public class AdapterLiveMatches extends
         public void bind(int position) {
             if (matchList != null) {
 
+                //get over text from the Dictonary
+                overText1.setText(dictonary.getOvers());
+                overText2.setText(dictonary.getOvers());
+
                 match_desc.setText(matchList.get(position).getHeader().getMatch_desc());
                 series_name.setText(matchList.get(position).getSeries_name());
                 matchstatus.setText(matchList.get(position).getHeader().getStatus());
                 team1_country_name.setText(matchList.get(position).getTeam1().getName());
                 team2_country_name.setText(matchList.get(position).getTeam2().getName());
-
-                //get over text from the Dictonary
-                overText1.setText(dictonary.getOvers());
-                overText2.setText(dictonary.getOvers());
 
                 //Visibility of Score if match State is preview
                 if (matchList.get(position).getHeader().getState().equals("preview")) {
@@ -143,8 +143,13 @@ public class AdapterLiveMatches extends
                 //setting matchtime into date getting text from dictonary
                 String matchTimeDate = convertDateFromUnix(matchList.get(position).getHeader().getStart_time(),
                         matchList.get(position).getVenue().getTimezone());
-                match_date.setText(matchTimeDay + ", " + matchTimeDate + ", " + matchTimeMonth);
 
+                //setting matchtime into date getting text from dictonary
+                String matchTime = convertTimeFromUnix(matchList.get(position).getHeader().getStart_time(),
+                        matchList.get(position).getVenue().getTimezone());
+
+
+                match_date.setText(matchTimeDay + ", " + matchTimeDate + ", " + matchTimeMonth + ", " + matchTime);
 
                 //show score
                 if (matchList.get(position).getBat_team() != null || matchList.get(position).getBow_team() != null) {
@@ -158,30 +163,79 @@ public class AdapterLiveMatches extends
                             matchList.get(position).getBat_team().getId().equals(team2ID)) {
                         //show team1 1 score
                         for (int i = 0; i < batTeamInnings.size(); i++) {
-                            team1_score.setText(batTeamInnings.get(i).getScore());
-                            team1_wkt.setText(batTeamInnings.get(i).getWkts());
-                            team1_overs.setText(batTeamInnings.get(i).getOvers());
+                            if (batTeamInnings.get(i).getScore() != null) {
+                                team1_score.setText(batTeamInnings.get(i).getScore());
+                            } else {
+                                back_slash_score1.setVisibility(INVISIBLE);
+                                overText1.setVisibility(INVISIBLE);
+                                team1_score.setText("");
+                            }
+                            if (batTeamInnings.get(i).getWkts() != null) {
+                                team1_wkt.setText(batTeamInnings.get(i).getWkts());
+                            } else {
+                                back_slash_score1.setVisibility(INVISIBLE);
+                                overText1.setVisibility(INVISIBLE);
+                                team1_wkt.setText("");
+                            }
+
+                            if (batTeamInnings.get(i).getOvers() != null) {
+                                team1_overs.setText(batTeamInnings.get(i).getOvers());
+                            } else {
+                                back_slash_score1.setVisibility(INVISIBLE);
+                                overText1.setVisibility(INVISIBLE);
+                                team1_overs.setText("");
+                            }
                         }
 
                     } else {
-                        Toast.makeText(itemView.getContext(), "Error Getting Score", Toast.LENGTH_SHORT).show();
+                        for (int i = 0; i < batTeamInnings.size(); i++) {
+                            team1_score.setText("");
+                            team1_wkt.setText("");
+                            team1_overs.setText("");
+                        }
                     }
 
                     if (matchList.get(position).getBow_team().getId().equals(team1ID) ||
                             matchList.get(position).getBow_team().getId().equals(team2ID)) {
                         //show team1 2 score
                         for (int i = 0; i < bowTeamInnings.size(); i++) {
-                            team2_score.setText(bowTeamInnings.get(i).getScore());
-                            team2_wkt.setText(bowTeamInnings.get(i).getWkts());
-                            team2_overs.setText(bowTeamInnings.get(i).getOvers());
+                            if (bowTeamInnings.get(i).getScore() != null) {
+                                team2_score.setText(bowTeamInnings.get(i).getScore());
+                            } else {
+                                back_slash_score2.setVisibility(INVISIBLE);
+                                overText2.setVisibility(INVISIBLE);
+                                team2_score.setText("");
+                            }
+                            if (bowTeamInnings.get(i).getWkts() != null) {
+                                team2_wkt.setText(bowTeamInnings.get(i).getWkts());
+                            } else {
+                                team2_wkt.setText("");
+                                back_slash_score2.setVisibility(INVISIBLE);
+                                overText2.setVisibility(INVISIBLE);
+                            }
+
+                            if (bowTeamInnings.get(i).getOvers() != null) {
+                                team2_overs.setText(bowTeamInnings.get(i).getOvers());
+                            } else {
+                                team2_overs.setText("");
+                                back_slash_score2.setVisibility(INVISIBLE);
+                                overText2.setVisibility(INVISIBLE);
+                            }
                         }
 
                     } else {
-                        Toast.makeText(itemView.getContext(), "Error Getting Score", Toast.LENGTH_SHORT).show();
+                        for (int i = 0; i < bowTeamInnings.size(); i++) {
+                            team2_score.setText("");
+                            team2_wkt.setText("");
+                            team2_overs.setText("");
+                        }
                     }
                 }
             } else {
-                Toast.makeText(itemView.getContext(), "There is not Live Matches", Toast.LENGTH_SHORT).show();
+                back_slash_score1.setVisibility(INVISIBLE);
+                back_slash_score2.setVisibility(INVISIBLE);
+                overText1.setVisibility(INVISIBLE);
+                overText2.setVisibility(INVISIBLE);
             }
         }
 
@@ -269,6 +323,20 @@ public class AdapterLiveMatches extends
             } else {
                 return result;
             }
+        }
+
+        //Data format
+        public String convertTimeFromUnix(String unix_time, String time_zone)
+                throws NullPointerException, IllegalArgumentException {
+            String result;
+            long time = Long.valueOf(unix_time);
+            String TIMEZONE = "GMT" + time_zone;
+            Date date = new Date(time * 1000);
+            SimpleDateFormat simpleDayFormat = new SimpleDateFormat("HH:mm a", Locale.ENGLISH);
+            simpleDayFormat.setTimeZone(TimeZone.getTimeZone(TIMEZONE));
+            result = simpleDayFormat.format(date);
+
+            return result;
         }
 
         //Data format
