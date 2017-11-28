@@ -21,7 +21,7 @@ public class LiveMatchDetailsFragment extends Fragment {
 
     private static final String TAG = LiveMatchDetailsFragment.class.getSimpleName();
     private ArrayList<Match> matchList;
-    private ArrayList<LiveMatchDetails> liveMatchDetailList = new ArrayList<>();
+    private ArrayList<LiveMatchDetails> liveMatchDetailList;
     private int index;
 
     public LiveMatchDetailsFragment() {
@@ -36,7 +36,6 @@ public class LiveMatchDetailsFragment extends Fragment {
         //getting extra data into matchdetails list with the position
         matchList = getActivity().getIntent().getParcelableArrayListExtra(MainActivityFragment.LIVE_MATCH_LIST);
         index = getActivity().getIntent().getExtras().getInt(MainActivityFragment.POSITION);
-
 
 
         return rootView;
