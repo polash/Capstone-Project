@@ -13,9 +13,10 @@
             android:orientation="vertical">
 
             <include layout="@layout/details_layout_card_view" />
+
+            <include layout="@layout/venu_details_card_view" />
         </LinearLayout>
 
     </ScrollView>
-
 
 </FrameLayout>

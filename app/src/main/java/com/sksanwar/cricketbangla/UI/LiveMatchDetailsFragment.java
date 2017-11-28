@@ -27,7 +27,6 @@ public class LiveMatchDetailsFragment extends Fragment {
     public LiveMatchDetailsFragment() {
     }
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -36,7 +35,6 @@ public class LiveMatchDetailsFragment extends Fragment {
         //getting extra data into matchdetails list with the position
         matchList = getActivity().getIntent().getParcelableArrayListExtra(MainActivityFragment.LIVE_MATCH_LIST);
         index = getActivity().getIntent().getExtras().getInt(MainActivityFragment.POSITION);
-
 
         return rootView;
     }
