@@ -20,27 +20,27 @@ public class Official implements Parcelable {
             return new Official[size];
         }
     };
-    private Umpire umpire;
+    private Umpire umpire1;
     private Umpire umpire2;
     private Umpire umpire3;
     private Umpire referee;
 
-    public Official(Umpire umpire, Umpire umpire2, Umpire umpire3, Umpire referee) {
-        this.umpire = umpire;
+    public Official(Umpire umpire1, Umpire umpire2, Umpire umpire3, Umpire referee) {
+        this.umpire1 = umpire1;
         this.umpire2 = umpire2;
         this.umpire3 = umpire3;
         this.referee = referee;
     }
 
     protected Official(Parcel in) {
-        umpire = (Umpire) in.readValue(Umpire.class.getClassLoader());
+        umpire1 = (Umpire) in.readValue(Umpire.class.getClassLoader());
         umpire2 = (Umpire) in.readValue(Umpire.class.getClassLoader());
         umpire3 = (Umpire) in.readValue(Umpire.class.getClassLoader());
         referee = (Umpire) in.readValue(Umpire.class.getClassLoader());
     }
 
     public Umpire getUmpire() {
-        return umpire;
+        return umpire1;
     }
 
     public Umpire getUmpire2() {
@@ -62,7 +62,7 @@ public class Official implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeValue(umpire);
+        dest.writeValue(umpire1);
         dest.writeValue(umpire2);
         dest.writeValue(umpire3);
         dest.writeValue(referee);
@@ -71,7 +71,7 @@ public class Official implements Parcelable {
     @Override
     public String toString() {
         return "Official{" +
-                "umpire=" + umpire +
+                "umpire1=" + umpire1 +
                 ", umpire2=" + umpire2 +
                 ", umpire3=" + umpire3 +
                 ", referee=" + referee +
