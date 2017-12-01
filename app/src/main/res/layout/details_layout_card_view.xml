@@ -144,9 +144,11 @@
                     tools:text="189" />
 
                 <TextView
+                    android:id="@+id/back_slash_score1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" / " />
+                    android:layout_margin="2dp"
+                    android:text="/" />
 
                 <TextView
                     android:id="@+id/team1_wkt"
@@ -170,9 +172,11 @@
                     tools:text="189" />
 
                 <TextView
+                    android:id="@+id/back_slash_score2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" / " />
+                    android:layout_margin="2dp"
+                    android:text="/" />
 
                 <TextView
                     android:id="@+id/team2_wkt"
@@ -203,6 +207,7 @@
                     tools:text="10.5" />
 
                 <TextView
+                    android:id="@+id/overText1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=" ওভার" />
@@ -222,6 +227,7 @@
                     tools:text="11.5" />
 
                 <TextView
+                    android:id="@+id/overText2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=" ওভার" />

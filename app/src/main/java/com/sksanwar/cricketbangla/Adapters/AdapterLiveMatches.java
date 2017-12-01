@@ -4,11 +4,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Inning;
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Match;
 import com.sksanwar.cricketbangla.R;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -102,6 +104,13 @@ public class AdapterLiveMatches extends
         TextView back_slash_score1;
         @BindView(R.id.back_slash_score_team2)
         TextView back_slash_score2;
+        @BindView(R.id.team1_flag)
+        ImageView team1_flag;
+        @BindView(R.id.team2_flag)
+        ImageView team2_flag;
+        @BindView(R.id.date_text)
+        TextView date_text;
+
 
 
         public LiveMatchViewHolder(View itemView) {
@@ -115,8 +124,22 @@ public class AdapterLiveMatches extends
             if (matchList != null) {
 
                 //get over text from the Dictonary
-                overText1.setText(dictonary.getOvers());
-                overText2.setText(dictonary.getOvers());
+                if (dictonary != null) {
+                    overText1.setText(dictonary.getOvers());
+                    overText2.setText(dictonary.getOvers());
+                    date_text.setText(dictonary.getVenue_time() + ":");
+                }
+                String imageUrlTeam1 = "http://i.cricketcb.com/cbzvernacular/flags/" + matchList.get(position).getTeam1().getFlag();
+                String imageUrlTeam2 = "http://i.cricketcb.com/cbzvernacular/flags/" + matchList.get(position).getTeam2().getFlag();
+                Picasso
+                        .with(itemView.getContext())
+                        .load(imageUrlTeam1)
+                        .into(team1_flag);
+
+                Picasso
+                        .with(itemView.getContext())
+                        .load(imageUrlTeam2)
+                        .into(team2_flag);
 
                 match_desc.setText(matchList.get(position).getHeader().getMatch_desc());
                 series_name.setText(matchList.get(position).getSeries_name());

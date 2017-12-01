@@ -24,4 +24,5 @@ public interface JsonFetchTask {
     Call<LiveMatchDetails> liveMatchDetails(
             @Path("match_id") String match_id
     );
+
 }
