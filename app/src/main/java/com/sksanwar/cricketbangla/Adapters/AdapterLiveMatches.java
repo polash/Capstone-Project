@@ -111,8 +111,6 @@ public class AdapterLiveMatches extends
         @BindView(R.id.date_text)
         TextView date_text;
 
-
-
         public LiveMatchViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);

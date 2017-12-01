@@ -26,6 +26,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.sksanwar.cricketbangla.Activities.LiveMatchDetailsActivity;
 import com.sksanwar.cricketbangla.Adapters.AdapterLiveMatches;
 import com.sksanwar.cricketbangla.FetchData.JsonFetchTask;
@@ -65,6 +67,10 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
     @BindView(R.id.no_network)
     TextView no_network;
 
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mDictonaryDatabaseReference;
+    private DatabaseReference mMatchListDatabaseReference;
+
     private AdapterLiveMatches adapterLiveMatches;
 
     public MainActivityFragment() {
@@ -75,6 +81,11 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.mainactivity_fragment, container, false);
         ButterKnife.bind(this, rootView);
+
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mDictonaryDatabaseReference = mFirebaseDatabase.getReference().child("Dictonary");
+        mMatchListDatabaseReference = mFirebaseDatabase.getReference().child("matchList");
+
 
         no_network.setVisibility(View.GONE);
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -109,6 +120,7 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
                     DictonaryPojo pojo = response.body();
                     if (pojo != null) {
                         dictonary = pojo;
+                        mDictonaryDatabaseReference.push().setValue(dictonary);
                     } else {
                         Toast.makeText(getContext(), "There is an error loading data", Toast.LENGTH_SHORT).show();
                     }
@@ -131,6 +143,7 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
                     LiveMatches liveMatches = response.body();
                     matchesList = liveMatches.getMatches();
                     if (matchesList != null) {
+                        mMatchListDatabaseReference.push().setValue(matchesList);
                         loadViews(matchesList);
                     }
                     Log.d(TAG, "Match List: " + matchesList);
@@ -158,9 +171,9 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
         }
         //this condition checks if the matchesList is null thn run the task
         if (matchesList != null && dictonary != null) {
-            return;
-        } else {
             loadViews(matchesList);
+        } else {
+            return;
         }
     }
 

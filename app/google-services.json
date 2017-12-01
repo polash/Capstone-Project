@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "108697565607",
+    "firebase_url": "https://cricket-aeb09.firebaseio.com",
+    "project_id": "cricket-aeb09",
+    "storage_bucket": "cricket-aeb09.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:108697565607:android:2f27a217ec9b3894",
+        "android_client_info": {
+          "package_name": "com.sksanwar.cricketbangla"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "108697565607-0i5cbmfoq88g3t4jmlrdjq3cjhf1ksq3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sksanwar.cricketbangla",
+            "certificate_hash": "8f828523c5be0ea7d8194127b121c50b01507ceb"
+          }
+        },
+        {
+          "client_id": "108697565607-9oboga8rrod8deanfvr4qv1et7guq12u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-7SqZ35krsTW0ubQPgIaYECiP7fnqVQ4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "108697565607-9oboga8rrod8deanfvr4qv1et7guq12u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
