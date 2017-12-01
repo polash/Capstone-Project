@@ -27,6 +27,7 @@ public class Team implements Parcelable {
     private String name;
     private String s_name;
     private String flag;
+
     private ArrayList<Integer> squad;
     private ArrayList<Integer> squad_bench;
 

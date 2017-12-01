@@ -33,9 +33,11 @@ public class AdapterLiveMatches extends
         RecyclerView.Adapter<AdapterLiveMatches.LiveMatchViewHolder> {
 
     private static final String TAG = AdapterLiveMatches.class.getSimpleName();
-
+    public static String matchTimeMonth;
+    public static String matchTimeDay;
+    public static String matchTimeDate;
+    public static String matchTime;
     final private ListItemClickListener mOnClickListener;
-
     public ArrayList<Match> matchList;
 
     public AdapterLiveMatches(ListItemClickListener mOnClickListener, ArrayList<Match> matchList) {
@@ -72,8 +74,6 @@ public class AdapterLiveMatches extends
             RecyclerView.ViewHolder
             implements View.OnClickListener {
 
-        @BindView(R.id.matches_desc)
-        TextView match_desc;
         @BindView(R.id.series_name)
         TextView series_name;
         @BindView(R.id.match_date)
@@ -141,7 +141,7 @@ public class AdapterLiveMatches extends
                         .load(imageUrlTeam2)
                         .into(team2_flag);
 
-                match_desc.setText(matchList.get(position).getHeader().getMatch_desc());
+
                 series_name.setText(matchList.get(position).getSeries_name());
                 matchstatus.setText(matchList.get(position).getHeader().getStatus());
                 team1_country_name.setText(matchList.get(position).getTeam1().getName());
@@ -156,21 +156,20 @@ public class AdapterLiveMatches extends
                 }
 
                 //setting matchtime into day getting text from dictonary
-                String matchTimeDay = convertDayFromUnix(matchList.get(position).getHeader().getStart_time(),
+                matchTimeDay = convertDayFromUnix(matchList.get(position).getHeader().getStart_time(),
                         matchList.get(position).getVenue().getTimezone());
 
                 //setting matchtime into MOnth getting text from dictonary
-                String matchTimeMonth = convertMonthFromUnix(matchList.get(position).getHeader().getStart_time(),
+                matchTimeMonth = convertMonthFromUnix(matchList.get(position).getHeader().getStart_time(),
                         matchList.get(position).getVenue().getTimezone());
 
                 //setting matchtime into date getting text from dictonary
-                String matchTimeDate = convertDateFromUnix(matchList.get(position).getHeader().getStart_time(),
+                matchTimeDate = convertDateFromUnix(matchList.get(position).getHeader().getStart_time(),
                         matchList.get(position).getVenue().getTimezone());
 
                 //setting matchtime into date getting text from dictonary
-                String matchTime = convertTimeFromUnix(matchList.get(position).getHeader().getStart_time(),
+                matchTime = convertTimeFromUnix(matchList.get(position).getHeader().getStart_time(),
                         matchList.get(position).getVenue().getTimezone());
-
 
                 match_date.setText(matchTimeDay + ", " + matchTimeDate + ", " + matchTimeMonth + ", " + matchTime);
 
@@ -188,33 +187,15 @@ public class AdapterLiveMatches extends
                         for (int i = 0; i < batTeamInnings.size(); i++) {
                             if (batTeamInnings.get(i).getScore() != null) {
                                 team1_score.setText(batTeamInnings.get(i).getScore());
-                            } else {
-                                back_slash_score1.setVisibility(INVISIBLE);
-                                overText1.setVisibility(INVISIBLE);
-                                team1_score.setText("");
                             }
+
                             if (batTeamInnings.get(i).getWkts() != null) {
                                 team1_wkt.setText(batTeamInnings.get(i).getWkts());
-                            } else {
-                                back_slash_score1.setVisibility(INVISIBLE);
-                                overText1.setVisibility(INVISIBLE);
-                                team1_wkt.setText("");
                             }
 
                             if (batTeamInnings.get(i).getOvers() != null) {
                                 team1_overs.setText(batTeamInnings.get(i).getOvers());
-                            } else {
-                                back_slash_score1.setVisibility(INVISIBLE);
-                                overText1.setVisibility(INVISIBLE);
-                                team1_overs.setText("");
                             }
-                        }
-
-                    } else {
-                        for (int i = 0; i < batTeamInnings.size(); i++) {
-                            team1_score.setText("");
-                            team1_wkt.setText("");
-                            team1_overs.setText("");
                         }
                     }
 
@@ -224,41 +205,17 @@ public class AdapterLiveMatches extends
                         for (int i = 0; i < bowTeamInnings.size(); i++) {
                             if (bowTeamInnings.get(i).getScore() != null) {
                                 team2_score.setText(bowTeamInnings.get(i).getScore());
-                            } else {
-                                back_slash_score2.setVisibility(INVISIBLE);
-                                overText2.setVisibility(INVISIBLE);
-                                team2_score.setText("");
                             }
                             if (bowTeamInnings.get(i).getWkts() != null) {
                                 team2_wkt.setText(bowTeamInnings.get(i).getWkts());
-                            } else {
-                                team2_wkt.setText("");
-                                back_slash_score2.setVisibility(INVISIBLE);
-                                overText2.setVisibility(INVISIBLE);
                             }
 
                             if (bowTeamInnings.get(i).getOvers() != null) {
                                 team2_overs.setText(bowTeamInnings.get(i).getOvers());
-                            } else {
-                                team2_overs.setText("");
-                                back_slash_score2.setVisibility(INVISIBLE);
-                                overText2.setVisibility(INVISIBLE);
                             }
-                        }
-
-                    } else {
-                        for (int i = 0; i < bowTeamInnings.size(); i++) {
-                            team2_score.setText("");
-                            team2_wkt.setText("");
-                            team2_overs.setText("");
                         }
                     }
                 }
-            } else {
-                back_slash_score1.setVisibility(INVISIBLE);
-                back_slash_score2.setVisibility(INVISIBLE);
-                overText1.setVisibility(INVISIBLE);
-                overText2.setVisibility(INVISIBLE);
             }
         }
 
@@ -277,6 +234,7 @@ public class AdapterLiveMatches extends
          * @throws NullPointerException
          * @throws IllegalArgumentException
          */
+
         public String convertDayFromUnix(String unix_time, String time_zone)
                 throws NullPointerException, IllegalArgumentException {
             String result;

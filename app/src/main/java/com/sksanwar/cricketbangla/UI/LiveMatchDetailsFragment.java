@@ -27,6 +27,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.view.View.INVISIBLE;
+import static com.sksanwar.cricketbangla.Adapters.AdapterLiveMatches.matchTime;
+import static com.sksanwar.cricketbangla.Adapters.AdapterLiveMatches.matchTimeDate;
+import static com.sksanwar.cricketbangla.Adapters.AdapterLiveMatches.matchTimeDay;
+import static com.sksanwar.cricketbangla.Adapters.AdapterLiveMatches.matchTimeMonth;
 import static com.sksanwar.cricketbangla.UI.MainActivityFragment.dictonary;
 
 /**
@@ -76,8 +81,43 @@ public class LiveMatchDetailsFragment extends Fragment {
     TextView overText2;
     @BindView(R.id.overText1)
     TextView overText1;
-
-
+    @BindView(R.id.match_info)
+    TextView match_info;
+    @BindView(R.id.tv_series_name)
+    TextView tv_series_name;
+    @BindView(R.id.tv_venu)
+    TextView tv_venu;
+    @BindView(R.id.tv_date)
+    TextView tv_date;
+    @BindView(R.id.tv_umpire)
+    TextView tv_umpire;
+    @BindView(R.id.tv_3rd_umpire)
+    TextView tv_3rd_umpire;
+    @BindView(R.id.tv_referee)
+    TextView tv_referee;
+    @BindView(R.id.series_name_venu)
+    TextView series_name_venu;
+    @BindView(R.id.venu_name)
+    TextView venu_name;
+    @BindView(R.id.umpire_name)
+    TextView umpire_name;
+    @BindView(R.id.rd3_umpire_name)
+    TextView rd3_umpire_name;
+    @BindView(R.id.referee_name)
+    TextView referee_name;
+    @BindView(R.id.match_date)
+    TextView match_date;
+    @BindView(R.id.umpire_colon)
+    TextView umpire_colon;
+    @BindView(R.id.rd3_umpire_colon)
+    TextView rd3_umpire_colon;
+    @BindView(R.id.referee_colon)
+    TextView referee_colon;
+    @BindView(R.id.match_start_message)
+    TextView match_start_message;
+    long milliseconds;
+    long diff;
+    long startTimee;
     private ArrayList<Match> matchList;
     private int index;
     private String matchId;
@@ -160,8 +200,16 @@ public class LiveMatchDetailsFragment extends Fragment {
         toss_match.setText(dictonary.getToss() + ": ");
         toss_details.setText(liveMatchDetails.getHeader().getToss());
 
-        //show score
-        if (matchList.get(index).getBat_team() != null || matchList.get(index).getBow_team() != null) {
+        if (matchList.get(index).getHeader().getState().equals("preview")) {
+            back_slash_score1.setVisibility(INVISIBLE);
+            overText1.setVisibility(INVISIBLE);
+            back_slash_score2.setVisibility(INVISIBLE);
+            overText2.setVisibility(INVISIBLE);
+            match_start_message.setVisibility(View.VISIBLE);
+            match_start_message.setText("খেলা এখনো শুরু হয়নি");
+
+
+        } else if (matchList.get(index).getBat_team() != null || matchList.get(index).getBow_team() != null) {
             List<Inning> batTeamInnings = matchList.get(index).getBat_team().getInnings();
             List<Inning> bowTeamInnings = matchList.get(index).getBow_team().getInnings();
 
@@ -175,33 +223,23 @@ public class LiveMatchDetailsFragment extends Fragment {
                     if (batTeamInnings.get(i).getScore() != null) {
                         team1_score.setText(batTeamInnings.get(i).getScore());
                     } else {
-                        back_slash_score1.setVisibility(View.GONE);
-                        overText1.setVisibility(View.GONE);
-                        team1_score.setText(View.GONE);
+                        //do something
                     }
                     if (batTeamInnings.get(i).getWkts() != null) {
                         team1_wkt.setText(batTeamInnings.get(i).getWkts());
                     } else {
-                        back_slash_score1.setVisibility(View.GONE);
-                        overText1.setVisibility(View.GONE);
-                        team1_wkt.setText(View.GONE);
+                        //do something
                     }
 
                     if (batTeamInnings.get(i).getOvers() != null) {
                         team1_over.setText(batTeamInnings.get(i).getOvers());
                     } else {
-                        back_slash_score1.setVisibility(View.GONE);
-                        overText1.setVisibility(View.GONE);
-                        team1_over.setText(View.GONE);
+                        //do something
                     }
                 }
 
             } else {
-                for (int i = 0; i < batTeamInnings.size(); i++) {
-                    team1_score.setText(View.GONE);
-                    team1_wkt.setText(View.GONE);
-                    team1_over.setText(View.GONE);
-                }
+                //do something
             }
 
             if (matchList.get(index).getBow_team().getId().equals(team1ID) ||
@@ -211,34 +249,74 @@ public class LiveMatchDetailsFragment extends Fragment {
                     if (bowTeamInnings.get(i).getScore() != null) {
                         team2_score.setText(bowTeamInnings.get(i).getScore());
                     } else {
-                        back_slash_score2.setVisibility(View.GONE);
-                        overText2.setVisibility(View.GONE);
-                        team2_score.setText(View.GONE);
+                        //do something
                     }
                     if (bowTeamInnings.get(i).getWkts() != null) {
                         team2_wkt.setText(bowTeamInnings.get(i).getWkts());
                     } else {
-                        team2_wkt.setText(View.GONE);
-                        back_slash_score2.setVisibility(View.GONE);
-                        overText2.setVisibility(View.GONE);
+                        //do something
                     }
 
                     if (bowTeamInnings.get(i).getOvers() != null) {
                         team2_over.setText(bowTeamInnings.get(i).getOvers());
                     } else {
-                        team2_over.setText(View.GONE);
-                        back_slash_score2.setVisibility(View.GONE);
-                        overText2.setVisibility(View.GONE);
+                        //do something
                     }
                 }
 
             } else {
                 for (int i = 0; i < bowTeamInnings.size(); i++) {
-                    team2_score.setText(View.GONE);
-                    team2_wkt.setText(View.GONE);
-                    team2_over.setText(View.GONE);
+                    //do something
                 }
             }
+        }
+
+        //Match info
+
+        match_info.setText(dictonary.getMatch_info());
+        tv_series_name.setText(dictonary.getSeries_name());
+        tv_venu.setText(dictonary.getVenue());
+        tv_date.setText(dictonary.getDate());
+
+        match_date.setText(matchTimeDay + ", " + matchTimeDate + ", " + matchTimeMonth + ", " + matchTime);
+        series_name_venu.setText(liveMatchDetails.getSeries_name());
+        venu_name.setText(liveMatchDetails.getVenue().getName() + ", " + liveMatchDetails.getVenue().getLocation());
+
+        if (liveMatchDetails.getOfficial() != null) {
+            tv_umpire.setText(dictonary.getUmpires());
+            tv_3rd_umpire.setText(dictonary.getUmpire_3());
+            tv_referee.setText(dictonary.getReferee());
+
+            umpire_name.setText(liveMatchDetails.getOfficial().getUmpire().getName() + ", " +
+                    liveMatchDetails.getOfficial().getUmpire2().getName());
+
+            if (liveMatchDetails.getOfficial().getUmpire3() != null) {
+                rd3_umpire_name.setText(liveMatchDetails.getOfficial().getUmpire3().getName());
+            } else {
+                rd3_umpire_name.setVisibility(View.GONE);
+                tv_3rd_umpire.setVisibility(View.GONE);
+                rd3_umpire_colon.setVisibility(View.GONE);
+            }
+
+            if (liveMatchDetails.getOfficial().getReferee() != null) {
+                referee_name.setText(liveMatchDetails.getOfficial().getReferee().getName());
+            } else {
+                referee_name.setVisibility(View.GONE);
+                referee_colon.setVisibility(View.GONE);
+                tv_referee.setVisibility(View.GONE);
+            }
+
+        } else {
+            tv_umpire.setVisibility(View.GONE);
+            tv_3rd_umpire.setVisibility(View.GONE);
+            ;
+            tv_referee.setVisibility(View.GONE);
+            umpire_name.setVisibility(View.GONE);
+            rd3_umpire_name.setVisibility(View.GONE);
+            referee_name.setVisibility(View.GONE);
+            umpire_colon.setVisibility(View.GONE);
+            rd3_umpire_colon.setVisibility(View.GONE);
+            referee_colon.setVisibility(View.GONE);
         }
     }
 }

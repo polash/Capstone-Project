@@ -186,7 +186,7 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
         intent.putExtra(POSITION, clickedItemIndex);
         startActivity(intent);
 
-        Toast.makeText(getContext(), "Item Position is: " + clickedItemIndex, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Match id: " + matchesList.get(clickedItemIndex).getMatch_id(), Toast.LENGTH_SHORT).show();
     }
 
 
