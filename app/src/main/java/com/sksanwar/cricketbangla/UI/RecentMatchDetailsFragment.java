@@ -8,13 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sksanwar.cricketbangla.FetchData.JsonFetchTask;
 import com.sksanwar.cricketbangla.FetchData.ServiceGenerator;
-import com.sksanwar.cricketbangla.Pojo.LiveMatchDetailsPojo.LiveMatchDetails;
-import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Inning;
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Match;
+import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Score;
+import com.sksanwar.cricketbangla.Pojo.RecentMatchPojo.RecentMatchDetails;
 import com.sksanwar.cricketbangla.R;
 import com.squareup.picasso.Picasso;
 
@@ -38,9 +37,9 @@ import static com.sksanwar.cricketbangla.Adapters.AdapterLiveMatches.matchTimeMo
  * Created by sksho on 26-Nov-17.
  */
 
-public class LiveMatchDetailsFragment extends Fragment {
+public class RecentMatchDetailsFragment extends Fragment {
 
-    private static final String TAG = LiveMatchDetailsFragment.class.getSimpleName();
+    private static final String TAG = RecentMatchDetailsFragment.class.getSimpleName();
     @BindView(R.id.team1_flag)
     ImageView team1_flag;
     @BindView(R.id.team2_flag)
@@ -116,13 +115,13 @@ public class LiveMatchDetailsFragment extends Fragment {
     @BindView(R.id.match_start_message)
     TextView match_start_message;
 
-    private ArrayList<Match> matchList;
-    private int index;
-    private String matchId;
-    private LiveMatchDetails liveMatchDetails;
+    private ArrayList<Match> recentMatchList;
+    private int recentMatchListIndex;
+    private String recentmatchId;
+    private RecentMatchDetails recentMatchDetails;
 
 
-    public LiveMatchDetailsFragment() {
+    public RecentMatchDetailsFragment() {
     }
 
     @Nullable
@@ -132,40 +131,39 @@ public class LiveMatchDetailsFragment extends Fragment {
         ButterKnife.bind(this, rootView);
 
         //getting extra data into matchdetails list with the position
-        matchList = getActivity().getIntent().getParcelableArrayListExtra(MainActivityFragment.LIVE_MATCH_LIST);
-        index = getActivity().getIntent().getExtras().getInt(MainActivityFragment.POSITION);
+        recentMatchList = getActivity().getIntent().getParcelableArrayListExtra(RecentMatchActivityFragment.RECENT_MATCH_LIST);
+        recentMatchListIndex = getActivity().getIntent().getExtras().getInt(RecentMatchActivityFragment.POSITION);
 
-        matchId = matchList.get(index).getMatch_id();
-        liveMatchDetailsDownloadFromJson();
+        recentmatchId = recentMatchList.get(recentMatchListIndex).getMatch_id();
+        recentMatchDetailsDownloadFromJson();
 
         return rootView;
     }
 
-    private void liveMatchDetailsDownloadFromJson() {
+    private void recentMatchDetailsDownloadFromJson() {
 
         JsonFetchTask jsonFetchTask = ServiceGenerator.createService(JsonFetchTask.class);
-        Call<LiveMatchDetails> liveMatchDetailsCall = jsonFetchTask.liveMatchDetails(matchId);
-        liveMatchDetailsCall.enqueue(new Callback<LiveMatchDetails>() {
+        Call<RecentMatchDetails> recentMatchesCall = jsonFetchTask.recentMatchDetails(recentmatchId);
+        recentMatchesCall.enqueue(new Callback<RecentMatchDetails>() {
             @Override
-            public void onResponse(Call<LiveMatchDetails> call, Response<LiveMatchDetails> response) {
-                liveMatchDetails = response.body();
-                if (liveMatchDetails != null) {
+            public void onResponse(Call<RecentMatchDetails> call, Response<RecentMatchDetails> response) {
+                recentMatchDetails = response.body();
+                if (recentMatchDetails != null) {
                     setData();
-                } else {
-                    Toast.makeText(getContext(), "Error Geting data", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<LiveMatchDetails> call, Throwable t) {
-                Toast.makeText(getContext(), "Error Getting Data", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<RecentMatchDetails> call, Throwable t) {
+
             }
         });
+
     }
 
     private void setData() {
-        String imageUrlTeam1 = "http://i.cricketcb.com/cbzvernacular/flags/" + liveMatchDetails.getTeam1().getFlag();
-        String imageUrlTeam2 = "http://i.cricketcb.com/cbzvernacular/flags/" + liveMatchDetails.getTeam2().getFlag();
+        String imageUrlTeam1 = "http://i.cricketcb.com/cbzvernacular/flags/" + recentMatchDetails.getTeam1().getFlag();
+        String imageUrlTeam2 = "http://i.cricketcb.com/cbzvernacular/flags/" + recentMatchDetails.getTeam2().getFlag();
         Picasso
                 .with(getContext())
                 .load(imageUrlTeam1)
@@ -176,12 +174,12 @@ public class LiveMatchDetailsFragment extends Fragment {
                 .load(imageUrlTeam2)
                 .into(team2_flag);
 
-        series_name.setText(liveMatchDetails.getSeries_name());
-        match_desc.setText(liveMatchDetails.getHeader().getMatch_desc());
-        team1_country_name.setText(liveMatchDetails.getTeam1().getName());
-        team2_country_name.setText(liveMatchDetails.getTeam2().getName());
+        series_name.setText(recentMatchDetails.getSeries_name());
+        match_desc.setText(recentMatchDetails.getHeader().getMatch_desc());
+        team1_country_name.setText(recentMatchDetails.getTeam1().getName());
+        team2_country_name.setText(recentMatchDetails.getTeam2().getName());
 
-        String match_types = liveMatchDetails.getHeader().getType();
+        String match_types = recentMatchDetails.getHeader().getType();
         switch (match_types) {
             case "TEST":
                 match_type.setText(dictonary.getTest());
@@ -195,11 +193,11 @@ public class LiveMatchDetailsFragment extends Fragment {
             default:
                 break;
         }
-        matchstatus.setText(liveMatchDetails.getHeader().getStatus());
+        matchstatus.setText(recentMatchDetails.getHeader().getStatus());
         toss_match.setText(dictonary.getToss() + ": ");
-        toss_details.setText(liveMatchDetails.getHeader().getToss());
+        toss_details.setText(recentMatchDetails.getHeader().getToss());
 
-        if (matchList.get(index).getHeader().getState().equals("preview")) {
+        if (recentMatchList.get(recentMatchListIndex).getHeader().getState().equals("preview")) {
             back_slash_score1.setVisibility(INVISIBLE);
             overText1.setVisibility(INVISIBLE);
             back_slash_score2.setVisibility(INVISIBLE);
@@ -208,67 +206,26 @@ public class LiveMatchDetailsFragment extends Fragment {
             match_start_message.setText("খেলা এখনো শুরু হয়নি");
 
 
-        } else if (matchList.get(index).getBat_team() != null || matchList.get(index).getBow_team() != null) {
-            List<Inning> batTeamInnings = matchList.get(index).getBat_team().getInnings();
-            List<Inning> bowTeamInnings = matchList.get(index).getBow_team().getInnings();
+        } else  //show score
+            if (recentMatchList.get(recentMatchListIndex).getTeam1() != null || recentMatchList.get(recentMatchListIndex).getTeam2() != null) {
+                List<Score> score = recentMatchList.get(recentMatchListIndex).getScore();
 
-            String team1ID = matchList.get(index).getTeam1().getId();
-            String team2ID = matchList.get(index).getTeam2().getId();
-
-            if (matchList.get(index).getBat_team().getId().equals(team1ID) ||
-                    matchList.get(index).getBat_team().getId().equals(team2ID)) {
-                //show team1 1 score
-                for (int i = 0; i < batTeamInnings.size(); i++) {
-                    if (batTeamInnings.get(i).getScore() != null) {
-                        team1_score.setText(batTeamInnings.get(i).getScore());
-                    } else {
-                        //do something
-                    }
-                    if (batTeamInnings.get(i).getWkts() != null) {
-                        team1_wkt.setText(batTeamInnings.get(i).getWkts());
-                    } else {
-                        //do something
+                for (int i = 0; i < score.size(); i++) {
+                    if (recentMatchList.get(recentMatchListIndex).getTeam1().getId().equals(score.get(i).getTeam_id())) {
+                        team1_score.setText(score.get(i).getScore());
+                        team1_wkt.setText(score.get(i).getWkts());
+                        team1_over.setText(score.get(i).getOvers());
                     }
 
-                    if (batTeamInnings.get(i).getOvers() != null) {
-                        team1_over.setText(batTeamInnings.get(i).getOvers());
-                    } else {
-                        //do something
-                    }
-                }
-
-            } else {
-                //do something
-            }
-
-            if (matchList.get(index).getBow_team().getId().equals(team1ID) ||
-                    matchList.get(index).getBow_team().getId().equals(team2ID)) {
-                //show team1 2 score
-                for (int i = 0; i < bowTeamInnings.size(); i++) {
-                    if (bowTeamInnings.get(i).getScore() != null) {
-                        team2_score.setText(bowTeamInnings.get(i).getScore());
-                    } else {
-                        //do something
-                    }
-                    if (bowTeamInnings.get(i).getWkts() != null) {
-                        team2_wkt.setText(bowTeamInnings.get(i).getWkts());
-                    } else {
-                        //do something
+                    if (recentMatchList.get(recentMatchListIndex).getTeam2().getId().equals(score.get(i).getTeam_id())) {
+                        team2_score.setText(score.get(i).getScore());
+                        team2_wkt.setText(score.get(i).getWkts());
+                        team2_over.setText(score.get(i).getOvers());
                     }
 
-                    if (bowTeamInnings.get(i).getOvers() != null) {
-                        team2_over.setText(bowTeamInnings.get(i).getOvers());
-                    } else {
-                        //do something
-                    }
-                }
-
-            } else {
-                for (int i = 0; i < bowTeamInnings.size(); i++) {
-                    //do something
                 }
             }
-        }
+
 
         //Match info
 
@@ -278,27 +235,27 @@ public class LiveMatchDetailsFragment extends Fragment {
         tv_date.setText(dictonary.getDate());
 
         match_date.setText(matchTimeDay + ", " + matchTimeDate + ", " + matchTimeMonth + ", " + matchTime);
-        series_name_venu.setText(liveMatchDetails.getSeries_name());
-        venu_name.setText(liveMatchDetails.getVenue().getName() + ", " + liveMatchDetails.getVenue().getLocation());
+        series_name_venu.setText(recentMatchDetails.getSeries_name());
+        venu_name.setText(recentMatchDetails.getVenue().getName() + ", " + recentMatchDetails.getVenue().getLocation());
 
-        if (liveMatchDetails.getOfficial() != null) {
+        if (recentMatchDetails.getOfficial() != null) {
             tv_umpire.setText(dictonary.getUmpires());
             tv_3rd_umpire.setText(dictonary.getUmpire_3());
             tv_referee.setText(dictonary.getReferee());
 
-            umpire_name.setText(liveMatchDetails.getOfficial().getUmpire().getName() + ", " +
-                    liveMatchDetails.getOfficial().getUmpire2().getName());
+            umpire_name.setText(recentMatchDetails.getOfficial().getUmpire().getName() + ", " +
+                    recentMatchDetails.getOfficial().getUmpire2().getName());
 
-            if (liveMatchDetails.getOfficial().getUmpire3() != null) {
-                rd3_umpire_name.setText(liveMatchDetails.getOfficial().getUmpire3().getName());
+            if (recentMatchDetails.getOfficial().getUmpire3() != null) {
+                rd3_umpire_name.setText(recentMatchDetails.getOfficial().getUmpire3().getName());
             } else {
                 rd3_umpire_name.setVisibility(View.GONE);
                 tv_3rd_umpire.setVisibility(View.GONE);
                 rd3_umpire_colon.setVisibility(View.GONE);
             }
 
-            if (liveMatchDetails.getOfficial().getReferee() != null) {
-                referee_name.setText(liveMatchDetails.getOfficial().getReferee().getName());
+            if (recentMatchDetails.getOfficial().getReferee() != null) {
+                referee_name.setText(recentMatchDetails.getOfficial().getReferee().getName());
             } else {
                 referee_name.setVisibility(View.GONE);
                 referee_colon.setVisibility(View.GONE);

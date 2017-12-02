@@ -1,17 +1,13 @@
 package com.sksanwar.cricketbangla.UI;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
@@ -22,19 +18,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.sksanwar.cricketbangla.Activities.LiveMatchDetailsActivity;
-import com.sksanwar.cricketbangla.Adapters.AdapterLiveMatches;
+import com.sksanwar.cricketbangla.Activities.RecentMatchDetailsActivity;
+import com.sksanwar.cricketbangla.Adapters.AdapterRecentMatches;
 import com.sksanwar.cricketbangla.FetchData.JsonFetchTask;
 import com.sksanwar.cricketbangla.FetchData.ServiceGenerator;
 import com.sksanwar.cricketbangla.Pojo.AsyncListner;
-import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.LiveMatches;
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Match;
+import com.sksanwar.cricketbangla.Pojo.RecentMatchPojo.RecentMatches;
 import com.sksanwar.cricketbangla.R;
 
 import java.util.ArrayList;
@@ -45,138 +38,62 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.sksanwar.cricketbangla.Activities.MainActivity.dictonary;
+public class RecentMatchActivityFragment extends Fragment implements AsyncListner,
+        AdapterRecentMatches.ListItemClickListener {
 
-/**
- * Created by sksho on 20-Nov-17.
- */
-
-public class MainActivityFragment extends Fragment implements AsyncListner,
-        AdapterLiveMatches.ListItemClickListener, SwipeRefreshLayout.OnRefreshListener {
-
-    public static final String LIVE_MATCH_LIST = "live_match_list";
+    public static final String RECENT_MATCH_LIST = "recent_match_list";
     public static final String POSITION = "position";
-    private static final String TAG = MainActivityFragment.class.getSimpleName();
-
-    public ArrayList<Match> matchesList;
-
+    private static final String TAG = RecentMatchActivityFragment.class.getSimpleName();
     @BindView(R.id.rv_livematches)
     RecyclerView recyclerViewLiveMatches;
-    @BindView(R.id.swip_to_refresh)
-    SwipeRefreshLayout swipeRefreshLayout;
-    @BindView(R.id.no_network)
-    TextView no_network;
 
-    private FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference mDictonaryDatabaseReference;
-    private DatabaseReference mMatchListDatabaseReference;
+    private ArrayList<Match> recentMatchesList;
 
-    private AdapterLiveMatches adapterLiveMatches;
+    private AdapterRecentMatches adapterRecentMatches;
 
-    public MainActivityFragment() {
+    public RecentMatchActivityFragment() {
     }
 
-    @Nullable
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.mainactivity_fragment, container, false);
         ButterKnife.bind(this, rootView);
 
-//        mFirebaseDatabase = FirebaseDatabase.getInstance();
-//        mFirebaseDatabase.setPersistenceEnabled(true);
-//        mDictonaryDatabaseReference = mFirebaseDatabase.getReference().child("Dictonary");
-//        mMatchListDatabaseReference = mFirebaseDatabase.getReference().child("recentMatchList");
+        recentMatchDownloadFromJson();
 
-        no_network.setVisibility(View.GONE);
-        swipeRefreshLayout.setOnRefreshListener(this);
-
-        liveMatchDownloadFromJson();
-        networkCheck();
-
-//        mDictonaryDatabaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
-//                    DictonaryPojo dictonaryPojo = dataSnapshot1.getValue(DictonaryPojo.class);
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
         return rootView;
     }
 
-    //Network Checks
-    private boolean networkCheck() {
-        ConnectivityManager cm =
-                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-        return networkInfo != null && networkInfo.isConnectedOrConnecting();
-    }
-
-    public void liveMatchDownloadFromJson() {
-        if (networkCheck()) {
-            swipeRefreshLayout.setRefreshing(true);
-            /**
-             * For dictonary data fetching
-             */
-            JsonFetchTask jsonFetchTask = ServiceGenerator.createService(JsonFetchTask.class);
-
-            /**
-             * For Live Match Data Fetching
-             */
-            Call<LiveMatches> liveMatchesCall = jsonFetchTask.liveMatch();
-            liveMatchesCall.enqueue(new Callback<LiveMatches>() {
-                @Override
-                public void onResponse(Call<LiveMatches> call, Response<LiveMatches> response) {
-                    LiveMatches liveMatches = response.body();
-                    matchesList = liveMatches.getMatches();
-                    if (matchesList != null) {
-//                        mMatchListDatabaseReference.push().setValue(matchesList);
-                        loadViews(matchesList);
-                    }
-                    Log.d(TAG, "Match List: " + matchesList);
+    private void recentMatchDownloadFromJson() {
+        /**
+         * For Live Match Data Fetching
+         */
+        JsonFetchTask jsonFetchTask = ServiceGenerator.createService(JsonFetchTask.class);
+        Call<RecentMatches> recentMatchesCall = jsonFetchTask.recentMatches();
+        recentMatchesCall.enqueue(new Callback<RecentMatches>() {
+            @Override
+            public void onResponse(Call<RecentMatches> call, Response<RecentMatches> response) {
+                RecentMatches recentMatches = response.body();
+                recentMatchesList = recentMatches.getMatches();
+                if (recentMatchesList != null) {
+                    loadViews(recentMatchesList);
                 }
-
-                @Override
-                public void onFailure(Call<LiveMatches> call, Throwable t) {
-                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        } else {
-            no_network.setVisibility(View.VISIBLE);
-            swipeRefreshLayout.setRefreshing(false);
-        }
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        if (savedInstanceState != null) {
-            if (savedInstanceState.containsKey(LIVE_MATCH_LIST)) {
-                matchesList = savedInstanceState.getParcelable(LIVE_MATCH_LIST);
+                Log.d(TAG, "Match List: " + recentMatchesList);
             }
-        }
-        //this condition checks if the matchesList is null thn run the task
-        if (matchesList != null && dictonary != null) {
-            loadViews(matchesList);
-        } else {
-            return;
-        }
+
+            @Override
+            public void onFailure(Call<RecentMatches> call, Throwable t) {
+                Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    private void loadViews(ArrayList<Match> matchList) {
+    private void loadViews(ArrayList<Match> recentMatchesList) {
         recyclerViewLiveMatches.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         recyclerViewLiveMatches.setHasFixedSize(true);
-        adapterLiveMatches = new AdapterLiveMatches(this, matchList);
-        swipeRefreshLayout.setRefreshing(false);
-        recyclerViewLiveMatches.setAdapter(adapterLiveMatches);
+        adapterRecentMatches = new AdapterRecentMatches(this, recentMatchesList);
+        recyclerViewLiveMatches.setAdapter(adapterRecentMatches);
 
         // add pager behavior
         SnapHelper snapHelper = new GravitySnapHelper(Gravity.START);
@@ -188,26 +105,19 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
 
 
     @Override
+    public void returnMatchList(ArrayList<Match> matcheList) {
+        recentMatchesList = matcheList;
+        loadViews(recentMatchesList);
+
+    }
+
+
+    @Override
     public void onListItemClick(int clickedItemIndex) {
-        Intent intent = new Intent(getContext(), LiveMatchDetailsActivity.class);
-        intent.putParcelableArrayListExtra(LIVE_MATCH_LIST, matchesList);
+        Intent intent = new Intent(getContext(), RecentMatchDetailsActivity.class);
+        intent.putParcelableArrayListExtra(RECENT_MATCH_LIST, recentMatchesList);
         intent.putExtra(POSITION, clickedItemIndex);
         startActivity(intent);
-
-        Toast.makeText(getContext(), "Match id: " + matchesList.get(clickedItemIndex).getMatch_id(), Toast.LENGTH_SHORT).show();
-    }
-
-
-    @Override
-    public void returnMatchList(ArrayList<Match> matchList) {
-        matchesList = matchList;
-        loadViews(matchesList);
-    }
-
-
-    @Override
-    public void onRefresh() {
-        liveMatchDownloadFromJson();
     }
 
 

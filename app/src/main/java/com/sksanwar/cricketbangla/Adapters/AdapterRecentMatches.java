@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Inning;
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Match;
+import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Score;
 import com.sksanwar.cricketbangla.R;
 import com.squareup.picasso.Picasso;
 
@@ -30,41 +30,42 @@ import static com.sksanwar.cricketbangla.Activities.MainActivity.dictonary;
  * Created by sksho on 18-Nov-17.
  */
 
-public class AdapterLiveMatches extends
-        RecyclerView.Adapter<AdapterLiveMatches.LiveMatchViewHolder> {
+public class AdapterRecentMatches extends
+        RecyclerView.Adapter<AdapterRecentMatches.RecentMatchViewHolder> {
 
-    private static final String TAG = AdapterLiveMatches.class.getSimpleName();
+    private static final String TAG = AdapterRecentMatches.class.getSimpleName();
     public static String matchTimeMonth;
     public static String matchTimeDay;
     public static String matchTimeDate;
     public static String matchTime;
 
     final private ListItemClickListener mOnClickListener;
-    public ArrayList<Match> matchList;
+    private ArrayList<Match> recentMatchList;
 
-    public AdapterLiveMatches(ListItemClickListener mOnClickListener, ArrayList<Match> matchList) {
+
+    public AdapterRecentMatches(ListItemClickListener mOnClickListener, ArrayList<Match> matchList) {
         this.mOnClickListener = mOnClickListener;
-        this.matchList = matchList;
+        this.recentMatchList = matchList;
     }
 
     @Override
-    public LiveMatchViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public RecentMatchViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.match_card_view_component, viewGroup, false);
 
-        return new LiveMatchViewHolder(view);
+        return new RecentMatchViewHolder(view);
 
     }
 
     @Override
-    public void onBindViewHolder(LiveMatchViewHolder holder, int position) {
+    public void onBindViewHolder(RecentMatchViewHolder holder, int position) {
         holder.bind(position);
     }
 
     @Override
     public int getItemCount() {
-        if (null == matchList) return 0;
-        return matchList.size();
+        if (null == recentMatchList) return 0;
+        return recentMatchList.size();
     }
 
     public interface ListItemClickListener {
@@ -72,7 +73,7 @@ public class AdapterLiveMatches extends
     }
 
     //LiveMatchView Holder
-    class LiveMatchViewHolder extends
+    class RecentMatchViewHolder extends
             RecyclerView.ViewHolder
             implements View.OnClickListener {
 
@@ -113,7 +114,7 @@ public class AdapterLiveMatches extends
         @BindView(R.id.date_text)
         TextView date_text;
 
-        public LiveMatchViewHolder(View itemView) {
+        public RecentMatchViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             ButterKnife.bind(this, itemView);
@@ -121,15 +122,16 @@ public class AdapterLiveMatches extends
 
         //Bind the View
         public void bind(int position) {
-            if (matchList != null) {
+            if (recentMatchList != null) {
+
                 //get over text from the Dictonary
                 if (dictonary != null) {
                     overText1.setText(dictonary.getOvers());
                     overText2.setText(dictonary.getOvers());
                     date_text.setText(dictonary.getVenue_time() + ":");
                 }
-                String imageUrlTeam1 = "http://i.cricketcb.com/cbzvernacular/flags/" + matchList.get(position).getTeam1().getFlag();
-                String imageUrlTeam2 = "http://i.cricketcb.com/cbzvernacular/flags/" + matchList.get(position).getTeam2().getFlag();
+                String imageUrlTeam1 = "http://i.cricketcb.com/cbzvernacular/flags/" + recentMatchList.get(position).getTeam1().getFlag();
+                String imageUrlTeam2 = "http://i.cricketcb.com/cbzvernacular/flags/" + recentMatchList.get(position).getTeam2().getFlag();
                 Picasso
                         .with(itemView.getContext())
                         .load(imageUrlTeam1)
@@ -141,13 +143,13 @@ public class AdapterLiveMatches extends
                         .into(team2_flag);
 
 
-                series_name.setText(matchList.get(position).getSeries_name());
-                matchstatus.setText(matchList.get(position).getHeader().getStatus());
-                team1_country_name.setText(matchList.get(position).getTeam1().getName());
-                team2_country_name.setText(matchList.get(position).getTeam2().getName());
+                series_name.setText(recentMatchList.get(position).getSeries_name());
+                matchstatus.setText(recentMatchList.get(position).getHeader().getStatus());
+                team1_country_name.setText(recentMatchList.get(position).getTeam1().getName());
+                team2_country_name.setText(recentMatchList.get(position).getTeam2().getName());
 
                 //Visibility of Score if match State is preview
-                if (matchList.get(position).getHeader().getState().equals("preview")) {
+                if (recentMatchList.get(position).getHeader().getState().equals("preview")) {
                     back_slash_score1.setVisibility(INVISIBLE);
                     back_slash_score2.setVisibility(INVISIBLE);
                     overText1.setVisibility(INVISIBLE);
@@ -155,68 +157,46 @@ public class AdapterLiveMatches extends
                 }
 
                 //setting matchtime into day getting text from dictonary
-                matchTimeDay = convertDayFromUnix(matchList.get(position).getHeader().getStart_time(),
-                        matchList.get(position).getVenue().getTimezone());
+                matchTimeDay = convertDayFromUnix(recentMatchList.get(position).getHeader().getStart_time(),
+                        recentMatchList.get(position).getVenue().getTimezone());
 
                 //setting matchtime into MOnth getting text from dictonary
-                matchTimeMonth = convertMonthFromUnix(matchList.get(position).getHeader().getStart_time(),
-                        matchList.get(position).getVenue().getTimezone());
+                matchTimeMonth = convertMonthFromUnix(recentMatchList.get(position).getHeader().getStart_time(),
+                        recentMatchList.get(position).getVenue().getTimezone());
 
                 //setting matchtime into date getting text from dictonary
-                matchTimeDate = convertDateFromUnix(matchList.get(position).getHeader().getStart_time(),
-                        matchList.get(position).getVenue().getTimezone());
+                matchTimeDate = convertDateFromUnix(recentMatchList.get(position).getHeader().getStart_time(),
+                        recentMatchList.get(position).getVenue().getTimezone());
 
                 //setting matchtime into date getting text from dictonary
-                matchTime = convertTimeFromUnix(matchList.get(position).getHeader().getStart_time(),
-                        matchList.get(position).getVenue().getTimezone());
+                matchTime = convertTimeFromUnix(recentMatchList.get(position).getHeader().getStart_time(),
+                        recentMatchList.get(position).getVenue().getTimezone());
 
-                match_date.setText(matchTimeDay + ", " + matchTimeDate + ", " + matchTimeMonth + ", " + matchTime);
+                match_date.setText(matchTimeDay + ", " + matchTimeDate + ", " + matchTimeMonth);
 
                 //show score
-                if (matchList.get(position).getBat_team() != null || matchList.get(position).getBow_team() != null) {
-                    List<Inning> batTeamInnings = matchList.get(position).getBat_team().getInnings();
-                    List<Inning> bowTeamInnings = matchList.get(position).getBow_team().getInnings();
+                if (recentMatchList.get(position).getTeam1() != null || recentMatchList.get(position).getTeam2() != null) {
+                    List<Score> score = recentMatchList.get(position).getScore();
 
-                    String team1ID = matchList.get(position).getTeam1().getId();
-                    String team2ID = matchList.get(position).getTeam2().getId();
-
-                    if (matchList.get(position).getBat_team().getId().equals(team1ID) ||
-                            matchList.get(position).getBat_team().getId().equals(team2ID)) {
-                        //show team1 1 score
-                        for (int i = 0; i < batTeamInnings.size(); i++) {
-                            if (batTeamInnings.get(i).getScore() != null) {
-                                team1_score.setText(batTeamInnings.get(i).getScore());
-                            }
-
-                            if (batTeamInnings.get(i).getWkts() != null) {
-                                team1_wkt.setText(batTeamInnings.get(i).getWkts());
-                            }
-
-                            if (batTeamInnings.get(i).getOvers() != null) {
-                                team1_overs.setText(batTeamInnings.get(i).getOvers());
-                            }
+                    for (int i = 0; i < score.size(); i++) {
+                        if (recentMatchList.get(position).getTeam1().getId().equals(score.get(i).getTeam_id())) {
+                            team1_score.setText(score.get(i).getScore());
+                            team1_wkt.setText(score.get(i).getWkts());
+                            team1_overs.setText(score.get(i).getOvers());
                         }
-                    }
 
-                    if (matchList.get(position).getBow_team().getId().equals(team1ID) ||
-                            matchList.get(position).getBow_team().getId().equals(team2ID)) {
-                        //show team1 2 score
-                        for (int i = 0; i < bowTeamInnings.size(); i++) {
-                            if (bowTeamInnings.get(i).getScore() != null) {
-                                team2_score.setText(bowTeamInnings.get(i).getScore());
-                            }
-                            if (bowTeamInnings.get(i).getWkts() != null) {
-                                team2_wkt.setText(bowTeamInnings.get(i).getWkts());
-                            }
-
-                            if (bowTeamInnings.get(i).getOvers() != null) {
-                                team2_overs.setText(bowTeamInnings.get(i).getOvers());
-                            }
+                        if (recentMatchList.get(position).getTeam2().getId().equals(score.get(i).getTeam_id())) {
+                            team2_score.setText(score.get(i).getScore());
+                            team2_wkt.setText(score.get(i).getWkts());
+                            team2_overs.setText(score.get(i).getOvers());
                         }
+
                     }
                 }
+
             }
         }
+
 
         @Override
         public void onClick(View v) {

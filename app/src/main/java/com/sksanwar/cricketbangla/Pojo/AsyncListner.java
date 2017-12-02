@@ -9,5 +9,5 @@ import java.util.ArrayList;
  */
 
 public interface AsyncListner {
-    void returnLiveMatchList(ArrayList<Match> matchesList);
+    void returnMatchList(ArrayList<Match> matchesList);
 }
