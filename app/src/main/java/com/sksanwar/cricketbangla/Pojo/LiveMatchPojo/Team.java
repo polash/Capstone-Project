@@ -10,6 +10,7 @@ import java.util.ArrayList;
  */
 
 public class Team implements Parcelable {
+
     @SuppressWarnings("unused")
     public static final Parcelable.Creator<Team> CREATOR = new Parcelable.Creator<Team>() {
         @Override
@@ -27,12 +28,10 @@ public class Team implements Parcelable {
     private String name;
     private String s_name;
     private String flag;
-
     private ArrayList<Integer> squad;
     private ArrayList<Integer> squad_bench;
 
-    public Team(String id, String eng_name, String name,
-                String s_name, String flag, ArrayList<Integer> squad, ArrayList<Integer> squad_bench) {
+    public Team(String id, String eng_name, String name, String s_name, String flag, ArrayList<Integer> squad, ArrayList<Integer> squad_bench) {
         this.id = id;
         this.eng_name = eng_name;
         this.name = name;

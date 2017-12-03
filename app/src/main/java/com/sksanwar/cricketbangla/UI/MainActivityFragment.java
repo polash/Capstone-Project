@@ -2,10 +2,6 @@ package com.sksanwar.cricketbangla.UI;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Rect;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -20,8 +16,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.Interpolator;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +27,7 @@ import com.sksanwar.cricketbangla.Adapters.AdapterLiveMatches;
 import com.sksanwar.cricketbangla.FetchData.JsonFetchTask;
 import com.sksanwar.cricketbangla.FetchData.ServiceGenerator;
 import com.sksanwar.cricketbangla.Pojo.AsyncListner;
+import com.sksanwar.cricketbangla.Pojo.DictonaryPojo;
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.LiveMatches;
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Match;
 import com.sksanwar.cricketbangla.R;
@@ -45,7 +40,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.sksanwar.cricketbangla.Activities.MainActivity.dictonary;
 
 /**
  * Created by sksho on 20-Nov-17.
@@ -56,17 +50,17 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
 
     public static final String LIVE_MATCH_LIST = "live_match_list";
     public static final String POSITION = "position";
+    public static final String DICTONARPOJO = "dictonary";
     private static final String TAG = MainActivityFragment.class.getSimpleName();
 
     public ArrayList<Match> matchesList;
-
     @BindView(R.id.rv_livematches)
     RecyclerView recyclerViewLiveMatches;
     @BindView(R.id.swip_to_refresh)
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.no_network)
     TextView no_network;
-
+    private DictonaryPojo dictonary;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDictonaryDatabaseReference;
     private DatabaseReference mMatchListDatabaseReference;
@@ -86,6 +80,7 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
 //        mFirebaseDatabase.setPersistenceEnabled(true);
 //        mDictonaryDatabaseReference = mFirebaseDatabase.getReference().child("Dictonary");
 //        mMatchListDatabaseReference = mFirebaseDatabase.getReference().child("recentMatchList");
+
 
         no_network.setVisibility(View.GONE);
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -122,10 +117,27 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
     public void liveMatchDownloadFromJson() {
         if (networkCheck()) {
             swipeRefreshLayout.setRefreshing(true);
+
             /**
              * For dictonary data fetching
              */
             JsonFetchTask jsonFetchTask = ServiceGenerator.createService(JsonFetchTask.class);
+            Call<DictonaryPojo> call = jsonFetchTask.dictonaryForCricket();
+            /**
+             * AsyncTask for Dictonary
+             */
+            call.enqueue(new Callback<DictonaryPojo>() {
+                @Override
+                public void onResponse(Call<DictonaryPojo> call, Response<DictonaryPojo> response) {
+                    dictonary = response.body();
+                }
+
+                @Override
+                public void onFailure(Call<DictonaryPojo> call, Throwable t) {
+                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+                }
+            });
+
 
             /**
              * For Live Match Data Fetching
@@ -172,18 +184,15 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
     }
 
     private void loadViews(ArrayList<Match> matchList) {
-        recyclerViewLiveMatches.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        recyclerViewLiveMatches.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerViewLiveMatches.setHasFixedSize(true);
-        adapterLiveMatches = new AdapterLiveMatches(this, matchList);
+        adapterLiveMatches = new AdapterLiveMatches(this, matchList, dictonary);
         swipeRefreshLayout.setRefreshing(false);
         recyclerViewLiveMatches.setAdapter(adapterLiveMatches);
 
         // add pager behavior
         SnapHelper snapHelper = new GravitySnapHelper(Gravity.START);
         snapHelper.attachToRecyclerView(recyclerViewLiveMatches);
-
-        // pager indicator
-        recyclerViewLiveMatches.addItemDecoration(new LinePagerIndicatorDecoration());
     }
 
 
@@ -191,7 +200,9 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
     public void onListItemClick(int clickedItemIndex) {
         Intent intent = new Intent(getContext(), LiveMatchDetailsActivity.class);
         intent.putParcelableArrayListExtra(LIVE_MATCH_LIST, matchesList);
+        intent.putExtra(DICTONARPOJO, dictonary);
         intent.putExtra(POSITION, clickedItemIndex);
+
         startActivity(intent);
 
         Toast.makeText(getContext(), "Match id: " + matchesList.get(clickedItemIndex).getMatch_id(), Toast.LENGTH_SHORT).show();
@@ -204,134 +215,14 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
         loadViews(matchesList);
     }
 
+    @Override
+    public void returnDictonary(DictonaryPojo dictonarypojo) {
+        dictonary = dictonarypojo;
+    }
+
 
     @Override
     public void onRefresh() {
         liveMatchDownloadFromJson();
-    }
-
-
-    private class LinePagerIndicatorDecoration extends RecyclerView.ItemDecoration {
-
-        private final float DP = Resources.getSystem().getDisplayMetrics().density;
-        /**
-         * Height of the space the indicator takes up at the bottom of the view.
-         */
-        private final int mIndicatorHeight = (int) (DP * 16);
-        /**
-         * Indicator stroke width.
-         */
-        private final float mIndicatorStrokeWidth = DP * 2;
-        /**
-         * Indicator width.
-         */
-        private final float mIndicatorItemLength = DP * 16;
-        /**
-         * Padding between indicators.
-         */
-        private final float mIndicatorItemPadding = DP * 4;
-        /**
-         * Some more natural animation interpolation
-         */
-        private final Interpolator mInterpolator = new AccelerateDecelerateInterpolator();
-        private final Paint mPaint = new Paint();
-
-        private int colorActive = getContext().getResources().getColor(R.color.color_black);
-        private int colorInactive = getContext().getResources().getColor(R.color.color_white);
-
-        public LinePagerIndicatorDecoration() {
-            mPaint.setStrokeCap(Paint.Cap.ROUND);
-            mPaint.setStrokeWidth(mIndicatorStrokeWidth);
-            mPaint.setStyle(Paint.Style.STROKE);
-            mPaint.setAntiAlias(true);
-        }
-
-
-        @Override
-        public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
-            super.onDrawOver(c, parent, state);
-
-            int itemCount = parent.getAdapter().getItemCount();
-
-            // center horizontally, calculate width and subtract half from center
-            float totalLength = mIndicatorItemLength * itemCount;
-            float paddingBetweenItems = Math.max(0, itemCount - 1) * mIndicatorItemPadding;
-            float indicatorTotalWidth = totalLength + paddingBetweenItems;
-            float indicatorStartX = (parent.getWidth() - indicatorTotalWidth) / 2F;
-
-            // center vertically in the allotted space
-            float indicatorPosY = parent.getHeight() - mIndicatorHeight / 2F;
-
-            drawInactiveIndicators(c, indicatorStartX, indicatorPosY, itemCount);
-
-
-            // find active page (which should be highlighted)
-            LinearLayoutManager layoutManager = (LinearLayoutManager) parent.getLayoutManager();
-            int activePosition = layoutManager.findFirstVisibleItemPosition();
-            if (activePosition == RecyclerView.NO_POSITION) {
-                return;
-            }
-
-            // find offset of active page (if the user is scrolling)
-            final View activeChild = layoutManager.findViewByPosition(activePosition);
-            int left = activeChild.getLeft();
-            int width = activeChild.getWidth();
-
-            // on swipe the active item will be positioned from [-width, 0]
-            // interpolate offset for smooth animation
-            float progress = mInterpolator.getInterpolation(left * -1 / (float) width);
-
-            drawHighlights(c, indicatorStartX, indicatorPosY, activePosition, progress, itemCount);
-        }
-
-        private void drawInactiveIndicators(Canvas c, float indicatorStartX, float indicatorPosY, int itemCount) {
-            mPaint.setColor(colorInactive);
-
-            // width of item indicator including padding
-            final float itemWidth = mIndicatorItemLength + mIndicatorItemPadding;
-
-            float start = indicatorStartX;
-            for (int i = 0; i < itemCount; i++) {
-                // draw the line for every item
-                c.drawLine(start, indicatorPosY, start + mIndicatorItemLength, indicatorPosY, mPaint);
-                start += itemWidth;
-            }
-        }
-
-        private void drawHighlights(Canvas c, float indicatorStartX, float indicatorPosY,
-                                    int highlightPosition, float progress, int itemCount) {
-            mPaint.setColor(colorActive);
-
-            // width of item indicator including padding
-            final float itemWidth = mIndicatorItemLength + mIndicatorItemPadding;
-
-            if (progress == 0F) {
-                // no swipe, draw a normal indicator
-                float highlightStart = indicatorStartX + itemWidth * highlightPosition;
-                c.drawLine(highlightStart, indicatorPosY,
-                        highlightStart + mIndicatorItemLength, indicatorPosY, mPaint);
-            } else {
-                float highlightStart = indicatorStartX + itemWidth * highlightPosition;
-                // calculate partial highlight
-                float partialLength = mIndicatorItemLength * progress;
-
-                // draw the cut off highlight
-                c.drawLine(highlightStart + partialLength, indicatorPosY,
-                        highlightStart + mIndicatorItemLength, indicatorPosY, mPaint);
-
-                // draw the highlight overlapping to the next item as well
-                if (highlightPosition < itemCount - 1) {
-                    highlightStart += itemWidth;
-                    c.drawLine(highlightStart, indicatorPosY,
-                            highlightStart + partialLength, indicatorPosY, mPaint);
-                }
-            }
-        }
-
-        @Override
-        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-            super.getItemOffsets(outRect, view, parent, state);
-            outRect.bottom = mIndicatorHeight;
-        }
     }
 }

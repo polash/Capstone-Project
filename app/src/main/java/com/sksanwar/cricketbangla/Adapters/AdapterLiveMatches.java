@@ -6,7 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.sksanwar.cricketbangla.Pojo.DictonaryPojo;
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Inning;
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Match;
 import com.sksanwar.cricketbangla.R;
@@ -23,7 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.view.View.INVISIBLE;
-import static com.sksanwar.cricketbangla.Activities.MainActivity.dictonary;
+
 
 
 /**
@@ -38,13 +40,15 @@ public class AdapterLiveMatches extends
     public static String matchTimeDay;
     public static String matchTimeDate;
     public static String matchTime;
+    public DictonaryPojo dictonary;
+    private ListItemClickListener mOnClickListener;
+    private ArrayList<Match> matchList;
 
-    final private ListItemClickListener mOnClickListener;
-    public ArrayList<Match> matchList;
-
-    public AdapterLiveMatches(ListItemClickListener mOnClickListener, ArrayList<Match> matchList) {
+    public AdapterLiveMatches(ListItemClickListener mOnClickListener,
+                              ArrayList<Match> matchList, DictonaryPojo dictonary) {
         this.mOnClickListener = mOnClickListener;
         this.matchList = matchList;
+        this.dictonary = dictonary;
     }
 
     @Override
@@ -245,64 +249,70 @@ public class AdapterLiveMatches extends
             result = simpleDayFormat.format(date);
 
             //Condition to show from dictonary
-            if (result.contains("Friday")) {
-                return result.replace("Friday", dictonary.getWeek_fri());
-            } else if (result.contains("Saturday")) {
-                return result.replace("Saturday", dictonary.getWeek_sat());
-            } else if (result.contains("Sunday")) {
-                return result.replace("Sunday", dictonary.getWeek_sun());
-            } else if (result.contains("Monday")) {
-                return result.replace("Monday", dictonary.getWeek_mon());
-            } else if (result.contains("Tuesday")) {
-                return result.replace("Tuesday", dictonary.getWeek_tue());
-            } else if (result.contains("Wednesday")) {
-                return result.replace("Wednesday", dictonary.getWeek_wed());
-            } else if (result.contains("Thursday")) {
-                return result.replace("Thursday", dictonary.getWeek_thu());
-            } else {
-                return result;
+            if (dictonary != null) {
+                if (result.contains("Friday")) {
+                    return result.replace("Friday", dictonary.getWeek_fri());
+                } else if (result.contains("Saturday")) {
+                    return result.replace("Saturday", dictonary.getWeek_sat());
+                } else if (result.contains("Sunday")) {
+                    return result.replace("Sunday", dictonary.getWeek_sun());
+                } else if (result.contains("Monday")) {
+                    return result.replace("Monday", dictonary.getWeek_mon());
+                } else if (result.contains("Tuesday")) {
+                    return result.replace("Tuesday", dictonary.getWeek_tue());
+                } else if (result.contains("Wednesday")) {
+                    return result.replace("Wednesday", dictonary.getWeek_wed());
+                } else if (result.contains("Thursday")) {
+                    return result.replace("Thursday", dictonary.getWeek_thu());
+                } else {
+                    Toast.makeText(itemView.getContext(), "Error Getting Data", Toast.LENGTH_SHORT).show();
+                }
             }
+            return result;
         }
 
         //Month Format
         public String convertMonthFromUnix(String unix_time, String time_zone)
                 throws NullPointerException, IllegalArgumentException {
-            String result;
+            String resultMonth;
             long time = Long.valueOf(unix_time);
             String TIMEZONE = "GMT" + time_zone;
             Date date = new Date(time * 1000);
             SimpleDateFormat simpleDayFormat = new SimpleDateFormat("MMM", Locale.ENGLISH);
             simpleDayFormat.setTimeZone(TimeZone.getTimeZone(TIMEZONE));
-            result = simpleDayFormat.format(date);
+            resultMonth = simpleDayFormat.format(date);
 
             //Condition to show from dictonary
-            if (result.contains("Jan")) {
-                return result.replace("Jan", dictonary.getMonth_jan());
-            } else if (result.contains("Feb")) {
-                return result.replace("Feb", dictonary.getMonth_feb());
-            } else if (result.contains("Mar")) {
-                return result.replace("Mar", dictonary.getMonth_mar());
-            } else if (result.contains("Apr")) {
-                return result.replace("Apr", dictonary.getMonth_apr());
-            } else if (result.contains("May")) {
-                return result.replace("May", dictonary.getMonth_may());
-            } else if (result.contains("Jun")) {
-                return result.replace("Jun", dictonary.getMonth_jun());
-            } else if (result.contains("Jul")) {
-                return result.replace("Jul", dictonary.getMonth_jul());
-            } else if (result.contains("Aug")) {
-                return result.replace("Aug", dictonary.getMonth_aug());
-            } else if (result.contains("Sep")) {
-                return result.replace("Sep", dictonary.getMonth_sep());
-            } else if (result.contains("Oct")) {
-                return result.replace("Oct", dictonary.getMonth_oct());
-            } else if (result.contains("Nov")) {
-                return result.replace("Nov", dictonary.getMonth_nov());
-            } else if (result.contains("Dec")) {
-                return result.replace("Dec", dictonary.getMonth_dec());
-            } else {
-                return result;
+            if (dictonary != null) {
+                if (resultMonth.contains("Jan")) {
+                    return resultMonth.replace("Jan", dictonary.getMonth_jan());
+                } else if (resultMonth.contains("Feb")) {
+                    return resultMonth.replace("Feb", dictonary.getMonth_feb());
+                } else if (resultMonth.contains("Mar")) {
+                    return resultMonth.replace("Mar", dictonary.getMonth_mar());
+                } else if (resultMonth.contains("Apr")) {
+                    return resultMonth.replace("Apr", dictonary.getMonth_apr());
+                } else if (resultMonth.contains("May")) {
+                    return resultMonth.replace("May", dictonary.getMonth_may());
+                } else if (resultMonth.contains("Jun")) {
+                    return resultMonth.replace("Jun", dictonary.getMonth_jun());
+                } else if (resultMonth.contains("Jul")) {
+                    return resultMonth.replace("Jul", dictonary.getMonth_jul());
+                } else if (resultMonth.contains("Aug")) {
+                    return resultMonth.replace("Aug", dictonary.getMonth_aug());
+                } else if (resultMonth.contains("Sep")) {
+                    return resultMonth.replace("Sep", dictonary.getMonth_sep());
+                } else if (resultMonth.contains("Oct")) {
+                    return resultMonth.replace("Oct", dictonary.getMonth_oct());
+                } else if (resultMonth.contains("Nov")) {
+                    return resultMonth.replace("Nov", dictonary.getMonth_nov());
+                } else if (resultMonth.contains("Dec")) {
+                    return resultMonth.replace("Dec", dictonary.getMonth_dec());
+                } else {
+                    Toast.makeText(itemView.getContext(), "Error Getting Data", Toast.LENGTH_SHORT).show();
+                }
             }
+            return resultMonth;
         }
 
         //Data format

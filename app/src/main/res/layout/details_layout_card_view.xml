@@ -83,7 +83,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_weight="0.5"
                 android:gravity="center"
-                android:text="Vs."
+                android:text="বনাম"
                 android:textSize="16sp" />
 
             <ImageView
@@ -238,7 +238,7 @@
                 android:id="@+id/matchstatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:textColor="@color/colorAccent"
                 android:textSize="12sp" />
@@ -246,7 +246,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
                 android:orientation="horizontal">
 

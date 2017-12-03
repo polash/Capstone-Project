@@ -7,31 +7,10 @@
     android:orientation="vertical"
     tools:context="com.sksanwar.cricketbangla.Activities.MainActivity">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="2dp"
-        android:gravity="center_horizontal"
-        android:text="Live Matches" />
     <FrameLayout
         android:id="@+id/live_match_layout"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_margin="2dp"
-        android:background="@color/background_color" />
-
-    <TextView
-        android:id="@+id/recent_matches_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="2dp"
-        android:gravity="center_horizontal"
-        tools:text="Recent Matches" />
-
-    <FrameLayout
-        android:id="@+id/recent_match_layout"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="match_parent"
         android:layout_margin="2dp"
         android:background="@color/background_color" />
 

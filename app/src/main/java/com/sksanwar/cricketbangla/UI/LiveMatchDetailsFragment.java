@@ -12,7 +12,9 @@ import android.widget.Toast;
 
 import com.sksanwar.cricketbangla.FetchData.JsonFetchTask;
 import com.sksanwar.cricketbangla.FetchData.ServiceGenerator;
+import com.sksanwar.cricketbangla.Pojo.DictonaryPojo;
 import com.sksanwar.cricketbangla.Pojo.LiveMatchDetailsPojo.LiveMatchDetails;
+import com.sksanwar.cricketbangla.Pojo.LiveMatchDetailsPojo.Player;
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Inning;
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Match;
 import com.sksanwar.cricketbangla.R;
@@ -28,7 +30,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.view.View.INVISIBLE;
-import static com.sksanwar.cricketbangla.Activities.MainActivity.dictonary;
 import static com.sksanwar.cricketbangla.Adapters.AdapterLiveMatches.matchTime;
 import static com.sksanwar.cricketbangla.Adapters.AdapterLiveMatches.matchTimeDate;
 import static com.sksanwar.cricketbangla.Adapters.AdapterLiveMatches.matchTimeDay;
@@ -115,12 +116,22 @@ public class LiveMatchDetailsFragment extends Fragment {
     TextView referee_colon;
     @BindView(R.id.match_start_message)
     TextView match_start_message;
-
+    @BindView(R.id.team1_players_name)
+    TextView team1_players_name;
+    @BindView(R.id.team2_players_name)
+    TextView team2_players_name;
+    @BindView(R.id.tv_squads)
+    TextView tv_squads;
+    @BindView(R.id.tv_team1_name)
+    TextView tv_team1_name;
+    @BindView(R.id.tv_team2_name)
+    TextView tv_team2_name;
+    ArrayList<Player> players;
+    private DictonaryPojo dictonary;
     private ArrayList<Match> matchList;
     private int index;
     private String matchId;
     private LiveMatchDetails liveMatchDetails;
-
 
     public LiveMatchDetailsFragment() {
     }
@@ -134,6 +145,7 @@ public class LiveMatchDetailsFragment extends Fragment {
         //getting extra data into matchdetails list with the position
         matchList = getActivity().getIntent().getParcelableArrayListExtra(MainActivityFragment.LIVE_MATCH_LIST);
         index = getActivity().getIntent().getExtras().getInt(MainActivityFragment.POSITION);
+        dictonary = getActivity().getIntent().getExtras().getParcelable(MainActivityFragment.DICTONARPOJO);
 
         matchId = matchList.get(index).getMatch_id();
         liveMatchDetailsDownloadFromJson();
@@ -150,6 +162,7 @@ public class LiveMatchDetailsFragment extends Fragment {
             public void onResponse(Call<LiveMatchDetails> call, Response<LiveMatchDetails> response) {
                 liveMatchDetails = response.body();
                 if (liveMatchDetails != null) {
+                    players = liveMatchDetails.getPlayers();
                     setData();
                 } else {
                     Toast.makeText(getContext(), "Error Geting data", Toast.LENGTH_SHORT).show();
@@ -271,11 +284,13 @@ public class LiveMatchDetailsFragment extends Fragment {
         }
 
         //Match info
-
         match_info.setText(dictonary.getMatch_info());
         tv_series_name.setText(dictonary.getSeries_name());
         tv_venu.setText(dictonary.getVenue());
         tv_date.setText(dictonary.getDate());
+        tv_squads.setText(dictonary.getSquads());
+        tv_team1_name.setText(liveMatchDetails.getTeam1().getName());
+        tv_team2_name.setText(liveMatchDetails.getTeam2().getName());
 
         match_date.setText(matchTimeDay + ", " + matchTimeDate + ", " + matchTimeMonth + ", " + matchTime);
         series_name_venu.setText(liveMatchDetails.getSeries_name());
@@ -316,7 +331,44 @@ public class LiveMatchDetailsFragment extends Fragment {
             rd3_umpire_colon.setVisibility(View.GONE);
             referee_colon.setVisibility(View.GONE);
         }
+
+
+        ArrayList<Integer> team1Squads = liveMatchDetails.getTeam1().getSquad();
+        ArrayList<Integer> team2Squads = liveMatchDetails.getTeam2().getSquad();
+
+        for (int i = 0; i < players.size(); i++) {
+            String name = players.get(i).getF_name();
+            String playerid = players.get(i).getId();
+//            Log.d(TAG, "players name: " +name);
+
+            if (team1Squads != null) {
+                for (int j = 0; j < team1Squads.size(); j++) {
+                    int team1Squad = team1Squads.get(j);
+                    if (team1Squad == Integer.parseInt(playerid)) {
+                        team1_players_name.append(name + ", ");
+                    }
+                }
+            } else {
+                team1_players_name.setText(" ");
+            }
+
+            if (team2Squads != null) {
+                for (int j = 0; j < team2Squads.size(); j++) {
+                    int team2Squad = team2Squads.get(j);
+                    if (team2Squad == Integer.parseInt(playerid)) {
+                        team2_players_name.append(name + ", ");
+                    }
+                }
+            } else {
+                team2_players_name.setText(" ");
+            }
+        }
+
+
     }
+
+
 }
+
 
 

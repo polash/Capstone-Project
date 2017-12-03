@@ -10,4 +10,6 @@ import java.util.ArrayList;
 
 public interface AsyncListner {
     void returnMatchList(ArrayList<Match> matchesList);
+
+    void returnDictonary(DictonaryPojo dictonarypojo);
 }
