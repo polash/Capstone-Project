@@ -10,16 +10,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SnapHelper;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.sksanwar.cricketbangla.Activities.LiveMatchDetailsActivity;
@@ -115,7 +112,13 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
     }
 
     public void liveMatchDownloadFromJson() {
+
         if (networkCheck()) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             swipeRefreshLayout.setRefreshing(true);
 
             /**
@@ -163,7 +166,7 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
 
         } else {
             no_network.setVisibility(View.VISIBLE);
-            swipeRefreshLayout.setRefreshing(false);
+            swipeRefreshLayout.setRefreshing(true);
         }
     }
 
@@ -176,23 +179,20 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
             }
         }
         //this condition checks if the matchesList is null thn run the task
-        if (matchesList != null && dictonary != null) {
-            loadViews(matchesList);
+        if (matchesList == null && dictonary == null) {
+            liveMatchDownloadFromJson();
         } else {
-            return;
+            loadViews(matchesList);
         }
     }
 
     private void loadViews(ArrayList<Match> matchList) {
+
         recyclerViewLiveMatches.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerViewLiveMatches.setHasFixedSize(true);
         adapterLiveMatches = new AdapterLiveMatches(this, matchList, dictonary);
         swipeRefreshLayout.setRefreshing(false);
         recyclerViewLiveMatches.setAdapter(adapterLiveMatches);
-
-        // add pager behavior
-        SnapHelper snapHelper = new GravitySnapHelper(Gravity.START);
-        snapHelper.attachToRecyclerView(recyclerViewLiveMatches);
     }
 
 
@@ -202,10 +202,7 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
         intent.putParcelableArrayListExtra(LIVE_MATCH_LIST, matchesList);
         intent.putExtra(DICTONARPOJO, dictonary);
         intent.putExtra(POSITION, clickedItemIndex);
-
         startActivity(intent);
-
-        Toast.makeText(getContext(), "Match id: " + matchesList.get(clickedItemIndex).getMatch_id(), Toast.LENGTH_SHORT).show();
     }
 
 
