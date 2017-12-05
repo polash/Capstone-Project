@@ -10,12 +10,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -23,7 +21,6 @@ import com.sksanwar.cricketbangla.Activities.LiveMatchDetailsActivity;
 import com.sksanwar.cricketbangla.Adapters.AdapterLiveMatches;
 import com.sksanwar.cricketbangla.FetchData.JsonFetchTask;
 import com.sksanwar.cricketbangla.FetchData.ServiceGenerator;
-import com.sksanwar.cricketbangla.Pojo.AsyncListner;
 import com.sksanwar.cricketbangla.Pojo.DictonaryPojo;
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.LiveMatches;
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Match;
@@ -42,21 +39,20 @@ import retrofit2.Response;
  * Created by sksho on 20-Nov-17.
  */
 
-public class MainActivityFragment extends Fragment implements AsyncListner,
+public class MainActivityFragment extends Fragment implements
         AdapterLiveMatches.ListItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     public static final String LIVE_MATCH_LIST = "live_match_list";
     public static final String POSITION = "position";
     public static final String DICTONARPOJO = "dictonary";
     private static final String TAG = MainActivityFragment.class.getSimpleName();
-
-    public ArrayList<Match> matchesList;
     @BindView(R.id.rv_livematches)
     RecyclerView recyclerViewLiveMatches;
     @BindView(R.id.swip_to_refresh)
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.no_network)
     TextView no_network;
+    private ArrayList<Match> matchesList;
     private DictonaryPojo dictonary;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDictonaryDatabaseReference;
@@ -81,9 +77,12 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
 
         no_network.setVisibility(View.GONE);
         swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setRefreshing(true);
 
-        liveMatchDownloadFromJson();
         networkCheck();
+        liveMatchDownloadFromJson();
+
+
 
 //        mDictonaryDatabaseReference.addValueEventListener(new ValueEventListener() {
 //            @Override
@@ -103,6 +102,28 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
         return rootView;
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList(LIVE_MATCH_LIST, matchesList);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if (savedInstanceState != null) {
+            if (savedInstanceState.containsKey(LIVE_MATCH_LIST)) {
+                matchesList = savedInstanceState.getParcelableArrayList(LIVE_MATCH_LIST);
+            }
+        }
+        //this condition checks if the matchesList is null thn run the task
+        if (matchesList == null) {
+            liveMatchDownloadFromJson();
+        } else {
+            loadViews(matchesList);
+        }
+    }
+
     //Network Checks
     private boolean networkCheck() {
         ConnectivityManager cm =
@@ -111,15 +132,15 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
         return networkInfo != null && networkInfo.isConnectedOrConnecting();
     }
 
+
+    //Load json data
     public void liveMatchDownloadFromJson() {
 
-        if (networkCheck()) {
             try {
-                Thread.sleep(100);
+                Thread.sleep(200);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            swipeRefreshLayout.setRefreshing(true);
 
             /**
              * For dictonary data fetching
@@ -132,12 +153,14 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
             call.enqueue(new Callback<DictonaryPojo>() {
                 @Override
                 public void onResponse(Call<DictonaryPojo> call, Response<DictonaryPojo> response) {
-                    dictonary = response.body();
+                    DictonaryPojo dict = response.body();
+                    if (dict != null) {
+                        dictonary = (dict);
+                    }
                 }
-
                 @Override
                 public void onFailure(Call<DictonaryPojo> call, Throwable t) {
-                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+
                 }
             });
 
@@ -150,44 +173,23 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
                 @Override
                 public void onResponse(Call<LiveMatches> call, Response<LiveMatches> response) {
                     LiveMatches liveMatches = response.body();
-                    matchesList = liveMatches.getMatches();
-                    if (matchesList != null) {
+                    if (liveMatches != null) {
+                        matchesList = liveMatches.getMatches();
+
 //                        mMatchListDatabaseReference.push().setValue(matchesList);
                         loadViews(matchesList);
                     }
-                    Log.d(TAG, "Match List: " + matchesList);
                 }
 
                 @Override
                 public void onFailure(Call<LiveMatches> call, Throwable t) {
-                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+
                 }
             });
 
-        } else {
-            no_network.setVisibility(View.VISIBLE);
-            swipeRefreshLayout.setRefreshing(true);
-        }
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        if (savedInstanceState != null) {
-            if (savedInstanceState.containsKey(LIVE_MATCH_LIST)) {
-                matchesList = savedInstanceState.getParcelable(LIVE_MATCH_LIST);
-            }
-        }
-        //this condition checks if the matchesList is null thn run the task
-        if (matchesList == null && dictonary == null) {
-            liveMatchDownloadFromJson();
-        } else {
-            loadViews(matchesList);
-        }
-    }
-
-    private void loadViews(ArrayList<Match> matchList) {
-
+    public void loadViews(ArrayList<Match> matchList) {
         recyclerViewLiveMatches.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerViewLiveMatches.setHasFixedSize(true);
         adapterLiveMatches = new AdapterLiveMatches(this, matchList, dictonary);
@@ -203,18 +205,6 @@ public class MainActivityFragment extends Fragment implements AsyncListner,
         intent.putExtra(DICTONARPOJO, dictonary);
         intent.putExtra(POSITION, clickedItemIndex);
         startActivity(intent);
-    }
-
-
-    @Override
-    public void returnMatchList(ArrayList<Match> matchList) {
-        matchesList = matchList;
-        loadViews(matchesList);
-    }
-
-    @Override
-    public void returnDictonary(DictonaryPojo dictonarypojo) {
-        dictonary = dictonarypojo;
     }
 
 

@@ -228,57 +228,68 @@ public class LiveMatchDetailsFragment extends Fragment {
             String team1ID = matchList.get(index).getTeam1().getId();
             String team2ID = matchList.get(index).getTeam2().getId();
 
-            if (matchList.get(index).getBat_team().getId().equals(team1ID) ||
-                    matchList.get(index).getBat_team().getId().equals(team2ID)) {
+            String batTeamID = matchList.get(index).getBat_team().getId();
+            String bowTeamID = matchList.get(index).getBow_team().getId();
+
+            if (batTeamID.equals(team1ID)) {
                 //show team1 1 score
                 for (int i = 0; i < batTeamInnings.size(); i++) {
                     if (batTeamInnings.get(i).getScore() != null) {
                         team1_score.setText(batTeamInnings.get(i).getScore());
-                    } else {
-                        //do something
                     }
+
                     if (batTeamInnings.get(i).getWkts() != null) {
                         team1_wkt.setText(batTeamInnings.get(i).getWkts());
-                    } else {
-                        //do something
                     }
 
                     if (batTeamInnings.get(i).getOvers() != null) {
                         team1_over.setText(batTeamInnings.get(i).getOvers());
-                    } else {
-                        //do something
                     }
                 }
-
             } else {
-                //do something
+                for (int k = 0; k < bowTeamInnings.size(); k++) {
+                    if (bowTeamInnings.get(k).getScore() != null) {
+                        team1_score.setText(bowTeamInnings.get(k).getScore());
+                    }
+
+                    if (bowTeamInnings.get(k).getWkts() != null) {
+                        team1_wkt.setText(bowTeamInnings.get(k).getWkts());
+                    }
+
+                    if (bowTeamInnings.get(k).getOvers() != null) {
+                        team1_over.setText(bowTeamInnings.get(k).getOvers());
+                    }
+                }
             }
 
-            if (matchList.get(index).getBow_team().getId().equals(team1ID) ||
-                    matchList.get(index).getBow_team().getId().equals(team2ID)) {
-                //show team1 2 score
-                for (int i = 0; i < bowTeamInnings.size(); i++) {
-                    if (bowTeamInnings.get(i).getScore() != null) {
-                        team2_score.setText(bowTeamInnings.get(i).getScore());
-                    } else {
-                        //do something
+            if (bowTeamID.equals(team2ID)) {
+                //show team 2 score
+                for (int j = 0; j < bowTeamInnings.size(); j++) {
+                    if (bowTeamInnings.get(j).getScore() != null) {
+                        team2_score.setText(bowTeamInnings.get(j).getScore());
                     }
-                    if (bowTeamInnings.get(i).getWkts() != null) {
-                        team2_wkt.setText(bowTeamInnings.get(i).getWkts());
-                    } else {
-                        //do something
+                    if (bowTeamInnings.get(j).getWkts() != null) {
+                        team2_wkt.setText(bowTeamInnings.get(j).getWkts());
                     }
 
-                    if (bowTeamInnings.get(i).getOvers() != null) {
-                        team2_over.setText(bowTeamInnings.get(i).getOvers());
-                    } else {
-                        //do something
+                    if (bowTeamInnings.get(j).getOvers() != null) {
+                        team2_over.setText(bowTeamInnings.get(j).getOvers());
                     }
                 }
-
             } else {
-                for (int i = 0; i < bowTeamInnings.size(); i++) {
-                    //do something
+                for (int l = 0; l < batTeamInnings.size(); l++) {
+                    if (batTeamInnings.get(l).getScore() != null) {
+                        team2_score.setText(batTeamInnings.get(l).getScore());
+                    }
+
+                    if (batTeamInnings.get(l).getWkts() != null) {
+                        team2_wkt.setText(batTeamInnings.get(l).getWkts());
+                    }
+
+                    if (batTeamInnings.get(l).getOvers() != null) {
+                        team2_over.setText(batTeamInnings.get(l).getOvers());
+                    }
+
                 }
             }
         }

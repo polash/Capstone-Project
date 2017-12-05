@@ -14,15 +14,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         if (savedInstanceState == null) {
-
             FragmentManager fragmentManager = getSupportFragmentManager();
             MainActivityFragment liveMatchFragment = new MainActivityFragment();
             fragmentManager.beginTransaction()
                     .add(R.id.live_match_layout, liveMatchFragment)
                     .commit();
-
         }
     }
 }

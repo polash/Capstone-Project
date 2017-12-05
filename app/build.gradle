@@ -53,5 +53,8 @@ dependencies {
     //Firebase RealTime Database
     compile 'com.google.firebase:firebase-database:11.6.2'
 
+    //Firebase Job Dispatcher
+    compile 'com.firebase:firebase-jobdispatcher:0.8.5'
+
 }
 apply plugin: 'com.google.gms.google-services'
