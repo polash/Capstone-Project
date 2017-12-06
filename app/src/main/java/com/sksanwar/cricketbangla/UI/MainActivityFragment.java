@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -52,13 +53,16 @@ public class MainActivityFragment extends Fragment implements
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.no_network)
     TextView no_network;
+    Handler handler = new Handler();
+    int delay = 15000; //15 seconds
+    Runnable runnable;
     private ArrayList<Match> matchesList;
     private DictonaryPojo dictonary;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDictonaryDatabaseReference;
     private DatabaseReference mMatchListDatabaseReference;
-
     private AdapterLiveMatches adapterLiveMatches;
+
 
     public MainActivityFragment() {
     }
@@ -131,6 +135,32 @@ public class MainActivityFragment extends Fragment implements
         NetworkInfo networkInfo = cm.getActiveNetworkInfo();
         return networkInfo != null && networkInfo.isConnectedOrConnecting();
     }
+
+    /**
+     * Continue to run on UI thread
+     * <p>
+     * https://stackoverflow.com/questions/11434056/how-to-run-a-method-every-x-seconds
+     */
+
+    @Override
+    public void onResume() {
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                liveMatchDownloadFromJson();
+                runnable = this;
+                handler.postDelayed(runnable, delay);
+            }
+        }, delay);
+
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        handler.removeCallbacks(runnable); //stop handler when activity not visible
+        super.onPause();
+    }
+
 
 
     //Load json data
@@ -206,7 +236,6 @@ public class MainActivityFragment extends Fragment implements
         intent.putExtra(POSITION, clickedItemIndex);
         startActivity(intent);
     }
-
 
     @Override
     public void onRefresh() {

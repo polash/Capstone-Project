@@ -132,6 +132,7 @@ public class AdapterLiveMatches extends
                     overText2.setText(dictonary.getOvers());
                     date_text.setText(dictonary.getVenue_time() + ":");
                 }
+
                 String imageUrlTeam1 = "http://i.cricketcb.com/cbzvernacular/flags/" + matchList.get(position).getTeam1().getFlag();
                 String imageUrlTeam2 = "http://i.cricketcb.com/cbzvernacular/flags/" + matchList.get(position).getTeam2().getFlag();
                 Picasso
