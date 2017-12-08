@@ -15,14 +15,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.sksanwar.cricketbangla.Activities.LiveMatchDetailsActivity;
 import com.sksanwar.cricketbangla.Adapters.AdapterLiveMatches;
 import com.sksanwar.cricketbangla.FetchData.JsonFetchTask;
 import com.sksanwar.cricketbangla.FetchData.ServiceGenerator;
 import com.sksanwar.cricketbangla.Pojo.DictonaryPojo;
+import com.sksanwar.cricketbangla.Pojo.LiveMatchDetailsPojo.LiveMatchDetails;
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.LiveMatches;
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Match;
 import com.sksanwar.cricketbangla.R;
@@ -44,9 +49,14 @@ public class MainActivityFragment extends Fragment implements
         AdapterLiveMatches.ListItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     public static final String LIVE_MATCH_LIST = "live_match_list";
+    public static final String LIVE_MATCH_DETAILS = "live_match_details";
     public static final String POSITION = "position";
     public static final String DICTONARPOJO = "dictonary";
+
     private static final String TAG = MainActivityFragment.class.getSimpleName();
+    public ArrayList<Match> matchesList;
+    public DictonaryPojo dictonary;
+    public LiveMatchDetails liveMatchDetails;
     @BindView(R.id.rv_livematches)
     RecyclerView recyclerViewLiveMatches;
     @BindView(R.id.swip_to_refresh)
@@ -54,14 +64,14 @@ public class MainActivityFragment extends Fragment implements
     @BindView(R.id.no_network)
     TextView no_network;
     Handler handler = new Handler();
-    int delay = 15000; //15 seconds
+    int delay = 35000;//15 seconds
     Runnable runnable;
-    private ArrayList<Match> matchesList;
-    private DictonaryPojo dictonary;
+    private AdapterLiveMatches adapterLiveMatches;
+
+    //Firebase references
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDictonaryDatabaseReference;
     private DatabaseReference mMatchListDatabaseReference;
-    private AdapterLiveMatches adapterLiveMatches;
 
 
     public MainActivityFragment() {
@@ -73,10 +83,13 @@ public class MainActivityFragment extends Fragment implements
         View rootView = inflater.inflate(R.layout.mainactivity_fragment, container, false);
         ButterKnife.bind(this, rootView);
 
-//        mFirebaseDatabase = FirebaseDatabase.getInstance();
-//        mFirebaseDatabase.setPersistenceEnabled(true);
-//        mDictonaryDatabaseReference = mFirebaseDatabase.getReference().child("Dictonary");
-//        mMatchListDatabaseReference = mFirebaseDatabase.getReference().child("recentMatchList");
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mFirebaseDatabase.setPersistenceEnabled(true);
+
+        mDictonaryDatabaseReference = mFirebaseDatabase.getReference().child("Dictonary");
+        mDictonaryDatabaseReference.keepSynced(true);
+        mMatchListDatabaseReference = mFirebaseDatabase.getReference().child("MatchList");
+        mMatchListDatabaseReference.keepSynced(true);
 
 
         no_network.setVisibility(View.GONE);
@@ -85,25 +98,49 @@ public class MainActivityFragment extends Fragment implements
 
         networkCheck();
         liveMatchDownloadFromJson();
+        loadDataFromFirebaseDB();
 
-
-
-//        mDictonaryDatabaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
-//                    DictonaryPojo dictonaryPojo = dataSnapshot1.getValue(DictonaryPojo.class);
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
         return rootView;
+    }
+
+    private void loadDataFromFirebaseDB() {
+        //Dictonary database from firebase real-time database
+        mDictonaryDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    DictonaryPojo dictonaryPojo = dataSnapshot1.getValue(DictonaryPojo.class);
+                    if (dictonaryPojo != null) {
+                        dictonary = dictonaryPojo;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+        //matchlist data base from firebase real-time db;
+        mMatchListDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    LiveMatches liveMatches = dataSnapshot1.getValue(LiveMatches.class);
+                    matchesList = liveMatches.getMatches();
+                    loadViews(matchesList);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -165,7 +202,7 @@ public class MainActivityFragment extends Fragment implements
 
     //Load json data
     public void liveMatchDownloadFromJson() {
-
+        if (networkCheck()) {
             try {
                 Thread.sleep(200);
             } catch (InterruptedException e) {
@@ -175,7 +212,7 @@ public class MainActivityFragment extends Fragment implements
             /**
              * For dictonary data fetching
              */
-            JsonFetchTask jsonFetchTask = ServiceGenerator.createService(JsonFetchTask.class);
+            final JsonFetchTask jsonFetchTask = ServiceGenerator.createService(JsonFetchTask.class);
             Call<DictonaryPojo> call = jsonFetchTask.dictonaryForCricket();
             /**
              * AsyncTask for Dictonary
@@ -185,7 +222,7 @@ public class MainActivityFragment extends Fragment implements
                 public void onResponse(Call<DictonaryPojo> call, Response<DictonaryPojo> response) {
                     DictonaryPojo dict = response.body();
                     if (dict != null) {
-                        dictonary = (dict);
+                        mDictonaryDatabaseReference.push().setValue(dict);
                     }
                 }
                 @Override
@@ -204,10 +241,7 @@ public class MainActivityFragment extends Fragment implements
                 public void onResponse(Call<LiveMatches> call, Response<LiveMatches> response) {
                     LiveMatches liveMatches = response.body();
                     if (liveMatches != null) {
-                        matchesList = liveMatches.getMatches();
-
-//                        mMatchListDatabaseReference.push().setValue(matchesList);
-                        loadViews(matchesList);
+                        mMatchListDatabaseReference.push().setValue(liveMatches);
                     }
                 }
 
@@ -216,7 +250,7 @@ public class MainActivityFragment extends Fragment implements
 
                 }
             });
-
+        }
     }
 
     public void loadViews(ArrayList<Match> matchList) {
@@ -234,7 +268,13 @@ public class MainActivityFragment extends Fragment implements
         intent.putParcelableArrayListExtra(LIVE_MATCH_LIST, matchesList);
         intent.putExtra(DICTONARPOJO, dictonary);
         intent.putExtra(POSITION, clickedItemIndex);
-        startActivity(intent);
+
+        if (networkCheck()) {
+            startActivity(intent);
+        } else {
+            Toast.makeText(getContext(), "Please Check Your Internet Connectivity", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override

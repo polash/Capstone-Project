@@ -31,6 +31,9 @@ public class Team implements Parcelable {
     private ArrayList<Integer> squad;
     private ArrayList<Integer> squad_bench;
 
+    public Team() {
+    }
+
     public Team(String id, String eng_name, String name, String s_name, String flag, ArrayList<Integer> squad, ArrayList<Integer> squad_bench) {
         this.id = id;
         this.eng_name = eng_name;

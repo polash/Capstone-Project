@@ -21,6 +21,8 @@ public class DictonaryPojo implements Parcelable {
             return new DictonaryPojo[size];
         }
     };
+
+
     private String home;
     private String commentary;
     private String scorecard;
@@ -148,6 +150,9 @@ public class DictonaryPojo implements Parcelable {
     private String top_bowlers;
     private String top_allrounder;
     private String player;
+
+    public DictonaryPojo() {
+    }
 
     public DictonaryPojo(String home, String commentary, String scorecard, String schedule, String recent_results, String setting, String language,
                          String feedback, String auto_refresh, String target, String ball_by_ball, String over_by_over, String squads, String match_info,

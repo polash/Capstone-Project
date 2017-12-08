@@ -22,6 +22,9 @@ public class LiveMatches implements Parcelable {
     };
     private ArrayList<Match> matches;
 
+    public LiveMatches() {
+    }
+
     public LiveMatches(ArrayList<Match> matches) {
         this.matches = matches;
     }

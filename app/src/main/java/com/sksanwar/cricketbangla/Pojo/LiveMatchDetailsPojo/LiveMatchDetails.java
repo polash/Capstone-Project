@@ -39,6 +39,9 @@ public class LiveMatchDetails implements Parcelable {
     private Header header;
     private Venue venue;
 
+    public LiveMatchDetails() {
+    }
+
     public LiveMatchDetails(Official official, ArrayList<Object> audio, String alerts, Team team1, Team team2,
                             ArrayList<Player> players, Apis apis, String series_id,
                             String series_name, String match_id, Header header, Venue venue) {

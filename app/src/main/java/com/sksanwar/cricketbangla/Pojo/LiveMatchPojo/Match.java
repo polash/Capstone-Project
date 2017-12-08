@@ -30,6 +30,9 @@ public class Match implements Parcelable {
     private Team team2;
     private ArrayList<Score> score;
 
+    public Match() {
+    }
+
     public Match(String match_id, String series_id, String series_name, Header header,
                  Venue venue, BatBowTeam bat_team, BatBowTeam bow_team, Team team1, Team team2, ArrayList<Score> score) {
         this.match_id = match_id;

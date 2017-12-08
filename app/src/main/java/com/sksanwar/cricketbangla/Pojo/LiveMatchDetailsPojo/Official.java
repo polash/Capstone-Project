@@ -25,6 +25,9 @@ public class Official implements Parcelable {
     private Umpire umpire3;
     private Umpire referee;
 
+    public Official() {
+    }
+
     public Official(Umpire umpire1, Umpire umpire2, Umpire umpire3, Umpire referee) {
         this.umpire1 = umpire1;
         this.umpire2 = umpire2;

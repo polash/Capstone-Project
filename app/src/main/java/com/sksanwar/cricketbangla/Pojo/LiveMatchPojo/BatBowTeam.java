@@ -24,6 +24,9 @@ public class BatBowTeam implements Parcelable {
     private String id;
     private List<Inning> innings;
 
+    public BatBowTeam() {
+    }
+
     public BatBowTeam(String id, List<Inning> innings) {
         this.id = id;
         this.innings = innings;

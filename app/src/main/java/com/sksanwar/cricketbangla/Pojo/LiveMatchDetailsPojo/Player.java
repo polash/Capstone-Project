@@ -25,6 +25,9 @@ public class Player implements Parcelable {
     private String name;
     private String image;
 
+    public Player() {
+    }
+
     public Player(String id, String f_name, String name, String image) {
         this.id = id;
         this.f_name = f_name;

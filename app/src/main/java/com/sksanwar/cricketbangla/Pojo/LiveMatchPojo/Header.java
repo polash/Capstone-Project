@@ -28,6 +28,9 @@ public class Header implements Parcelable {
     private String status;
     private Integer winning_team_id;
 
+    public Header() {
+    }
+
     public Header(String start_time, String end_time, String match_desc,
                   String toss, String type, String state, String state_title, String status, Integer winning_team_id) {
         this.start_time = start_time;

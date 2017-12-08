@@ -24,6 +24,9 @@ public class Inning implements Parcelable {
     private String wkts;
     private String overs;
 
+    public Inning() {
+    }
+
     public Inning(String id, String score, String wkts, String overs) {
         this.id = id;
         this.score = score;

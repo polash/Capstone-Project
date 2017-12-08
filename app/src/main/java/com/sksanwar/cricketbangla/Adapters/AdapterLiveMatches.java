@@ -41,8 +41,10 @@ public class AdapterLiveMatches extends
     public static String matchTimeDate;
     public static String matchTime;
     public DictonaryPojo dictonary;
-    private ListItemClickListener mOnClickListener;
+
+    public ListItemClickListener mOnClickListener;
     private ArrayList<Match> matchList;
+
 
     public AdapterLiveMatches(ListItemClickListener mOnClickListener,
                               ArrayList<Match> matchList, DictonaryPojo dictonary) {
@@ -57,7 +59,6 @@ public class AdapterLiveMatches extends
                 .inflate(R.layout.match_card_view_component, viewGroup, false);
 
         return new LiveMatchViewHolder(view);
-
     }
 
     @Override
@@ -67,8 +68,9 @@ public class AdapterLiveMatches extends
 
     @Override
     public int getItemCount() {
-        if (null == matchList) return 0;
-        return matchList.size();
+        if (matchList != null)
+            return matchList.size();
+        return 0;
     }
 
     public interface ListItemClickListener {

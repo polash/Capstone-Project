@@ -26,6 +26,9 @@ public class Score implements Parcelable {
     private String wkts;
     private String overs;
 
+    public Score() {
+    }
+
     public Score(String team_id, String score, String wkts, String overs) {
         this.team_id = team_id;
         this.score = score;

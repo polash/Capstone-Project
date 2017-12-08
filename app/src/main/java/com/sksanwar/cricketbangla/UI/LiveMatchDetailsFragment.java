@@ -126,7 +126,9 @@ public class LiveMatchDetailsFragment extends Fragment {
     TextView tv_team1_name;
     @BindView(R.id.tv_team2_name)
     TextView tv_team2_name;
-    ArrayList<Player> players;
+
+
+    private ArrayList<Player> players;
     private DictonaryPojo dictonary;
     private ArrayList<Match> matchList;
     private int index;
@@ -156,13 +158,14 @@ public class LiveMatchDetailsFragment extends Fragment {
     private void liveMatchDetailsDownloadFromJson() {
 
         JsonFetchTask jsonFetchTask = ServiceGenerator.createService(JsonFetchTask.class);
-        Call<LiveMatchDetails> liveMatchDetailsCall = jsonFetchTask.liveMatchDetails(matchId);
+        final Call<LiveMatchDetails> liveMatchDetailsCall = jsonFetchTask.liveMatchDetails(matchId);
         liveMatchDetailsCall.enqueue(new Callback<LiveMatchDetails>() {
             @Override
             public void onResponse(Call<LiveMatchDetails> call, Response<LiveMatchDetails> response) {
-                liveMatchDetails = response.body();
-                if (liveMatchDetails != null) {
-                    players = liveMatchDetails.getPlayers();
+                LiveMatchDetails liveMatchDetail = response.body();
+                if (liveMatchDetail != null) {
+                    liveMatchDetails = liveMatchDetail;
+                    players = liveMatchDetail.getPlayers();
                     setData();
                 } else {
                     Toast.makeText(getContext(), "Error Geting data", Toast.LENGTH_SHORT).show();
@@ -177,17 +180,34 @@ public class LiveMatchDetailsFragment extends Fragment {
     }
 
     private void setData() {
-        String imageUrlTeam1 = "http://i.cricketcb.com/cbzvernacular/flags/" + liveMatchDetails.getTeam1().getFlag();
-        String imageUrlTeam2 = "http://i.cricketcb.com/cbzvernacular/flags/" + liveMatchDetails.getTeam2().getFlag();
-        Picasso
-                .with(getContext())
-                .load(imageUrlTeam1)
-                .into(team1_flag);
+        String defaultFlagImage = "http://i.cricketcb.com/cbzvernacular/flags/default.png";
+        if (liveMatchDetails.getTeam1().getFlag() != null) {
+            String imageUrlTeam1 = "http://i.cricketcb.com/cbzvernacular/flags/" + liveMatchDetails.getTeam1().getFlag();
+            Picasso
+                    .with(getContext())
+                    .load(imageUrlTeam1)
+                    .into(team1_flag);
+        } else {
+            Picasso
+                    .with(getContext())
+                    .load(defaultFlagImage)
+                    .into(team1_flag);
+        }
 
-        Picasso
-                .with(getContext())
-                .load(imageUrlTeam2)
-                .into(team2_flag);
+
+        if (liveMatchDetails.getTeam2().getFlag() != null) {
+            String imageUrlTeam2 = "http://i.cricketcb.com/cbzvernacular/flags/" + liveMatchDetails.getTeam2().getFlag();
+            Picasso
+                    .with(getContext())
+                    .load(imageUrlTeam2)
+                    .into(team2_flag);
+        } else {
+            Picasso
+                    .with(getContext())
+                    .load(defaultFlagImage)
+                    .into(team2_flag);
+        }
+
 
         series_name.setText(liveMatchDetails.getSeries_name());
         match_desc.setText(liveMatchDetails.getHeader().getMatch_desc());
@@ -303,17 +323,20 @@ public class LiveMatchDetailsFragment extends Fragment {
         tv_team1_name.setText(liveMatchDetails.getTeam1().getName());
         tv_team2_name.setText(liveMatchDetails.getTeam2().getName());
 
-        match_date.setText(matchTimeDay + ", " + matchTimeDate + ", " + matchTimeMonth + ", " + matchTime);
+        match_date.append(matchTimeDay + ", " + matchTimeDate + ", " + matchTimeMonth + ", " + matchTime);
         series_name_venu.setText(liveMatchDetails.getSeries_name());
-        venu_name.setText(liveMatchDetails.getVenue().getName() + ", " + liveMatchDetails.getVenue().getLocation());
+        venu_name.append(liveMatchDetails.getVenue().getName() + ", " + liveMatchDetails.getVenue().getLocation());
 
         if (liveMatchDetails.getOfficial() != null) {
             tv_umpire.setText(dictonary.getUmpires());
             tv_3rd_umpire.setText(dictonary.getUmpire_3());
             tv_referee.setText(dictonary.getReferee());
 
-            umpire_name.setText(liveMatchDetails.getOfficial().getUmpire().getName() + ", " +
-                    liveMatchDetails.getOfficial().getUmpire2().getName());
+            if (liveMatchDetails.getOfficial().getUmpire() != null && liveMatchDetails.getOfficial().getUmpire2() != null) {
+                umpire_name.append(liveMatchDetails.getOfficial().getUmpire().getName() + ", " +
+                        liveMatchDetails.getOfficial().getUmpire2().getName());
+            }
+
 
             if (liveMatchDetails.getOfficial().getUmpire3() != null) {
                 rd3_umpire_name.setText(liveMatchDetails.getOfficial().getUmpire3().getName());
@@ -374,11 +397,7 @@ public class LiveMatchDetailsFragment extends Fragment {
                 team2_players_name.setText(" ");
             }
         }
-
-
     }
-
-
 }
 
 

@@ -24,6 +24,9 @@ public class Apis implements Parcelable {
     private String scorecard;
     private String commentary;
 
+    public Apis() {
+    }
+
     public Apis(String mini, String scorecard, String commentary) {
         this.mini = mini;
         this.scorecard = scorecard;
