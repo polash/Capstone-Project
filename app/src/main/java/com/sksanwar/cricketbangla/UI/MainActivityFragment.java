@@ -17,6 +17,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -54,7 +58,6 @@ public class MainActivityFragment extends Fragment implements
     private static final String TAG = MainActivityFragment.class.getSimpleName();
     public ArrayList<Match> matchesList;
     public DictonaryPojo dictonary;
-
     @BindView(R.id.rv_livematches)
     RecyclerView recyclerViewLiveMatches;
     @BindView(R.id.swip_to_refresh)
@@ -64,6 +67,7 @@ public class MainActivityFragment extends Fragment implements
     Handler handler = new Handler();
     int delay = 35000;//15 seconds
     Runnable runnable;
+    private Intent intent;
     private AdapterLiveMatches adapterLiveMatches;
 
     //Firebase references
@@ -71,15 +75,38 @@ public class MainActivityFragment extends Fragment implements
     private DatabaseReference mDictonaryDatabaseReference;
     private DatabaseReference mMatchListDatabaseReference;
 
+    //interstitialadd
+    private InterstitialAd mInterstitialAd;
 
     public MainActivityFragment() {
     }
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.mainactivity_fragment, container, false);
         ButterKnife.bind(this, rootView);
+
+        //Ad View
+        AdView adView = rootView.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+
+        adView.loadAd(adRequest);
+
+        mInterstitialAd = new InterstitialAd(getActivity());
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        requestNewInterstitial();
+
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                requestNewInterstitial();
+                startActivity(intent);
+
+            }
+        });
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mFirebaseDatabase.setPersistenceEnabled(true);
@@ -261,13 +288,17 @@ public class MainActivityFragment extends Fragment implements
 
     @Override
     public void onListItemClick(int clickedItemIndex) {
-        Intent intent = new Intent(getContext(), LiveMatchDetailsActivity.class);
-        intent.putParcelableArrayListExtra(LIVE_MATCH_LIST, matchesList);
-        intent.putExtra(DICTONARPOJO, dictonary);
-        intent.putExtra(POSITION, clickedItemIndex);
-
         if (networkCheck()) {
-            startActivity(intent);
+            intent = new Intent(getContext(), LiveMatchDetailsActivity.class);
+            intent.putParcelableArrayListExtra(LIVE_MATCH_LIST, matchesList);
+            intent.putExtra(DICTONARPOJO, dictonary);
+            intent.putExtra(POSITION, clickedItemIndex);
+            if (mInterstitialAd.isLoaded()) {
+                mInterstitialAd.show();
+            } else {
+                startActivity(intent);
+            }
+
         } else {
             Toast.makeText(getContext(), "Please Check Your Internet Connectivity", Toast.LENGTH_SHORT).show();
         }
@@ -277,5 +308,13 @@ public class MainActivityFragment extends Fragment implements
     @Override
     public void onRefresh() {
         liveMatchDownloadFromJson();
+    }
+
+    //method for request new InterstitialAd
+    private void requestNewInterstitial() {
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+        mInterstitialAd.loadAd(adRequest);
     }
 }

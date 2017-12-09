@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.sksanwar.cricketbangla.FetchData.JsonFetchTask;
 import com.sksanwar.cricketbangla.FetchData.ServiceGenerator;
 import com.sksanwar.cricketbangla.Pojo.DictonaryPojo;
@@ -143,6 +145,13 @@ public class LiveMatchDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.live_match_details_fragment, container, false);
         ButterKnife.bind(this, rootView);
+
+        AdView adView = rootView.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+
+        adView.loadAd(adRequest);
 
         //getting extra data into matchdetails list with the position
         matchList = getActivity().getIntent().getParcelableArrayListExtra(MainActivityFragment.LIVE_MATCH_LIST);
