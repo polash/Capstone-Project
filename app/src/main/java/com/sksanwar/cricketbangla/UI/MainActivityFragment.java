@@ -27,7 +27,6 @@ import com.sksanwar.cricketbangla.Adapters.AdapterLiveMatches;
 import com.sksanwar.cricketbangla.FetchData.JsonFetchTask;
 import com.sksanwar.cricketbangla.FetchData.ServiceGenerator;
 import com.sksanwar.cricketbangla.Pojo.DictonaryPojo;
-import com.sksanwar.cricketbangla.Pojo.LiveMatchDetailsPojo.LiveMatchDetails;
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.LiveMatches;
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Match;
 import com.sksanwar.cricketbangla.R;
@@ -49,14 +48,13 @@ public class MainActivityFragment extends Fragment implements
         AdapterLiveMatches.ListItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     public static final String LIVE_MATCH_LIST = "live_match_list";
-    public static final String LIVE_MATCH_DETAILS = "live_match_details";
     public static final String POSITION = "position";
     public static final String DICTONARPOJO = "dictonary";
 
     private static final String TAG = MainActivityFragment.class.getSimpleName();
     public ArrayList<Match> matchesList;
     public DictonaryPojo dictonary;
-    public LiveMatchDetails liveMatchDetails;
+
     @BindView(R.id.rv_livematches)
     RecyclerView recyclerViewLiveMatches;
     @BindView(R.id.swip_to_refresh)
@@ -138,7 +136,7 @@ public class MainActivityFragment extends Fragment implements
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                //do nothing
             }
         });
     }
@@ -157,11 +155,10 @@ public class MainActivityFragment extends Fragment implements
                 matchesList = savedInstanceState.getParcelableArrayList(LIVE_MATCH_LIST);
             }
         }
-        //this condition checks if the matchesList is null thn run the task
-        if (matchesList == null) {
-            liveMatchDownloadFromJson();
-        } else {
+        if (matchesList != null) {
             loadViews(matchesList);
+        } else {
+            liveMatchDownloadFromJson();
         }
     }
 

@@ -252,64 +252,122 @@ public class LiveMatchDetailsFragment extends Fragment {
             String bowTeamID = matchList.get(index).getBow_team().getId();
 
             if (batTeamID.equals(team1ID)) {
-                //show team1 1 score
-                for (int i = 0; i < batTeamInnings.size(); i++) {
-                    if (batTeamInnings.get(i).getScore() != null) {
-                        team1_score.setText(batTeamInnings.get(i).getScore());
-                    }
+                if (batTeamInnings != null) {
+                    //show team1 1 score
+                    for (int i = 0; i < batTeamInnings.size(); i++) {
+                        if (batTeamInnings.get(i).getScore() != null) {
+                            team1_score.setText(batTeamInnings.get(i).getScore());
+                        } else {
+                            team1_score.setVisibility(View.GONE);
+                        }
 
-                    if (batTeamInnings.get(i).getWkts() != null) {
-                        team1_wkt.setText(batTeamInnings.get(i).getWkts());
-                    }
+                        if (batTeamInnings.get(i).getWkts() != null) {
+                            team1_wkt.setText(batTeamInnings.get(i).getWkts());
+                        } else {
+                            team1_wkt.setVisibility(View.GONE);
+                        }
 
-                    if (batTeamInnings.get(i).getOvers() != null) {
-                        team1_over.setText(batTeamInnings.get(i).getOvers());
+                        if (batTeamInnings.get(i).getOvers() != null) {
+                            team1_over.setText(batTeamInnings.get(i).getOvers());
+                        } else {
+                            team1_over.setVisibility(View.GONE);
+                        }
                     }
+                } else {
+                    team1_score.setVisibility(View.GONE);
+                    team1_wkt.setVisibility(View.GONE);
+                    team1_over.setVisibility(View.GONE);
+                    back_slash_score1.setText(" - ");
+                    overText1.setVisibility(View.GONE);
                 }
+
             } else {
-                for (int k = 0; k < bowTeamInnings.size(); k++) {
-                    if (bowTeamInnings.get(k).getScore() != null) {
-                        team1_score.setText(bowTeamInnings.get(k).getScore());
-                    }
+                if (bowTeamInnings != null) {
+                    for (int k = 0; k < bowTeamInnings.size(); k++) {
+                        if (bowTeamInnings.get(k).getScore() != null) {
+                            team1_score.setText(bowTeamInnings.get(k).getScore());
+                        } else {
+                            team1_score.setVisibility(View.GONE);
+                        }
 
-                    if (bowTeamInnings.get(k).getWkts() != null) {
-                        team1_wkt.setText(bowTeamInnings.get(k).getWkts());
-                    }
+                        if (bowTeamInnings.get(k).getWkts() != null) {
+                            team1_wkt.setText(bowTeamInnings.get(k).getWkts());
+                        } else {
+                            team1_wkt.setVisibility(View.GONE);
+                        }
 
-                    if (bowTeamInnings.get(k).getOvers() != null) {
-                        team1_over.setText(bowTeamInnings.get(k).getOvers());
+                        if (bowTeamInnings.get(k).getOvers() != null) {
+                            team1_over.setText(bowTeamInnings.get(k).getOvers());
+                        } else {
+                            team1_over.setVisibility(View.GONE);
+                        }
                     }
+                } else {
+                    team1_score.setVisibility(View.GONE);
+                    team1_wkt.setVisibility(View.GONE);
+                    team1_over.setVisibility(View.GONE);
+                    back_slash_score1.setText(" - ");
+                    overText1.setVisibility(View.GONE);
                 }
             }
 
             if (bowTeamID.equals(team2ID)) {
-                //show team 2 score
-                for (int j = 0; j < bowTeamInnings.size(); j++) {
-                    if (bowTeamInnings.get(j).getScore() != null) {
-                        team2_score.setText(bowTeamInnings.get(j).getScore());
-                    }
-                    if (bowTeamInnings.get(j).getWkts() != null) {
-                        team2_wkt.setText(bowTeamInnings.get(j).getWkts());
-                    }
+                if (bowTeamInnings != null) {
+                    //show team 2 score
+                    for (int j = 0; j < bowTeamInnings.size(); j++) {
+                        if (bowTeamInnings.get(j).getScore() != null) {
+                            team2_score.setText(bowTeamInnings.get(j).getScore());
+                        } else {
+                            team2_score.setVisibility(View.GONE);
+                        }
+                        if (bowTeamInnings.get(j).getWkts() != null) {
+                            team2_wkt.setText(bowTeamInnings.get(j).getWkts());
+                        } else {
+                            team2_wkt.setVisibility(View.GONE);
+                        }
 
-                    if (bowTeamInnings.get(j).getOvers() != null) {
-                        team2_over.setText(bowTeamInnings.get(j).getOvers());
+                        if (bowTeamInnings.get(j).getOvers() != null) {
+                            team2_over.setText(bowTeamInnings.get(j).getOvers());
+                        } else {
+                            team2_over.setVisibility(View.GONE);
+                        }
                     }
+                } else {
+                    team2_score.setVisibility(View.GONE);
+                    team2_wkt.setVisibility(View.GONE);
+                    team2_over.setVisibility(View.GONE);
+                    back_slash_score2.setText(" - ");
+                    overText2.setVisibility(View.GONE);
+
                 }
+
             } else {
-                for (int l = 0; l < batTeamInnings.size(); l++) {
-                    if (batTeamInnings.get(l).getScore() != null) {
-                        team2_score.setText(batTeamInnings.get(l).getScore());
-                    }
+                if (batTeamInnings != null) {
+                    for (int l = 0; l < batTeamInnings.size(); l++) {
+                        if (batTeamInnings.get(l).getScore() != null) {
+                            team2_score.setText(batTeamInnings.get(l).getScore());
+                        } else {
+                            team2_score.setVisibility(View.GONE);
+                        }
 
-                    if (batTeamInnings.get(l).getWkts() != null) {
-                        team2_wkt.setText(batTeamInnings.get(l).getWkts());
-                    }
+                        if (batTeamInnings.get(l).getWkts() != null) {
+                            team2_wkt.setText(batTeamInnings.get(l).getWkts());
+                        } else {
+                            team2_wkt.setVisibility(View.GONE);
+                        }
 
-                    if (batTeamInnings.get(l).getOvers() != null) {
-                        team2_over.setText(batTeamInnings.get(l).getOvers());
+                        if (batTeamInnings.get(l).getOvers() != null) {
+                            team2_over.setText(batTeamInnings.get(l).getOvers());
+                        } else {
+                            team2_over.setVisibility(View.GONE);
+                        }
                     }
-
+                } else {
+                    team2_score.setVisibility(View.GONE);
+                    team2_wkt.setVisibility(View.GONE);
+                    team2_over.setVisibility(View.GONE);
+                    back_slash_score2.setText(" - ");
+                    overText2.setVisibility(View.GONE);
                 }
             }
         }

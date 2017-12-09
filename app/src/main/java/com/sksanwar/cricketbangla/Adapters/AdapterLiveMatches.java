@@ -68,9 +68,8 @@ public class AdapterLiveMatches extends
 
     @Override
     public int getItemCount() {
-        if (matchList != null)
+        if (null == matchList) return 0;
             return matchList.size();
-        return 0;
     }
 
     public interface ListItemClickListener {
@@ -135,17 +134,34 @@ public class AdapterLiveMatches extends
                     date_text.setText(dictonary.getVenue_time() + ":");
                 }
 
-                String imageUrlTeam1 = "http://i.cricketcb.com/cbzvernacular/flags/" + matchList.get(position).getTeam1().getFlag();
-                String imageUrlTeam2 = "http://i.cricketcb.com/cbzvernacular/flags/" + matchList.get(position).getTeam2().getFlag();
-                Picasso
-                        .with(itemView.getContext())
-                        .load(imageUrlTeam1)
-                        .into(team1_flag);
+                //Setting the flag Image
+                String defaultFlagImage = "http://i.cricketcb.com/cbzvernacular/flags/default.png";
+                if (matchList.get(position).getTeam1().getFlag() != null) {
+                    String imageUrlTeam1 = "http://i.cricketcb.com/cbzvernacular/flags/" + matchList.get(position).getTeam1().getFlag();
+                    Picasso
+                            .with(itemView.getContext())
+                            .load(imageUrlTeam1)
+                            .into(team1_flag);
+                } else {
+                    Picasso
+                            .with(itemView.getContext())
+                            .load(defaultFlagImage)
+                            .into(team1_flag);
+                }
 
-                Picasso
-                        .with(itemView.getContext())
-                        .load(imageUrlTeam2)
-                        .into(team2_flag);
+
+                if (matchList.get(position).getTeam2().getFlag() != null) {
+                    String imageUrlTeam2 = "http://i.cricketcb.com/cbzvernacular/flags/" + matchList.get(position).getTeam2().getFlag();
+                    Picasso
+                            .with(itemView.getContext())
+                            .load(imageUrlTeam2)
+                            .into(team2_flag);
+                } else {
+                    Picasso
+                            .with(itemView.getContext())
+                            .load(defaultFlagImage)
+                            .into(team2_flag);
+                }
 
 
                 series_name.setText(matchList.get(position).getSeries_name());
@@ -190,65 +206,128 @@ public class AdapterLiveMatches extends
                     String batTeamID = matchList.get(position).getBat_team().getId();
                     String bowTeamID = matchList.get(position).getBow_team().getId();
 
+                    if (batTeamInnings != null || bowTeamInnings != null) {
+
+                    }
                     if (batTeamID.equals(team1ID)) {
-                        //show team1 1 score
-                        for (int i = 0; i < batTeamInnings.size(); i++) {
-                            if (batTeamInnings.get(i).getScore() != null) {
-                                team1_score.setText(batTeamInnings.get(i).getScore());
-                            }
+                        if (batTeamInnings != null) {
+                            //show team1 1 score
+                            for (int i = 0; i < batTeamInnings.size(); i++) {
+                                if (batTeamInnings.get(i).getScore() != null) {
+                                    team1_score.setText(batTeamInnings.get(i).getScore());
+                                } else {
+                                    team1_score.setVisibility(View.GONE);
+                                }
 
-                            if (batTeamInnings.get(i).getWkts() != null) {
-                                team1_wkt.setText(batTeamInnings.get(i).getWkts());
-                            }
+                                if (batTeamInnings.get(i).getWkts() != null) {
+                                    team1_wkt.setText(batTeamInnings.get(i).getWkts());
+                                } else {
+                                    team1_wkt.setVisibility(View.GONE);
+                                }
 
-                            if (batTeamInnings.get(i).getOvers() != null) {
-                                team1_overs.setText(batTeamInnings.get(i).getOvers());
+                                if (batTeamInnings.get(i).getOvers() != null) {
+                                    team1_overs.setText(batTeamInnings.get(i).getOvers());
+                                } else {
+                                    team1_overs.setVisibility(View.GONE);
+                                }
                             }
+                        } else {
+                            team1_score.setVisibility(View.GONE);
+                            team1_wkt.setVisibility(View.GONE);
+                            team1_overs.setVisibility(View.GONE);
+                            back_slash_score1.setText(" - ");
+                            overText1.setVisibility(View.GONE);
                         }
+
                     } else {
-                        for (int k = 0; k < bowTeamInnings.size(); k++) {
-                            if (bowTeamInnings.get(k).getScore() != null) {
-                                team1_score.setText(bowTeamInnings.get(k).getScore());
-                            }
+                        if (bowTeamInnings != null) {
+                            for (int k = 0; k < bowTeamInnings.size(); k++) {
+                                if (bowTeamInnings.get(k).getScore() != null) {
+                                    team1_score.setText(bowTeamInnings.get(k).getScore());
+                                } else {
+                                    team1_score.setVisibility(View.GONE);
+                                }
 
-                            if (bowTeamInnings.get(k).getWkts() != null) {
-                                team1_wkt.setText(bowTeamInnings.get(k).getWkts());
-                            }
+                                if (bowTeamInnings.get(k).getWkts() != null) {
+                                    team1_wkt.setText(bowTeamInnings.get(k).getWkts());
+                                } else {
+                                    team1_wkt.setVisibility(View.GONE);
+                                }
 
-                            if (bowTeamInnings.get(k).getOvers() != null) {
-                                team1_overs.setText(bowTeamInnings.get(k).getOvers());
+                                if (bowTeamInnings.get(k).getOvers() != null) {
+                                    team1_overs.setText(bowTeamInnings.get(k).getOvers());
+                                } else {
+                                    team1_overs.setVisibility(View.GONE);
+                                }
                             }
+                        } else {
+                            team1_score.setVisibility(View.GONE);
+                            team1_wkt.setVisibility(View.GONE);
+                            team1_overs.setVisibility(View.GONE);
+                            back_slash_score1.setText(" - ");
+                            overText1.setVisibility(View.GONE);
                         }
+
                     }
 
                     if (bowTeamID.equals(team2ID)) {
-                        //show team 2 score
-                        for (int j = 0; j < bowTeamInnings.size(); j++) {
-                            if (bowTeamInnings.get(j).getScore() != null) {
-                                team2_score.setText(bowTeamInnings.get(j).getScore());
-                            }
-                            if (bowTeamInnings.get(j).getWkts() != null) {
-                                team2_wkt.setText(bowTeamInnings.get(j).getWkts());
-                            }
 
-                            if (bowTeamInnings.get(j).getOvers() != null) {
-                                team2_overs.setText(bowTeamInnings.get(j).getOvers());
+                        if (bowTeamInnings != null) {
+                            for (int j = 0; j < bowTeamInnings.size(); j++) {
+                                if (bowTeamInnings.get(j).getScore() != null) {
+                                    team2_score.setText(bowTeamInnings.get(j).getScore());
+                                } else {
+                                    team2_score.setVisibility(View.GONE);
+                                }
+                                if (bowTeamInnings.get(j).getWkts() != null) {
+                                    team2_wkt.setText(bowTeamInnings.get(j).getWkts());
+                                } else {
+                                    team2_wkt.setVisibility(View.GONE);
+                                }
+
+                                if (bowTeamInnings.get(j).getOvers() != null) {
+                                    team2_overs.setText(bowTeamInnings.get(j).getOvers());
+                                } else {
+                                    team2_overs.setVisibility(View.GONE);
+                                }
                             }
+                        } else {
+                            team2_score.setVisibility(View.GONE);
+                            team2_wkt.setVisibility(View.GONE);
+                            team2_overs.setVisibility(View.GONE);
+                            overText2.setVisibility(View.GONE);
+                            back_slash_score2.setText(" - ");
                         }
+                        //show team 2 score
+
                     } else {
-                        for (int l = 0; l < batTeamInnings.size(); l++) {
-                            if (batTeamInnings.get(l).getScore() != null) {
-                                team2_score.setText(batTeamInnings.get(l).getScore());
-                            }
+                        if (batTeamInnings != null) {
+                            for (int l = 0; l < batTeamInnings.size(); l++) {
+                                if (batTeamInnings.get(l).getScore() != null) {
+                                    team2_score.setText(batTeamInnings.get(l).getScore());
+                                } else {
+                                    team2_score.setVisibility(View.GONE);
+                                }
 
-                            if (batTeamInnings.get(l).getWkts() != null) {
-                                team2_wkt.setText(batTeamInnings.get(l).getWkts());
-                            }
+                                if (batTeamInnings.get(l).getWkts() != null) {
+                                    team2_wkt.setText(batTeamInnings.get(l).getWkts());
+                                } else {
+                                    team2_wkt.setVisibility(View.GONE);
+                                }
 
-                            if (batTeamInnings.get(l).getOvers() != null) {
-                                team2_overs.setText(batTeamInnings.get(l).getOvers());
-                            }
+                                if (batTeamInnings.get(l).getOvers() != null) {
+                                    team2_overs.setText(batTeamInnings.get(l).getOvers());
+                                } else {
+                                    team2_overs.setVisibility(View.GONE);
+                                }
 
+                            }
+                        } else {
+                            team2_score.setVisibility(View.GONE);
+                            team2_wkt.setVisibility(View.GONE);
+                            team2_overs.setVisibility(View.GONE);
+                            overText2.setVisibility(View.GONE);
+                            back_slash_score2.setText(" - ");
                         }
                     }
                 }
