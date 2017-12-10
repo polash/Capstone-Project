@@ -65,7 +65,7 @@ public class MainActivityFragment extends Fragment implements
     @BindView(R.id.no_network)
     TextView no_network;
     Handler handler = new Handler();
-    int delay = 35000;//15 seconds
+    int delay = 35000;//35 seconds
     Runnable runnable;
     private Intent intent;
     private AdapterLiveMatches adapterLiveMatches;
@@ -78,6 +78,7 @@ public class MainActivityFragment extends Fragment implements
     //interstitialadd
     private InterstitialAd mInterstitialAd;
 
+    //default fragment class
     public MainActivityFragment() {
     }
 
@@ -104,7 +105,6 @@ public class MainActivityFragment extends Fragment implements
             public void onAdClosed() {
                 requestNewInterstitial();
                 startActivity(intent);
-
             }
         });
 
@@ -115,7 +115,6 @@ public class MainActivityFragment extends Fragment implements
         mDictonaryDatabaseReference.keepSynced(true);
         mMatchListDatabaseReference = mFirebaseDatabase.getReference().child("MatchList");
         mMatchListDatabaseReference.keepSynced(true);
-
 
         no_network.setVisibility(View.GONE);
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -155,9 +154,10 @@ public class MainActivityFragment extends Fragment implements
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     LiveMatches liveMatches = dataSnapshot1.getValue(LiveMatches.class);
-                    matchesList = liveMatches.getMatches();
-                    loadViews(matchesList);
-
+                    if (liveMatches != null) {
+                        matchesList = liveMatches.getMatches();
+                        loadViews(matchesList);
+                    }
                 }
             }
 
@@ -182,11 +182,6 @@ public class MainActivityFragment extends Fragment implements
                 matchesList = savedInstanceState.getParcelableArrayList(LIVE_MATCH_LIST);
             }
         }
-        if (matchesList != null) {
-            loadViews(matchesList);
-        } else {
-            liveMatchDownloadFromJson();
-        }
     }
 
     //Network Checks
@@ -207,6 +202,8 @@ public class MainActivityFragment extends Fragment implements
     public void onResume() {
         handler.postDelayed(new Runnable() {
             public void run() {
+                mDictonaryDatabaseReference.removeValue();
+                mMatchListDatabaseReference.removeValue();
                 liveMatchDownloadFromJson();
                 runnable = this;
                 handler.postDelayed(runnable, delay);
@@ -221,7 +218,6 @@ public class MainActivityFragment extends Fragment implements
         handler.removeCallbacks(runnable); //stop handler when activity not visible
         super.onPause();
     }
-
 
 
     //Load json data
@@ -249,6 +245,7 @@ public class MainActivityFragment extends Fragment implements
                         mDictonaryDatabaseReference.push().setValue(dict);
                     }
                 }
+
                 @Override
                 public void onFailure(Call<DictonaryPojo> call, Throwable t) {
 
@@ -302,11 +299,12 @@ public class MainActivityFragment extends Fragment implements
         } else {
             Toast.makeText(getContext(), "Please Check Your Internet Connectivity", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     @Override
     public void onRefresh() {
+        mDictonaryDatabaseReference.removeValue();
+        mMatchListDatabaseReference.removeValue();
         liveMatchDownloadFromJson();
     }
 

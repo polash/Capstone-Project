@@ -42,7 +42,6 @@ import static com.sksanwar.cricketbangla.Adapters.AdapterLiveMatches.matchTimeMo
  */
 
 public class LiveMatchDetailsFragment extends Fragment {
-
     private static final String TAG = LiveMatchDetailsFragment.class.getSimpleName();
     @BindView(R.id.team1_flag)
     ImageView team1_flag;
