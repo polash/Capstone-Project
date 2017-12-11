@@ -128,6 +128,11 @@ public class MainActivityFragment extends Fragment implements
     }
 
     private void loadDataFromFirebaseDB() {
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         //Dictonary database from firebase real-time database
         mDictonaryDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -223,11 +228,7 @@ public class MainActivityFragment extends Fragment implements
     //Load json data
     public void liveMatchDownloadFromJson() {
         if (networkCheck()) {
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+
 
             /**
              * For dictonary data fetching
