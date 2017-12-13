@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
-    android:layout_marginEnd="8dp"
-    android:layout_marginStart="8dp"
-    android:layout_marginTop="8dp"
-    android:background="#FFFFFF"
-    android:elevation="4dp">
+    android:layout_marginBottom="@dimen/dimen_eight"
+    android:layout_marginEnd="@dimen/dimen_eight"
+    android:layout_marginStart="@dimen/dimen_eight"
+    android:layout_marginTop="@dimen/dimen_eight"
+    android:background="@color/color_white"
+    android:elevation="@dimen/elevation_dimen">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/dimen_eight"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/match_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            tools:text="ম্যাচের বিসয়" />
+            android:gravity="center_horizontal" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,23 +28,15 @@
 
             <TextView
                 android:id="@+id/tv_series_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                tools:text="সিরিজের নাম" />
+                style="@style/text_style_left" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="2dp"
-                android:text=":" />
+                style="@style/colon_style"
+                android:text="@string/colon_string" />
 
             <TextView
                 android:id="@+id/series_name_venu"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                tools:text="টি অশেষ, 2017-18" />
+                style="@style/text_style_right" />
 
         </LinearLayout>
 
@@ -57,23 +47,15 @@
 
             <TextView
                 android:id="@+id/tv_venu"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                tools:text="স্থান" />
+                style="@style/text_style_left" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="2dp"
-                android:text=":" />
+                style="@style/colon_style"
+                android:text="@string/colon_string" />
 
             <TextView
                 android:id="@+id/venu_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                tools:text="গাব্বা" />
+                style="@style/text_style_right" />
 
         </LinearLayout>
 
@@ -84,23 +66,15 @@
 
             <TextView
                 android:id="@+id/tv_date"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                tools:text="তারিখ" />
+                style="@style/text_style_left" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="2dp"
-                android:text=":" />
+                style="@style/colon_style"
+                android:text="@string/colon_string" />
 
             <TextView
                 android:id="@+id/match_date"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                tools:text="রবিবার, নভেম্বর, 24 - মঙ্গলবার, নভেম্বর 26" />
+                style="@style/text_style_right" />
 
         </LinearLayout>
 
@@ -111,24 +85,16 @@
 
             <TextView
                 android:id="@+id/tv_umpire"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                tools:text="আম্পায়ার" />
+                style="@style/text_style_left" />
 
             <TextView
                 android:id="@+id/umpire_colon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="2dp"
-                android:text=":" />
+                style="@style/colon_style"
+                android:text="@string/colon_string" />
 
             <TextView
                 android:id="@+id/umpire_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                tools:text="umpire 1 , umpire 2" />
+                style="@style/text_style_right" />
 
         </LinearLayout>
 
@@ -139,24 +105,16 @@
 
             <TextView
                 android:id="@+id/tv_3rd_umpire"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                tools:text="তৃতীয় আম্পায়ার" />
+                style="@style/text_style_left" />
 
             <TextView
                 android:id="@+id/rd3_umpire_colon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="2dp"
-                android:text=":" />
+                style="@style/colon_style"
+                android:text="@string/colon_string" />
 
             <TextView
                 android:id="@+id/rd3_umpire_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                tools:text="3rd Umpire name" />
+                style="@style/text_style_right" />
 
         </LinearLayout>
 
@@ -167,24 +125,16 @@
 
             <TextView
                 android:id="@+id/tv_referee"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                tools:text="রেফারি" />
+                style="@style/text_style_left" />
 
             <TextView
                 android:id="@+id/referee_colon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="2dp"
-                android:text=":" />
+                style="@style/colon_style"
+                android:text="@string/colon_string" />
 
             <TextView
                 android:id="@+id/referee_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                tools:text="Referee Name" />
+                style="@style/text_style_right" />
 
         </LinearLayout>
 
@@ -197,8 +147,7 @@
             android:layout_marginTop="4dp"
             android:background="@drawable/border"
             android:gravity="center_horizontal"
-            android:textStyle="bold"
-            tools:text="দল" />
+            android:textStyle="bold" />
 
 
         <LinearLayout
@@ -236,8 +185,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
-
-
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

@@ -3,4 +3,9 @@
     <string name="no_network">No Network Connection</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+    <string name="match_string">ম্যাচ</string>
+    <string name="vs_string">বনাম</string>
+    <string name="back_slash_string">/</string>
+    <string name="over_string"> ওভার</string>
+    <string name="colon_string">:</string>
 </resources>

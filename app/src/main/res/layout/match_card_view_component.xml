@@ -5,12 +5,12 @@
     android:id="@+id/cv_liveMatches"
     android:layout_width="match_parent"
     android:layout_height="130dp"
-    android:layout_marginEnd="8dp"
-    android:layout_marginStart="8dp"
-    android:layout_marginTop="8dp"
-    android:background="#FFFFFF"
-    android:elevation="4dp"
-    app:cardCornerRadius="6dp">
+    android:layout_marginEnd="@dimen/dimen_eight"
+    android:layout_marginStart="@dimen/dimen_eight"
+    android:layout_marginTop="@dimen/dimen_eight"
+    android:background="@color/color_white"
+    android:elevation="@dimen/elevation_dimen"
+    app:cardCornerRadius="@dimen/dimen_radius">
 
     <LinearLayout
         android:layout_width="match_parent"
