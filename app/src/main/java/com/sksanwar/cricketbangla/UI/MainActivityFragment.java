@@ -51,6 +51,9 @@ import retrofit2.Response;
 public class MainActivityFragment extends Fragment implements
         AdapterLiveMatches.ListItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
+    public static final String ACTION_DATA_UPDATED =
+            "com.sksanwar.app.cricketbangla.ACTION_DATA_UPDATED";
+
     public static final String LIVE_MATCH_LIST = "live_match_list";
     public static final String POSITION = "position";
     public static final String DICTONARPOJO = "dictonary";
@@ -228,12 +231,10 @@ public class MainActivityFragment extends Fragment implements
     //Load json data
     public void liveMatchDownloadFromJson() {
         if (networkCheck()) {
-
-
             /**
              * For dictonary data fetching
              */
-            final JsonFetchTask jsonFetchTask = ServiceGenerator.createService(JsonFetchTask.class);
+            JsonFetchTask jsonFetchTask = ServiceGenerator.createService(JsonFetchTask.class);
             Call<DictonaryPojo> call = jsonFetchTask.dictonaryForCricket();
             /**
              * AsyncTask for Dictonary
