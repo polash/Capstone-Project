@@ -143,8 +143,8 @@
             android:id="@+id/tv_squads"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginBottom="@dimen/margin_4dp"
+            android:layout_marginTop="@dimen/margin_4dp"
             android:background="@drawable/border"
             android:gravity="center_horizontal"
             android:textStyle="bold" />

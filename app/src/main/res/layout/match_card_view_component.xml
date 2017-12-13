@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cv_liveMatches"
     android:layout_width="match_parent"
-    android:layout_height="130dp"
+    android:layout_height="@dimen/card_layout"
     android:layout_marginEnd="@dimen/dimen_eight"
     android:layout_marginStart="@dimen/dimen_eight"
     android:layout_marginTop="@dimen/dimen_eight"
@@ -21,10 +20,9 @@
             android:id="@+id/series_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="@dimen/dimen_4dp"
             android:gravity="center_horizontal"
-            android:textSize="12sp"
-            tools:text="শ্রী লিঙ্ক টুর অফ ইন্ডিয়া, 2017" />
+            android:textSize="@dimen/text_size_12sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -37,17 +35,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:textSize="12sp"
-                    tools:text="স্থান সময়:" />
+                    android:textSize="@dimen/text_size_12sp" />
 
                 <TextView
                     android:id="@+id/match_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginTop="3dp"
-                    android:textSize="12sp"
-                    tools:text="রবিবার, 24, জানুয়ারী, 11:00 AM" />
+                    android:layout_marginStart="@dimen/dimen_two"
+                    android:layout_marginTop="@dimen/dimen_three"
+                    android:textSize="@dimen/text_size_12sp" />
 
         </LinearLayout>
 
@@ -59,19 +55,17 @@
 
             <ImageView
                 android:id="@+id/team1_flag"
-                android:layout_width="25dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
-                android:src="@mipmap/ic_launcher_round" />
+                android:layout_width="@dimen/dimen_25dp"
+                android:layout_height="@dimen/dimen_20dp"
+                android:layout_marginStart="@dimen/dimen_16dp"
+                android:layout_marginTop="@dimen/dimen_4dp" />
             <TextView
                 android:id="@+id/team1_country_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="@dimen/dimen_4dp"
                 android:layout_weight="3"
-                android:textSize="12sp"
-                tools:text="BAN" />
+                android:textSize="@dimen/text_size_12sp" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -88,45 +82,41 @@
                         android:id="@+id/team1_score"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:textSize="12sp"
-                        tools:text="128" />
+                        android:layout_marginTop="@dimen/dimen_4dp"
+                        android:textSize="@dimen/text_size_12sp" />
 
                     <TextView
                         android:id="@+id/back_slash_score_team1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="/"
-                        android:textSize="12sp" />
+                        android:layout_marginTop="@dimen/dimen_4dp"
+                        android:text="@string/back_slash_string"
+                        android:textSize="@dimen/text_size_12sp" />
 
                     <TextView
                         android:id="@+id/team1_wkt"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="@dimen/dimen_4dp"
                         android:layout_weight="0.5"
                         android:gravity="start"
-                        android:textSize="12sp"
-                        tools:text="10" />
+                        android:textSize="@dimen/text_size_12sp" />
 
                     <TextView
                         android:id="@+id/team1_over"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="@dimen/dimen_4dp"
                         android:layout_weight="0.5"
-                        android:textSize="12sp"
-                        tools:text="10" />
+                        android:textSize="@dimen/text_size_12sp" />
 
                     <TextView
                         android:id="@+id/over_text"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="@dimen/dimen_4dp"
                         android:layout_weight="1"
-                        android:textSize="12sp"
-                        tools:text="ওভার" />
+                        android:textSize="@dimen/text_size_12sp" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -136,31 +126,29 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="2dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginBottom="@dimen/dimen_two"
+            android:layout_marginTop="@dimen/dimen_4dp"
             android:orientation="horizontal">
-
 
             <ImageView
                 android:id="@+id/team2_flag"
-                android:layout_width="25dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
-                android:src="@mipmap/ic_launcher_round" />
+                android:layout_width="@dimen/dimen_25dp"
+                android:layout_height="@dimen/dimen_20dp"
+                android:layout_marginStart="@dimen/dimen_16dp"
+                android:layout_marginTop="@dimen/dimen_4dp" />
+
 
             <TextView
 
                 android:id="@+id/team2_country_name"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/zeroDP_dimen"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="@dimen/dimen_4dp"
                 android:layout_weight="3"
-                android:textSize="12sp"
-                tools:text="IND" />
+                android:textSize="@dimen/text_size_12sp" />
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="@dimen/zeroDP_dimen"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:orientation="horizontal">
@@ -174,45 +162,41 @@
                         android:id="@+id/team2_score"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:textSize="12sp"
-                        tools:text="128" />
+                        android:layout_marginTop="@dimen/dimen_4dp"
+                        android:textSize="@dimen/text_size_12sp" />
 
                     <TextView
                         android:id="@+id/back_slash_score_team2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="/"
-                        android:textSize="12sp" />
+                        android:layout_marginTop="@dimen/dimen_4dp"
+                        android:text="@string/back_slash_string"
+                        android:textSize="@dimen/text_size_12sp" />
 
                     <TextView
                         android:id="@+id/team2_wkt"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="@dimen/dimen_4dp"
                         android:layout_weight="0.5"
                         android:gravity="start"
-                        android:textSize="12sp"
-                        tools:text="10" />
+                        android:textSize="@dimen/text_size_12sp" />
 
                     <TextView
                         android:id="@+id/team2_over"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="@dimen/dimen_4dp"
                         android:layout_weight="0.5"
-                        android:textSize="12sp"
-                        tools:text="10" />
+                        android:textSize="@dimen/text_size_12sp" />
 
                     <TextView
                         android:id="@+id/over_text2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="@dimen/dimen_4dp"
                         android:layout_weight="1"
-                        android:textSize="12sp"
-                        tools:text="ওভার" />
+                        android:textSize="@dimen/text_size_12sp" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -221,18 +205,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="4dp"
-            android:background="#F5F5F5">
+            android:layout_marginTop="@dimen/dimen_4dp"
+            android:background="@color/bottom_color">
 
             <TextView
                 android:id="@+id/matchstatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="@dimen/dimen_16dp"
+                android:layout_marginTop="@dimen/dimen_eight"
                 android:textColor="@color/colorAccent"
-                android:textSize="12sp"
-                tools:text="নির্ধারিত শুরুর সময় : নভেম্বর 19, 09:05 ভারতীয় সময়" />
+                android:textSize="@dimen/text_size_12sp" />
 
         </LinearLayout>
 

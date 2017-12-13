@@ -41,7 +41,6 @@ public class AdapterLiveMatches extends
     public static String matchTimeDate;
     public static String matchTime;
     public DictonaryPojo dictonary;
-
     public ListItemClickListener mOnClickListener;
     private ArrayList<Match> matchList;
 
@@ -131,7 +130,7 @@ public class AdapterLiveMatches extends
                 if (dictonary != null) {
                     overText1.setText(dictonary.getOvers());
                     overText2.setText(dictonary.getOvers());
-                    date_text.setText(dictonary.getVenue_time() + ":");
+                    date_text.append(dictonary.getVenue_time() + ":");
                 }
 
                 //Setting the flag Image
@@ -193,7 +192,7 @@ public class AdapterLiveMatches extends
                 matchTime = convertTimeFromUnix(matchList.get(position).getHeader().getStart_time(),
                         matchList.get(position).getVenue().getTimezone());
 
-                match_date.setText(matchTimeDay + ", " + matchTimeDate + ", " + matchTimeMonth + ", " + matchTime);
+                match_date.append(matchTimeDay + ", " + matchTimeDate + ", " + matchTimeMonth + ", " + matchTime);
 
                 //show score
                 if (matchList.get(position).getBat_team() != null || matchList.get(position).getBow_team() != null) {
