@@ -3,6 +3,7 @@ package com.sksanwar.cricketbangla.UI;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -176,21 +177,21 @@ public class LiveMatchDetailsFragment extends Fragment {
                     players = liveMatchDetail.getPlayers();
                     setData();
                 } else {
-                    Toast.makeText(getContext(), "Error Geting data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getContext().getString(R.string.error_data), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<LiveMatchDetails> call, Throwable t) {
-                Toast.makeText(getContext(), "Error Getting Data", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getContext().getString(R.string.error_data), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void setData() {
-        String defaultFlagImage = "http://i.cricketcb.com/cbzvernacular/flags/default.png";
+        String defaultFlagImage = getContext().getString(R.string.default_image_address);
         if (liveMatchDetails.getTeam1().getFlag() != null) {
-            String imageUrlTeam1 = "http://i.cricketcb.com/cbzvernacular/flags/" + liveMatchDetails.getTeam1().getFlag();
+            String imageUrlTeam1 = getContext().getString(R.string.flag_image_url) + liveMatchDetails.getTeam1().getFlag();
             Picasso
                     .with(getContext())
                     .load(imageUrlTeam1)
@@ -204,7 +205,7 @@ public class LiveMatchDetailsFragment extends Fragment {
 
 
         if (liveMatchDetails.getTeam2().getFlag() != null) {
-            String imageUrlTeam2 = "http://i.cricketcb.com/cbzvernacular/flags/" + liveMatchDetails.getTeam2().getFlag();
+            String imageUrlTeam2 = getContext().getString(R.string.flag_image_url) + liveMatchDetails.getTeam2().getFlag();
             Picasso
                     .with(getContext())
                     .load(imageUrlTeam2)
@@ -237,16 +238,16 @@ public class LiveMatchDetailsFragment extends Fragment {
                 break;
         }
         matchstatus.setText(liveMatchDetails.getHeader().getStatus());
-        toss_match.setText(dictonary.getToss() + ": ");
+        toss_match.append(dictonary.getToss() + getContext().getString(R.string.colon_string) + " ");
         toss_details.setText(liveMatchDetails.getHeader().getToss());
 
-        if (matchList.get(index).getHeader().getState().equals("preview")) {
+        if (matchList.get(index).getHeader().getState().equals(getContext().getResources().getString(R.string.preview_string))) {
             back_slash_score1.setVisibility(INVISIBLE);
             overText1.setVisibility(INVISIBLE);
             back_slash_score2.setVisibility(INVISIBLE);
             overText2.setVisibility(INVISIBLE);
             match_start_message.setVisibility(View.VISIBLE);
-            match_start_message.setText("খেলা এখনো শুরু হয়নি");
+            match_start_message.setText(getContext().getResources().getString(R.string.match_not_started_yet));
 
 
         } else if (matchList.get(index).getBat_team() != null || matchList.get(index).getBow_team() != null) {
@@ -439,7 +440,7 @@ public class LiveMatchDetailsFragment extends Fragment {
         for (int i = 0; i < players.size(); i++) {
             String name = players.get(i).getF_name();
             String playerid = players.get(i).getId();
-//            Log.d(TAG, "players name: " +name);
+            Log.d(TAG, "players name: " + name);
 
             if (team1Squads != null) {
                 for (int j = 0; j < team1Squads.size(); j++) {

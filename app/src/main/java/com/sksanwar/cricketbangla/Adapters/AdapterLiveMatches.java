@@ -1,5 +1,6 @@
 package com.sksanwar.cricketbangla.Adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,13 +44,15 @@ public class AdapterLiveMatches extends
     public DictonaryPojo dictonary;
     public ListItemClickListener mOnClickListener;
     private ArrayList<Match> matchList;
+    private Context mContext;
 
 
-    public AdapterLiveMatches(ListItemClickListener mOnClickListener,
+    public AdapterLiveMatches(Context context, ListItemClickListener mOnClickListener,
                               ArrayList<Match> matchList, DictonaryPojo dictonary) {
         this.mOnClickListener = mOnClickListener;
         this.matchList = matchList;
         this.dictonary = dictonary;
+        this.mContext = context;
     }
 
     @Override
@@ -130,13 +133,13 @@ public class AdapterLiveMatches extends
                 if (dictonary != null) {
                     overText1.setText(dictonary.getOvers());
                     overText2.setText(dictonary.getOvers());
-                    date_text.append(dictonary.getVenue_time() + ":");
+                    date_text.append(dictonary.getVenue_time() + mContext.getString(R.string.colon_string));
                 }
 
                 //Setting the flag Image
-                String defaultFlagImage = "http://i.cricketcb.com/cbzvernacular/flags/default.png";
+                String defaultFlagImage = mContext.getString(R.string.default_image_address);
                 if (matchList.get(position).getTeam1().getFlag() != null) {
-                    String imageUrlTeam1 = "http://i.cricketcb.com/cbzvernacular/flags/" + matchList.get(position).getTeam1().getFlag();
+                    String imageUrlTeam1 = mContext.getString(R.string.flag_image_url) + matchList.get(position).getTeam1().getFlag();
                     Picasso
                             .with(itemView.getContext())
                             .load(imageUrlTeam1)
@@ -150,7 +153,7 @@ public class AdapterLiveMatches extends
 
 
                 if (matchList.get(position).getTeam2().getFlag() != null) {
-                    String imageUrlTeam2 = "http://i.cricketcb.com/cbzvernacular/flags/" + matchList.get(position).getTeam2().getFlag();
+                    String imageUrlTeam2 = mContext.getString(R.string.flag_image_url) + matchList.get(position).getTeam2().getFlag();
                     Picasso
                             .with(itemView.getContext())
                             .load(imageUrlTeam2)
@@ -169,7 +172,7 @@ public class AdapterLiveMatches extends
                 team2_country_name.setText(matchList.get(position).getTeam2().getName());
 
                 //Visibility of Score if match State is preview
-                if (matchList.get(position).getHeader().getState().equals("preview")) {
+                if (matchList.get(position).getHeader().getState().equals(mContext.getString(R.string.preview_string))) {
                     back_slash_score1.setVisibility(INVISIBLE);
                     back_slash_score2.setVisibility(INVISIBLE);
                     overText1.setVisibility(INVISIBLE);
@@ -192,7 +195,8 @@ public class AdapterLiveMatches extends
                 matchTime = convertTimeFromUnix(matchList.get(position).getHeader().getStart_time(),
                         matchList.get(position).getVenue().getTimezone());
 
-                match_date.append(matchTimeDay + ", " + matchTimeDate + ", " + matchTimeMonth + ", " + matchTime);
+                match_date.append(matchTimeDay + mContext.getString(R.string.comma_string) + matchTimeDate +
+                        mContext.getString(R.string.comma_string) + matchTimeMonth + mContext.getString(R.string.comma_string) + matchTime);
 
                 //show score
                 if (matchList.get(position).getBat_team() != null || matchList.get(position).getBow_team() != null) {
@@ -354,30 +358,30 @@ public class AdapterLiveMatches extends
                 throws NullPointerException, IllegalArgumentException {
             String result;
             long time = Long.valueOf(unix_time);
-            String TIMEZONE = "GMT" + time_zone;
+            String TIMEZONE = mContext.getString(R.string.time_GMT) + time_zone;
             Date date = new Date(time * 1000);
-            SimpleDateFormat simpleDayFormat = new SimpleDateFormat("EEEE", Locale.ENGLISH);
+            SimpleDateFormat simpleDayFormat = new SimpleDateFormat(mContext.getString(R.string.time_Day), Locale.ENGLISH);
             simpleDayFormat.setTimeZone(TimeZone.getTimeZone(TIMEZONE));
             result = simpleDayFormat.format(date);
 
             //Condition to show from dictonary
             if (dictonary != null) {
-                if (result.contains("Friday")) {
-                    return result.replace("Friday", dictonary.getWeek_fri());
-                } else if (result.contains("Saturday")) {
-                    return result.replace("Saturday", dictonary.getWeek_sat());
-                } else if (result.contains("Sunday")) {
-                    return result.replace("Sunday", dictonary.getWeek_sun());
-                } else if (result.contains("Monday")) {
-                    return result.replace("Monday", dictonary.getWeek_mon());
-                } else if (result.contains("Tuesday")) {
-                    return result.replace("Tuesday", dictonary.getWeek_tue());
-                } else if (result.contains("Wednesday")) {
-                    return result.replace("Wednesday", dictonary.getWeek_wed());
-                } else if (result.contains("Thursday")) {
-                    return result.replace("Thursday", dictonary.getWeek_thu());
+                if (result.contains(mContext.getString(R.string.day_Friday))) {
+                    return result.replace(mContext.getString(R.string.day_Friday), dictonary.getWeek_fri());
+                } else if (result.contains(mContext.getString(R.string.day_Saturday))) {
+                    return result.replace(mContext.getString(R.string.day_Saturday), dictonary.getWeek_sat());
+                } else if (result.contains(mContext.getString(R.string.day_Sunday))) {
+                    return result.replace(mContext.getString(R.string.day_Sunday), dictonary.getWeek_sun());
+                } else if (result.contains(mContext.getString(R.string.day_Monday))) {
+                    return result.replace(mContext.getString(R.string.day_Monday), dictonary.getWeek_mon());
+                } else if (result.contains(mContext.getString(R.string.day_Tuesday))) {
+                    return result.replace(mContext.getString(R.string.day_Tuesday), dictonary.getWeek_tue());
+                } else if (result.contains(mContext.getString(R.string.day_Wednesday))) {
+                    return result.replace(mContext.getString(R.string.day_Wednesday), dictonary.getWeek_wed());
+                } else if (result.contains(mContext.getString(R.string.day_Thursday))) {
+                    return result.replace(mContext.getString(R.string.day_Thursday), dictonary.getWeek_thu());
                 } else {
-                    Toast.makeText(itemView.getContext(), "Error Getting Data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(itemView.getContext(), mContext.getString(R.string.error_data), Toast.LENGTH_SHORT).show();
                 }
             }
             return result;
@@ -388,40 +392,40 @@ public class AdapterLiveMatches extends
                 throws NullPointerException, IllegalArgumentException {
             String resultMonth;
             long time = Long.valueOf(unix_time);
-            String TIMEZONE = "GMT" + time_zone;
+            String TIMEZONE = mContext.getString(R.string.time_GMT) + time_zone;
             Date date = new Date(time * 1000);
-            SimpleDateFormat simpleDayFormat = new SimpleDateFormat("MMM", Locale.ENGLISH);
+            SimpleDateFormat simpleDayFormat = new SimpleDateFormat(mContext.getString(R.string.time_Month), Locale.ENGLISH);
             simpleDayFormat.setTimeZone(TimeZone.getTimeZone(TIMEZONE));
             resultMonth = simpleDayFormat.format(date);
 
             //Condition to show from dictonary
             if (dictonary != null) {
-                if (resultMonth.contains("Jan")) {
-                    return resultMonth.replace("Jan", dictonary.getMonth_jan());
-                } else if (resultMonth.contains("Feb")) {
-                    return resultMonth.replace("Feb", dictonary.getMonth_feb());
-                } else if (resultMonth.contains("Mar")) {
-                    return resultMonth.replace("Mar", dictonary.getMonth_mar());
-                } else if (resultMonth.contains("Apr")) {
-                    return resultMonth.replace("Apr", dictonary.getMonth_apr());
-                } else if (resultMonth.contains("May")) {
-                    return resultMonth.replace("May", dictonary.getMonth_may());
-                } else if (resultMonth.contains("Jun")) {
-                    return resultMonth.replace("Jun", dictonary.getMonth_jun());
-                } else if (resultMonth.contains("Jul")) {
-                    return resultMonth.replace("Jul", dictonary.getMonth_jul());
-                } else if (resultMonth.contains("Aug")) {
-                    return resultMonth.replace("Aug", dictonary.getMonth_aug());
-                } else if (resultMonth.contains("Sep")) {
-                    return resultMonth.replace("Sep", dictonary.getMonth_sep());
-                } else if (resultMonth.contains("Oct")) {
-                    return resultMonth.replace("Oct", dictonary.getMonth_oct());
-                } else if (resultMonth.contains("Nov")) {
-                    return resultMonth.replace("Nov", dictonary.getMonth_nov());
-                } else if (resultMonth.contains("Dec")) {
-                    return resultMonth.replace("Dec", dictonary.getMonth_dec());
+                if (resultMonth.contains(mContext.getString(R.string.month_Jan))) {
+                    return resultMonth.replace(mContext.getString(R.string.month_Jan), dictonary.getMonth_jan());
+                } else if (resultMonth.contains(mContext.getString(R.string.month_Feb))) {
+                    return resultMonth.replace(mContext.getString(R.string.month_Feb), dictonary.getMonth_feb());
+                } else if (resultMonth.contains(mContext.getString(R.string.month_Mar))) {
+                    return resultMonth.replace(mContext.getString(R.string.month_Mar), dictonary.getMonth_mar());
+                } else if (resultMonth.contains(mContext.getString(R.string.month_Apr))) {
+                    return resultMonth.replace(mContext.getString(R.string.month_Apr), dictonary.getMonth_apr());
+                } else if (resultMonth.contains(mContext.getString(R.string.month_May))) {
+                    return resultMonth.replace(mContext.getString(R.string.month_May), dictonary.getMonth_may());
+                } else if (resultMonth.contains(mContext.getString(R.string.month_Jun))) {
+                    return resultMonth.replace(mContext.getString(R.string.month_Jun), dictonary.getMonth_jun());
+                } else if (resultMonth.contains(mContext.getString(R.string.month_Jul))) {
+                    return resultMonth.replace(mContext.getString(R.string.month_Jul), dictonary.getMonth_jul());
+                } else if (resultMonth.contains(mContext.getString(R.string.month_Aug))) {
+                    return resultMonth.replace(mContext.getString(R.string.month_Aug), dictonary.getMonth_aug());
+                } else if (resultMonth.contains(mContext.getString(R.string.month_Sep))) {
+                    return resultMonth.replace(mContext.getString(R.string.month_Sep), dictonary.getMonth_sep());
+                } else if (resultMonth.contains(mContext.getString(R.string.month_Oct))) {
+                    return resultMonth.replace(mContext.getString(R.string.month_Oct), dictonary.getMonth_oct());
+                } else if (resultMonth.contains(mContext.getString(R.string.month_Nov))) {
+                    return resultMonth.replace(mContext.getString(R.string.month_Nov), dictonary.getMonth_nov());
+                } else if (resultMonth.contains(mContext.getString(R.string.month_Dec))) {
+                    return resultMonth.replace(mContext.getString(R.string.month_Dec), dictonary.getMonth_dec());
                 } else {
-                    Toast.makeText(itemView.getContext(), "Error Getting Data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(itemView.getContext(), mContext.getString(R.string.error_data), Toast.LENGTH_SHORT).show();
                 }
             }
             return resultMonth;
@@ -432,9 +436,9 @@ public class AdapterLiveMatches extends
                 throws NullPointerException, IllegalArgumentException {
             String result;
             long time = Long.valueOf(unix_time);
-            String TIMEZONE = "GMT" + time_zone;
+            String TIMEZONE = mContext.getString(R.string.time_GMT) + time_zone;
             Date date = new Date(time * 1000);
-            SimpleDateFormat simpleDayFormat = new SimpleDateFormat("HH:mm a", Locale.ENGLISH);
+            SimpleDateFormat simpleDayFormat = new SimpleDateFormat(mContext.getString(R.string.time_hrFormat), Locale.ENGLISH);
             simpleDayFormat.setTimeZone(TimeZone.getTimeZone(TIMEZONE));
             result = simpleDayFormat.format(date);
 
@@ -446,9 +450,9 @@ public class AdapterLiveMatches extends
                 throws NullPointerException, IllegalArgumentException {
             String result;
             long time = Long.valueOf(unix_time);
-            String TIMEZONE = "GMT" + time_zone;
+            String TIMEZONE = mContext.getString(R.string.time_GMT) + time_zone;
             Date date = new Date(time * 1000);
-            SimpleDateFormat simpleDayFormat = new SimpleDateFormat("dd", Locale.ENGLISH);
+            SimpleDateFormat simpleDayFormat = new SimpleDateFormat(mContext.getString(R.string.time_Date), Locale.ENGLISH);
             simpleDayFormat.setTimeZone(TimeZone.getTimeZone(TIMEZONE));
             result = simpleDayFormat.format(date);
 

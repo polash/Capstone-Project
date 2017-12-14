@@ -3,8 +3,8 @@
     android:initialKeyguardLayout="@layout/live_match_widget"
     android:initialLayout="@layout/live_match_widget"
     android:minHeight="110dp"
-    android:minWidth="110dp"
-    android:previewImage="@drawable/example_appwidget_preview"
+    android:minWidth="300dp"
+    android:previewImage="@drawable/widget_preview"
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="1800000"
     android:widgetCategory="home_screen">

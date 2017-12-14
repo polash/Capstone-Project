@@ -43,7 +43,6 @@ public class LiveMatchWidgetIntenetService extends IntentService {
         for (int appWidgetId : appWidgetIds) {
             // Construct the RemoteViews object
             RemoteViews views = new RemoteViews(this.getPackageName(), R.layout.live_match_widget);
-
             // Set up the collection
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
                 setRemoteAdapter(this, views);
@@ -53,7 +52,6 @@ public class LiveMatchWidgetIntenetService extends IntentService {
             appWidgetManager.updateAppWidget(appWidgetId, views);
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_list);
         }
-
 
     }
 }

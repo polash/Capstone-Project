@@ -6,17 +6,13 @@ import android.graphics.Color;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
-import com.sksanwar.cricketbangla.FetchData.JsonFetchTask;
-import com.sksanwar.cricketbangla.FetchData.ServiceGenerator;
-import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.LiveMatches;
 import com.sksanwar.cricketbangla.Pojo.LiveMatchPojo.Match;
+import com.sksanwar.cricketbangla.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import static com.sksanwar.cricketbangla.UI.MainActivityFragment.matchesList;
 
 /**
  * Created by sksho on 13-Dec-17.
@@ -33,34 +29,15 @@ class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory {
     }
 
 
-    private void loadDataFromJson() {
-        JsonFetchTask jsonFetchTask = ServiceGenerator.createService(JsonFetchTask.class);
-        Call<LiveMatches> liveMatchesCall = jsonFetchTask.liveMatch();
-        liveMatchesCall.enqueue(new Callback<LiveMatches>() {
-            @Override
-            public void onResponse(Call<LiveMatches> call, Response<LiveMatches> response) {
-                LiveMatches liveMatches = response.body();
-                if (liveMatches != null) {
-                    matchList = liveMatches.getMatches();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<LiveMatches> call, Throwable t) {
-
-            }
-        });
-    }
-
     @Override
     public void onCreate() {
-        loadDataFromJson();
+        matchList = matchesList;
     }
 
 
     @Override
     public void onDataSetChanged() {
-        loadDataFromJson();
+        matchList = matchesList;
     }
 
     @Override
@@ -76,7 +53,8 @@ class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory {
     public RemoteViews getViewAt(int i) {
         RemoteViews remoteViews = new RemoteViews(mContext.getPackageName(),
                 android.R.layout.simple_list_item_1);
-        remoteViews.setTextViewText(android.R.id.text1, matchList.get(i).getTeam1().getName() + " vs. " +
+        remoteViews.setTextViewText(android.R.id.text1, matchList.get(i).getTeam1().getName() + " " +
+                mContext.getResources().getString(R.string.vs_string) + " " +
                 matchList.get(i).getTeam2().getName());
         remoteViews.setTextColor(android.R.id.text1, Color.BLACK);
         return remoteViews;

@@ -7,5 +7,41 @@
     <string name="vs_string">বনাম</string>
     <string name="back_slash_string">/</string>
     <string name="over_string"> ওভার</string>
-    <string name="colon_string">:</string>
+    <string name="colon_string">: </string>
+    <string name="comma_string">, </string>
+    <string name="default_image_address">http://i.cricketcb.com/cbzvernacular/flags/default.png</string>
+    <string name="flag_image_url">http://i.cricketcb.com/cbzvernacular/flags/</string>
+    <string name="error_data">Error Geting data</string>
+    <string name="preview_string">preview</string>
+    <string name="match_not_started_yet">খেলা এখনো শুরু হয়নি</string>
+    <string name="space_string"> </string>
+    <!--Day String-->
+    <string name="day_Friday">Friday</string>
+    <string name="day_Saturday">Saturday</string>
+    <string name="day_Sunday">Sunday</string>
+    <string name="day_Monday">Monday</string>
+    <string name="day_Tuesday">Tuesday</string>
+    <string name="day_Wednesday">Wednesday</string>
+    <string name="day_Thursday">Thursday</string>
+
+    <!--Month String-->
+    <string name="month_Jan">Jan</string>
+    <string name="month_Feb">Feb</string>
+    <string name="month_Mar">Mar</string>
+    <string name="month_Apr">Apr</string>
+    <string name="month_May">May</string>
+    <string name="month_Jun">Jun</string>
+    <string name="month_Jul">Jul</string>
+    <string name="month_Aug">Aug</string>
+    <string name="month_Sep">Sep</string>
+    <string name="month_Oct">Oct</string>
+    <string name="month_Nov">Nov</string>
+    <string name="month_Dec">Dec</string>
+
+    <!--Time Strings-->
+    <string name="time_GMT">GMT</string>
+    <string name="time_Date">dd</string>
+    <string name="time_Day">EEEE</string>
+    <string name="time_Month">MMM</string>
+    <string name="time_hrFormat">HH:mm a</string>
 </resources>

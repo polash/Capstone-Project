@@ -18,10 +18,12 @@ public class LiveMatchWidgetProvider extends AppWidgetProvider {
         context.startService(new Intent(context, LiveMatchWidgetIntenetService.class));
     }
 
+
     @Override
     public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager, int appWidgetId, Bundle newOptions) {
         context.startService(new Intent(context, LiveMatchWidgetIntenetService.class));
     }
+
 
     @Override
     public void onReceive(Context context, Intent intent) {

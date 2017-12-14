@@ -1,5 +1,6 @@
 package com.sksanwar.cricketbangla.UI;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -15,12 +16,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -59,7 +57,7 @@ public class MainActivityFragment extends Fragment implements
     public static final String DICTONARPOJO = "dictonary";
 
     private static final String TAG = MainActivityFragment.class.getSimpleName();
-    public ArrayList<Match> matchesList;
+    public static ArrayList<Match> matchesList;
     public DictonaryPojo dictonary;
     @BindView(R.id.rv_livematches)
     RecyclerView recyclerViewLiveMatches;
@@ -70,16 +68,12 @@ public class MainActivityFragment extends Fragment implements
     Handler handler = new Handler();
     int delay = 35000;//35 seconds
     Runnable runnable;
-    private Intent intent;
     private AdapterLiveMatches adapterLiveMatches;
 
     //Firebase references
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDictonaryDatabaseReference;
     private DatabaseReference mMatchListDatabaseReference;
-
-    //interstitialadd
-    private InterstitialAd mInterstitialAd;
 
     //default fragment class
     public MainActivityFragment() {
@@ -98,18 +92,6 @@ public class MainActivityFragment extends Fragment implements
                 .build();
 
         adView.loadAd(adRequest);
-
-        mInterstitialAd = new InterstitialAd(getActivity());
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-        requestNewInterstitial();
-
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                requestNewInterstitial();
-                startActivity(intent);
-            }
-        });
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mFirebaseDatabase.setPersistenceEnabled(true);
@@ -279,7 +261,7 @@ public class MainActivityFragment extends Fragment implements
     public void loadViews(ArrayList<Match> matchList) {
         recyclerViewLiveMatches.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerViewLiveMatches.setHasFixedSize(true);
-        adapterLiveMatches = new AdapterLiveMatches(this, matchList, dictonary);
+        adapterLiveMatches = new AdapterLiveMatches(getContext(), this, matchList, dictonary);
         swipeRefreshLayout.setRefreshing(false);
         recyclerViewLiveMatches.setAdapter(adapterLiveMatches);
     }
@@ -288,18 +270,21 @@ public class MainActivityFragment extends Fragment implements
     @Override
     public void onListItemClick(int clickedItemIndex) {
         if (networkCheck()) {
-            intent = new Intent(getContext(), LiveMatchDetailsActivity.class);
+
+
+            Intent intent = new Intent(getContext(), LiveMatchDetailsActivity.class);
             intent.putParcelableArrayListExtra(LIVE_MATCH_LIST, matchesList);
             intent.putExtra(DICTONARPOJO, dictonary);
             intent.putExtra(POSITION, clickedItemIndex);
-            if (mInterstitialAd.isLoaded()) {
-                mInterstitialAd.show();
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                Bundle bundle = ActivityOptions
+                        .makeSceneTransitionAnimation(getActivity())
+                        .toBundle();
+                getContext().startActivity(intent, bundle);
             } else {
                 startActivity(intent);
             }
 
-        } else {
-            Toast.makeText(getContext(), "Please Check Your Internet Connectivity", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -308,13 +293,5 @@ public class MainActivityFragment extends Fragment implements
         mDictonaryDatabaseReference.removeValue();
         mMatchListDatabaseReference.removeValue();
         liveMatchDownloadFromJson();
-    }
-
-    //method for request new InterstitialAd
-    private void requestNewInterstitial() {
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .build();
-        mInterstitialAd.loadAd(adRequest);
     }
 }
