@@ -21,8 +21,6 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.sksanwar.cricketbangla.Activities.LiveMatchDetailsActivity;
 import com.sksanwar.cricketbangla.Adapters.AdapterLiveMatches;
@@ -40,6 +38,9 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.sksanwar.cricketbangla.Application.LiveMatchApplication.mDictonaryDatabaseReference;
+import static com.sksanwar.cricketbangla.Application.LiveMatchApplication.mMatchListDatabaseReference;
 
 
 /**
@@ -70,10 +71,6 @@ public class MainActivityFragment extends Fragment implements
     Runnable runnable;
     private AdapterLiveMatches adapterLiveMatches;
 
-    //Firebase references
-    private FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference mDictonaryDatabaseReference;
-    private DatabaseReference mMatchListDatabaseReference;
 
     //default fragment class
     public MainActivityFragment() {
@@ -93,18 +90,11 @@ public class MainActivityFragment extends Fragment implements
 
         adView.loadAd(adRequest);
 
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-
-        mDictonaryDatabaseReference = mFirebaseDatabase.getReference().child("Dictonary");
-        mDictonaryDatabaseReference.keepSynced(true);
-        mMatchListDatabaseReference = mFirebaseDatabase.getReference().child("MatchList");
-        mMatchListDatabaseReference.keepSynced(true);
-
         no_network.setVisibility(View.GONE);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setRefreshing(true);
 
-        networkCheck();
+        networkCheck(getContext());
         liveMatchDownloadFromJson();
         loadDataFromFirebaseDB();
 
@@ -121,7 +111,6 @@ public class MainActivityFragment extends Fragment implements
         mDictonaryDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     DictonaryPojo dictonaryPojo = dataSnapshot1.getValue(DictonaryPojo.class);
                     if (dictonaryPojo != null) {
@@ -173,21 +162,18 @@ public class MainActivityFragment extends Fragment implements
         }
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (savedInstanceState != null) {
-            mFirebaseDatabase.setPersistenceEnabled(true);
-        }
-    }
 
     //Network Checks
-    private boolean networkCheck() {
-        ConnectivityManager cm =
-                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-        return networkInfo != null && networkInfo.isConnectedOrConnecting();
+    private boolean networkCheck(Context context) {
+        if (getActivity() != null) {
+            ConnectivityManager cm =
+                    (ConnectivityManager) getContext().getSystemService(context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+            return networkInfo != null && networkInfo.isConnectedOrConnecting();
+        }
+        return false;
     }
+
 
     /**
      * Continue to run on UI thread
@@ -203,6 +189,7 @@ public class MainActivityFragment extends Fragment implements
                 mMatchListDatabaseReference.removeValue();
                 liveMatchDownloadFromJson();
                 runnable = this;
+                handler.removeCallbacks(runnable);
                 handler.postDelayed(runnable, delay);
             }
         }, delay);
@@ -219,7 +206,7 @@ public class MainActivityFragment extends Fragment implements
 
     //Load json data
     public void liveMatchDownloadFromJson() {
-        if (networkCheck()) {
+        if (networkCheck(getContext())) {
             /**
              * For dictonary data fetching
              */
@@ -276,8 +263,7 @@ public class MainActivityFragment extends Fragment implements
 
     @Override
     public void onListItemClick(int clickedItemIndex) {
-        if (networkCheck()) {
-
+        if (networkCheck(getContext())) {
 
             Intent intent = new Intent(getContext(), LiveMatchDetailsActivity.class);
             intent.putParcelableArrayListExtra(LIVE_MATCH_LIST, matchesList);

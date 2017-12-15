@@ -209,9 +209,6 @@ public class AdapterLiveMatches extends
                     String batTeamID = matchList.get(position).getBat_team().getId();
                     String bowTeamID = matchList.get(position).getBow_team().getId();
 
-                    if (batTeamInnings != null || bowTeamInnings != null) {
-
-                    }
                     if (batTeamID.equals(team1ID)) {
                         if (batTeamInnings != null) {
                             //show team1 1 score
@@ -274,7 +271,6 @@ public class AdapterLiveMatches extends
                     }
 
                     if (bowTeamID.equals(team2ID)) {
-
                         if (bowTeamInnings != null) {
                             for (int j = 0; j < bowTeamInnings.size(); j++) {
                                 if (bowTeamInnings.get(j).getScore() != null) {
@@ -354,7 +350,7 @@ public class AdapterLiveMatches extends
          * @throws IllegalArgumentException
          */
 
-        public String convertDayFromUnix(String unix_time, String time_zone)
+        private String convertDayFromUnix(String unix_time, String time_zone)
                 throws NullPointerException, IllegalArgumentException {
             String result;
             long time = Long.valueOf(unix_time);
@@ -388,7 +384,7 @@ public class AdapterLiveMatches extends
         }
 
         //Month Format
-        public String convertMonthFromUnix(String unix_time, String time_zone)
+        private String convertMonthFromUnix(String unix_time, String time_zone)
                 throws NullPointerException, IllegalArgumentException {
             String resultMonth;
             long time = Long.valueOf(unix_time);
@@ -432,7 +428,7 @@ public class AdapterLiveMatches extends
         }
 
         //Data format
-        public String convertTimeFromUnix(String unix_time, String time_zone)
+        private String convertTimeFromUnix(String unix_time, String time_zone)
                 throws NullPointerException, IllegalArgumentException {
             String result;
             long time = Long.valueOf(unix_time);
@@ -446,7 +442,7 @@ public class AdapterLiveMatches extends
         }
 
         //Data format
-        public String convertDateFromUnix(String unix_time, String time_zone)
+        private String convertDateFromUnix(String unix_time, String time_zone)
                 throws NullPointerException, IllegalArgumentException {
             String result;
             long time = Long.valueOf(unix_time);
