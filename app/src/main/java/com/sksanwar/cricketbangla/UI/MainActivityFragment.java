@@ -94,7 +94,6 @@ public class MainActivityFragment extends Fragment implements
         adView.loadAd(adRequest);
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mFirebaseDatabase.setPersistenceEnabled(true);
 
         mDictonaryDatabaseReference = mFirebaseDatabase.getReference().child("Dictonary");
         mDictonaryDatabaseReference.keepSynced(true);
@@ -171,6 +170,14 @@ public class MainActivityFragment extends Fragment implements
             if (savedInstanceState.containsKey(LIVE_MATCH_LIST)) {
                 matchesList = savedInstanceState.getParcelableArrayList(LIVE_MATCH_LIST);
             }
+        }
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            mFirebaseDatabase.setPersistenceEnabled(true);
         }
     }
 
