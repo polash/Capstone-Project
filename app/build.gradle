@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'cricketbangla'
             keyPassword 'sksanwar'
-            storeFile file('$rootDir/keystore.jks')
+            storeFile file("$rootDir/keystore.jks")
             storePassword 'sksanwar'
         }
     }
