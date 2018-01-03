@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -278,6 +279,8 @@ public class MainActivityFragment extends Fragment implements
                 startActivity(intent);
             }
 
+        } else {
+            Toast.makeText(getContext(), "Please check your Internet Connectivity", Toast.LENGTH_SHORT).show();
         }
     }
 

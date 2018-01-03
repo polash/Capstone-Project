@@ -28,7 +28,6 @@ class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory {
         this.mIntent = mIntent;
     }
 
-
     @Override
     public void onCreate() {
         matchList = matchesList;
